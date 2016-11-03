@@ -21,11 +21,21 @@ public class DashboardActivity extends AppCompatActivity {
 
     public void onWakeupEventBtnClick(View v)
     {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_WAKEUP);
+    }
+
+    public void onToSleepEventBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_TOSLEEP);
+    }
+
+    private void WriteEvent(int eventTypeId)
+    {
         EventDbHelper mDbHelper = new EventDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(EventEntry.COLUMN_NAME_EVENT_TYPE_ID, EventEntry.EVENT_TYPE_ID_WAKEUP);
+        values.put(EventEntry.COLUMN_NAME_EVENT_TYPE_ID, eventTypeId);
 
         long newRowId;
         newRowId = db.insert(EventEntry.TABLE_NAME, null, values);

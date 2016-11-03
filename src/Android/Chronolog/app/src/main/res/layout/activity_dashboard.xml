@@ -10,6 +10,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.revents.chronolog.DashboardActivity">
 
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/debugTxt"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/wakeupEventBtn" />
+
     <Button
         android:text="Проснулся"
         android:layout_width="wrap_content"
@@ -19,16 +29,16 @@
         android:elevation="0dp"
         android:onClick="onWakeupEventBtnClick"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentStart="true" />
 
-    <TextView
-        android:text="TextView"
+    <Button
+        android:text="Лег спать"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/debugTxt"
-        android:layout_below="@+id/wakeupEventBtn"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/toSleepEventBtn"
+        style="@style/Widget.AppCompat.Button"
+        android:elevation="0dp"
+        android:onClick="onToSleepEventBtnClick"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
