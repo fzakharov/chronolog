@@ -54,6 +54,11 @@ public class DashboardActivity extends AppCompatActivity {
         WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 5);
     }
 
+    public void onCoffeeEventBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_COFFEE, 1);
+    }
+
     private void WriteEvent(int eventTypeId)
     {
         WriteEvent(eventTypeId, null);

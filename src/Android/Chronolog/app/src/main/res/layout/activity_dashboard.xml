@@ -42,6 +42,16 @@
                 android:onClick="onWakeupEventBtnClick"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
+            <Button
+                android:text="Кофе"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/coffeeEventBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onCoffeeEventBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,8 +68,8 @@
 
             <Button
                 android:text="1"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/dinner1StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -69,8 +79,8 @@
 
             <Button
                 android:text="2"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/dinner2StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -80,8 +90,8 @@
 
             <Button
                 android:text="3"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/dinner3StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -91,8 +101,8 @@
 
             <Button
                 android:text="4"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/dinner4StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -102,8 +112,8 @@
 
             <Button
                 android:text="5"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:id="@+id/dinner5StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -111,15 +121,13 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
         </LinearLayout>
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/debugTxt"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
     </LinearLayout>
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/debugTxt"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
-
 </RelativeLayout>
