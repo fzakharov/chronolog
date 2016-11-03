@@ -29,13 +29,46 @@ public class DashboardActivity extends AppCompatActivity {
         WriteEvent(EventEntry.EVENT_TYPE_ID_TOSLEEP);
     }
 
+    public void onDinner1StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 1);
+    }
+
+    public void onDinner2StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 2);
+    }
+
+    public void onDinner3StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 3);
+    }
+
+    public void onDinner4StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 4);
+    }
+
+    public void onDinner5StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 5);
+    }
+
     private void WriteEvent(int eventTypeId)
+    {
+        WriteEvent(eventTypeId, null);
+    }
+
+    private void WriteEvent(int eventTypeId, Integer intValue)
     {
         EventDbHelper mDbHelper = new EventDbHelper(this);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(EventEntry.COLUMN_NAME_EVENT_TYPE_ID, eventTypeId);
+
+        if (intValue != null)
+            values.put(EventEntry.COLUMN_NAME_EVENT_INT_VALUE, intValue.intValue());
 
         long newRowId;
         newRowId = db.insert(EventEntry.TABLE_NAME, null, values);
