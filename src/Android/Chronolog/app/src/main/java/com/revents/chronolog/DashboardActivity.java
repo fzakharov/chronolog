@@ -29,6 +29,56 @@ public class DashboardActivity extends AppCompatActivity {
         WriteEvent(EventEntry.EVENT_TYPE_ID_TOSLEEP);
     }
 
+    public void onBreakfast1StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_BREAKFASTSTAR, 1);
+    }
+
+    public void onBreakfast2StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_BREAKFASTSTAR, 2);
+    }
+
+    public void onBreakfast3StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_BREAKFASTSTAR, 3);
+    }
+
+    public void onBreakfast4StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_BREAKFASTSTAR, 4);
+    }
+
+    public void onBreakfast5StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_BREAKFASTSTAR, 5);
+    }
+
+    public void onLunch1StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_LUNCHSTAR, 1);
+    }
+
+    public void onLunch2StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_LUNCHSTAR, 2);
+    }
+
+    public void onLunch3StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_LUNCHSTAR, 3);
+    }
+
+    public void onLunch4StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_LUNCHSTAR, 4);
+    }
+
+    public void onLunch5StarBtnClick(View v)
+    {
+        WriteEvent(EventEntry.EVENT_TYPE_ID_LUNCHSTAR, 5);
+    }
+
     public void onDinner1StarBtnClick(View v)
     {
         WriteEvent(EventEntry.EVENT_TYPE_ID_DINNERSTAR, 1);
@@ -80,37 +130,21 @@ public class DashboardActivity extends AppCompatActivity {
 
         mDbHelper.close();
 
-        DebugRecord();
+        DebugRecord(newRowId);
     }
 
-    private void DebugRecord()
+    private void DebugRecord(long recordId)
     {
         TextView txt = (TextView) findViewById(R.id.debugTxt);
+        txt.setText("");
+
         EventDbHelper mDbHelper = new EventDbHelper(this);
         try {
             SQLiteDatabase db = mDbHelper.getWritableDatabase();
 
-            String[] projection = {
-                    EventEntry._ID,
-                    EventEntry.COLUMN_NAME_TIMESTAMP,
-                    EventEntry.COLUMN_NAME_EVENT_TYPE_ID,
-                    EventEntry.COLUMN_NAME_EVENT_TIME,
-                    EventEntry.COLUMN_NAME_EVENT_INT_VALUE,
-                    EventEntry.COLUMN_NAME_EVENT_STR_VALUE};
+            Cursor c = db.rawQuery("select * from " + EventEntry.TABLE_NAME + " where " + EventEntry._ID + "='" + recordId + "'" , null);
 
-            String sortOrder = EventEntry._ID + " DESC";
 
-            Cursor c = db.query(
-                    EventEntry.TABLE_NAME,  // The table to query
-                    projection,                               // The columns to return
-                    null,                                // The columns for the WHERE clause
-                    null,                            // The values for the WHERE clause
-                    null,                                     // don't group the rows
-                    null,                                     // don't filter by row groups
-                    sortOrder                                 // The sort order
-            );
-
-            txt.setText("");
             CharSequence text = txt.getText();
 
             for (int i = 0; i < c.getCount(); i++) {
@@ -128,9 +162,6 @@ public class DashboardActivity extends AppCompatActivity {
                 text = text + "|";
                 text = text + c.getString(c.getColumnIndex(EventEntry.COLUMN_NAME_EVENT_STR_VALUE));
                 text = text + "|";
-
-                text = text + "\n";
-
             }
 
             txt.setText(text);

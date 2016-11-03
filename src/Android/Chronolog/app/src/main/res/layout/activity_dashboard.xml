@@ -53,7 +53,73 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentStart="true" />
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:text="Завтрак:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/breakfastTextView"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/breakfast1StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onBreakfast1StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:text="2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/breakfast2StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onBreakfast2StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/breakfast3StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onBreakfast3StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="4"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/breakfast4StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onBreakfast4StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="5"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/breakfast5StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onBreakfast5StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
@@ -63,13 +129,80 @@
                 android:text="Обед:"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/lunchTextView"
+                android:layout_weight="1" />
+
+            <Button
+                android:text="1"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/lunch1StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onLunch1StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:text="2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/lunch2StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onLunch2StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="3"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/lunch3StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onLunch3StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="4"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/lunch4StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onLunch4StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="5"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/lunch5StarBtn"
+                style="@style/Widget.AppCompat.Button"
+                android:elevation="0dp"
+                android:onClick="onLunch5StarBtnClick"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Ужин:"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:id="@+id/textView"
                 android:layout_weight="1" />
 
             <Button
                 android:text="1"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/dinner1StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -79,8 +212,8 @@
 
             <Button
                 android:text="2"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/dinner2StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -90,8 +223,8 @@
 
             <Button
                 android:text="3"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/dinner3StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -101,8 +234,8 @@
 
             <Button
                 android:text="4"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/dinner4StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -112,8 +245,8 @@
 
             <Button
                 android:text="5"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
                 android:id="@+id/dinner5StarBtn"
                 style="@style/Widget.AppCompat.Button"
                 android:elevation="0dp"
@@ -122,9 +255,9 @@
                 android:layout_alignParentStart="true" />
         </LinearLayout>
         <TextView
-            android:text="TextView"
+            android:text=""
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="45dp"
             android:id="@+id/debugTxt"
             android:layout_alignParentStart="true"
             android:layout_alignParentBottom="true"

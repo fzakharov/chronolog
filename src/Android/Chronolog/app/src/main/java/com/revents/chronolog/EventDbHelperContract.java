@@ -15,6 +15,9 @@ abstract class EventEntry implements BaseColumns {
     public static final String COLUMN_NAME_EVENT_STR_VALUE = "eventStrValue";
     public static final int EVENT_TYPE_ID_WAKEUP = 100;
     public static final int EVENT_TYPE_ID_TOSLEEP = 200;
+
+    public static final int EVENT_TYPE_ID_BREAKFASTSTAR = 280;
+    public static final int EVENT_TYPE_ID_LUNCHSTAR = 290;
     public static final int EVENT_TYPE_ID_DINNERSTAR = 300;
     public static final int EVENT_TYPE_ID_COFFEE = 400;
 }
