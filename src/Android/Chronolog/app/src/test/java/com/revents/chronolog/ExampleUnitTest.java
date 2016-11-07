@@ -28,15 +28,15 @@ public class ExampleUnitTest {
 
     // http://jameskbride.com/2016/02/13/android-tdd-series-test-driving-data-part-1-sqliteopenhelper.html
 
-    @Before
-    public void setUp() throws Exception {
-        String filePath = getClass().getResource("/sample.db").toURI().getPath();
-
-        SQLiteDatabase db = SQLiteDatabase.openDatabase(
-                (new File(filePath)).getAbsolutePath(),
-                null,
-                SQLiteDatabase.OPEN_READWRITE);
-
-        // perform any db operations you want here
-    }
+//    @Before
+//    public void setUp() throws Exception {
+//        String filePath = getClass().getResource("/sample.db").toURI().getPath();
+//
+//        SQLiteDatabase db = SQLiteDatabase.openDatabase(
+//                (new File(filePath)).getAbsolutePath(),
+//                null,
+//                SQLiteDatabase.OPEN_READWRITE);
+//
+//        // perform any db operations you want here
+//    }
 }
