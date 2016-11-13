@@ -3,9 +3,9 @@ package com.revents.chronolog;
 import java.util.Date;
 
 public class Fact {
-    private final Date factDate;
-    private final int intValue;
-    private final String strValue;
+    public Date factDate;
+    public int intValue;
+    public String strValue;
 
     public Fact(Date factDate, int intValue, String strValue) {
         this.factDate = factDate;

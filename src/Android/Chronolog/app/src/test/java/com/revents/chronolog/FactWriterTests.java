@@ -1,49 +1,53 @@
 package com.revents.chronolog;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.annotation.Config;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.File;
 import java.util.Date;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
-@RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = LOLLIPOP, packageName = "com.revents.chronolog")
-public class FactWriterTest {
+//@RunWith(RobolectricGradleTestRunner.class)
+//@Config(constants = BuildConfig.class, sdk = LOLLIPOP, packageName = "com.revents.chronolog")
+@RunWith(MockitoJUnitRunner.class)
+public class FactWriterTests {
     private FactWriter sut;
+    private DbWriter writer;
+    DateTimeProvider dtProv;
 
     @Before
     public void setUp() throws Exception {
-        sut = new FactWriter();
+
+        dtProv = mock(DateTimeProvider.class);
+        writer = mock(DbWriter.class);
+        sut = new FactWriter(writer, dtProv);
     }
 
     @Test
     public void Should__When_()
     {
         // Given
+        Date expectedTimestamp = new Date();
         Date expectedDate = new Date();
         int expectedIntValue = 42;
         String expectedStrValue = "some str value";
 
+        Mockito.when(dtProv.getDate()).thenReturn(expectedTimestamp);
         Fact f = new Fact(expectedDate, expectedIntValue, expectedStrValue);
 
         // When
-        sut.Write(f);
+        sut.write(f);
 
         // Then
-
+        verify(writer, atLeastOnce()).writeRecord(expectedTimestamp, expectedDate, expectedIntValue, expectedStrValue);
     }
 
     // http://jameskbride.com/2016/02/13/android-tdd-series-test-driving-data-part-1-sqliteopenhelper.html
