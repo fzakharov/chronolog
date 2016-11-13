@@ -9,6 +9,7 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import java.io.File;
+import java.util.Date;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.junit.Assert.*;
@@ -20,10 +21,29 @@ import static org.junit.Assert.*;
  */
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = LOLLIPOP, packageName = "com.revents.chronolog")
-public class ExampleUnitTest {
+public class FactWriterTest {
+    private FactWriter sut;
+
+    @Before
+    public void setUp() throws Exception {
+        sut = new FactWriter();
+    }
+
     @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+    public void Should__When_()
+    {
+        // Given
+        Date expectedDate = new Date();
+        int expectedIntValue = 42;
+        String expectedStrValue = "some str value";
+
+        Fact f = new Fact(expectedDate, expectedIntValue, expectedStrValue);
+
+        // When
+        sut.Write(f);
+
+        // Then
+
     }
 
     // http://jameskbride.com/2016/02/13/android-tdd-series-test-driving-data-part-1-sqliteopenhelper.html
