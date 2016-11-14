@@ -1,17 +1,24 @@
 package com.revents.chronolog;
 
-import java.util.Date;
-
 public class FactWriter {
-    private DbWriter dbWriter;
-    private DateTimeProvider dtProv;
+    private StorageWriter _storageWriter;
+    private DateTimeProvider _dtProv;
 
-    public FactWriter(DbWriter dbWriter, DateTimeProvider dtProv) {
-        this.dbWriter = dbWriter;
-        this.dtProv = dtProv;
+    public FactWriter(StorageWriter storageWriter, DateTimeProvider dtProv) {
+        if (storageWriter == null)
+            throw new IllegalArgumentException("storageWriter");
+
+        if (dtProv == null)
+            throw new IllegalArgumentException("dtProv");
+
+        _storageWriter = storageWriter;
+        _dtProv = dtProv;
     }
 
-    public void write(Fact f){
-        dbWriter.writeRecord(dtProv.getDate(), f.factDate, f.intValue, f.strValue);
+    public void write(Fact fact){
+        if (fact == null)
+            throw new IllegalArgumentException("fact");
+
+        _storageWriter.writeRecord(_dtProv.getDate(), fact.factDate, fact.intValue, fact.strValue);
     }
 }
