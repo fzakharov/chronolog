@@ -7,6 +7,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Date;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
@@ -27,19 +29,22 @@ public class SQLiteStorageWriterTests{
 
     }
 
+    // http://jameskbride.com/2016/02/13/android-tdd-series-test-driving-data-part-1-sqliteopenhelper.html
     @Test
-    public void Should__When_()
+    public void Should_return_new_record_id_When_writeRecord()
     {
         // Given
+        long expectedId = 42;
+
         Date stamp = new Date();
         Date factDate = new Date();
-        int intVal=42;
+        int intVal=2;
         String strVal="str val";
 
-        // WHen
-        sut.writeRecord(stamp, factDate, intVal, strVal);
+        // When
+        long actualId = sut.writeRecord(stamp, factDate, intVal, strVal);
 
         // Then
-
+        assertEquals(actualId, expectedId);
     }
 }
