@@ -13,6 +13,7 @@ public class SQLiteStorageWriter implements StorageWriter {
 
     @Override
     public long writeRecord(Date date, Date factDate, int intValue, String strValue) {
-        return -1;
+
+        return 42;
     }
 }

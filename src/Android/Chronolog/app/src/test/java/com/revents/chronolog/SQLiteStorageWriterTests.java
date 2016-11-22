@@ -30,6 +30,7 @@ public class SQLiteStorageWriterTests{
     }
 
     // http://jameskbride.com/2016/02/13/android-tdd-series-test-driving-data-part-1-sqliteopenhelper.html
+    // http://greenrobot.org/greendao/
     @Test
     public void Should_return_new_record_id_When_writeRecord()
     {
