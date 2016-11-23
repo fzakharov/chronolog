@@ -21,6 +21,10 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+}
+
 buildscript {
     repositories {
         mavenCentral()
