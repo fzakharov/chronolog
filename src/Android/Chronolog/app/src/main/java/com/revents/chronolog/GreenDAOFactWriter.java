@@ -16,7 +16,7 @@ public class GreenDaoFactWriter {
         this.dtProv = dtProv;
     }
 
-    public Fact write(Fact fact){
+    public void write(Fact fact){
         if (fact == null)
             throw new IllegalArgumentException("fact");
 
@@ -24,7 +24,5 @@ public class GreenDaoFactWriter {
 
         FactDao factDao = session.getFactDao();
         factDao.insert(fact);
-
-        return fact;
     }
 }

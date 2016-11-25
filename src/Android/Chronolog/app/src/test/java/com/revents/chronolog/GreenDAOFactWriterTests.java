@@ -1,7 +1,6 @@
 package com.revents.chronolog;
 
 import org.greenrobot.greendao.database.Database;
-import org.greenrobot.greendao.internal.FastCursor;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,12 +8,12 @@ import org.mockito.Mockito;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
-import org.robolectric.fakes.RoboCursor;
 
 import java.util.Date;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -45,38 +44,16 @@ public class GreenDaoFactWriterTests {
         Mockito.when(dtProv.getDate())
                 .thenReturn(expectedTimestamp);
 
-        // When
-        Fact actual = sut.write(testFact);
-
-        // Then
-        Fact saved = daoSession.getFactDao().readEntity(new RoboCursor(), 0);
-    }
-
-    @Test
-    public void Should_set_id_When_write() {
-        // Given
-        Date expectedTimestamp = new Date();
-        Mockito.when(dtProv.getDate())
-                .thenReturn(expectedTimestamp);
+        sut.write(testFact);
 
         // When
-        Fact actual = sut.write(testFact);
+        Fact saved = daoSession.getFactDao().load(testFact.getId());
 
         // Then
-        assertNotNull(actual.getId());
+        assertEquals(saved.getStrValue(), testFact.getStrValue());
+        assertEquals(saved.getIntValue(), testFact.getIntValue());
+        assertTrue(saved.getFactDate().getTime() - testFact.getFactDate().getTime() < 1000);
+        assertTrue(saved.getFactDate().getTime() - expectedTimestamp.getTime() < 1000);
     }
 
-    @Test
-    public void Should_pass_data_with_current_timestamp_When_write_fact() {
-        // Given
-        Date expectedTimestamp = new Date();
-        Mockito.when(dtProv.getDate())
-                .thenReturn(expectedTimestamp);
-
-        // When
-        Fact actual = sut.write(testFact);
-
-        // Then
-        assertTrue(expectedTimestamp.getTime() - actual.getTimestamp().getTime() < 1000);
-    }
 }
