@@ -37,6 +37,11 @@ public class GreenDaoFactWriterTests {
         sut = new GreenDaoFactWriter(dtProv, daoSession);
     }
 
+    // TODO: 25.11.2016 test fact update
+    // TODO: 25.11.2016 test fact update and timestamp updated auto 
+    // TODO: 25.11.2016 clean testdb
+    // TODO: 25.11.2016 add fact type id
+    
     @Test
     public void Should_write_properties_When_write() {
         // Given
