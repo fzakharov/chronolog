@@ -2,11 +2,17 @@ package com.revents.chronolog;
 
 public class GreenDaoFactWriter {
     private DateTimeProvider dtProv;
+    private DaoSession session;
 
-    public GreenDaoFactWriter(DateTimeProvider dtProv) {
+    public GreenDaoFactWriter(DateTimeProvider dtProv, DaoSession session) {
         if (dtProv == null)
             throw new IllegalArgumentException("dtProv");
 
+        if (session == null)
+            throw new IllegalArgumentException("session");
+
+
+        this.session = session;
         this.dtProv = dtProv;
     }
 
@@ -15,6 +21,9 @@ public class GreenDaoFactWriter {
             throw new IllegalArgumentException("fact");
 
         fact.setTimestamp(dtProv.getDate());
+
+        FactDao factDao = session.getFactDao();
+        factDao.insert(fact);
 
         return fact;
     }

@@ -13,7 +13,7 @@ import org.greenrobot.greendao.annotation.Generated;
 public class Fact {
 
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
 
     @NotNull
     private Date timestamp;
@@ -23,19 +23,14 @@ public class Fact {
     private Date factDate;
 
     @Property
-    private int intValue;
+    private Integer intValue;
 
     @Property
     private String strValue;
 
-    @Generated(hash = 1253881557)
-    public Fact(
-            long id,
-            @NotNull Date timestamp,
-            @NotNull Date factDate,
-            int intValue,
-            String strValue) {
-
+    @Generated(hash = 2138191231)
+    public Fact(Long id, @NotNull Date timestamp, @NotNull Date factDate,
+            Integer intValue, String strValue) {
         this.id = id;
         this.timestamp = timestamp;
         this.factDate = factDate;
@@ -47,7 +42,7 @@ public class Fact {
     public Fact() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -60,7 +55,7 @@ public class Fact {
         this.factDate = factDate;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -86,5 +81,9 @@ public class Fact {
 
     public void setStrValue(String strValue) {
         this.strValue = strValue;
+    }
+
+    public void setIntValue(Integer intValue) {
+        this.intValue = intValue;
     }
 }
