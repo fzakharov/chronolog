@@ -22,18 +22,27 @@ public class Fact {
     @NotNull
     private Date factDate;
 
+    @Index
+    private int factType;
+
     @Property
     private Integer intValue;
 
     @Property
     private String strValue;
 
-    @Generated(hash = 2138191231)
-    public Fact(Long id, @NotNull Date timestamp, @NotNull Date factDate,
-            Integer intValue, String strValue) {
+    @Generated(hash = 1966033092)
+    public Fact(
+            Long id,
+            @NotNull Date timestamp,
+            @NotNull Date factDate,
+            int factType,
+            Integer intValue,
+            String strValue) {
         this.id = id;
         this.timestamp = timestamp;
         this.factDate = factDate;
+        this.factType = factType;
         this.intValue = intValue;
         this.strValue = strValue;
     }
@@ -85,5 +94,13 @@ public class Fact {
 
     public void setIntValue(Integer intValue) {
         this.intValue = intValue;
+    }
+
+    public int getFactType() {
+        return this.factType;
+    }
+
+    public void setFactType(int factType) {
+        this.factType = factType;
     }
 }
