@@ -31,7 +31,7 @@ public class GreenDaoFactWriterTests {
         Database db = openHelper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
-        testFact = new Fact(null, null, new Date(), 42, "str val");
+        testFact = new Fact(null, null, new Date(), 33, 42, "str val");
 
         dtProv = mock(DateTimeProvider.class);
         sut = new GreenDaoFactWriter(dtProv, daoSession);
@@ -40,8 +40,7 @@ public class GreenDaoFactWriterTests {
     // TODO: 25.11.2016 test fact update
     // TODO: 25.11.2016 test fact update and timestamp updated auto 
     // TODO: 25.11.2016 clean testdb
-    // TODO: 25.11.2016 add fact type id
-    
+
     @Test
     public void Should_write_properties_When_write() {
         // Given
@@ -55,6 +54,7 @@ public class GreenDaoFactWriterTests {
         Fact saved = daoSession.getFactDao().load(testFact.getId());
 
         // Then
+        assertEquals(saved.getFactType(), testFact.getFactType());
         assertEquals(saved.getStrValue(), testFact.getStrValue());
         assertEquals(saved.getIntValue(), testFact.getIntValue());
         assertTrue(saved.getFactDate().getTime() - testFact.getFactDate().getTime() < 1000);
