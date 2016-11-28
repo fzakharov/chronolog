@@ -1,5 +1,7 @@
 package com.revents.chronolog;
 
+import java.util.Date;
+
 public class GreenDaoFactWriter {
     private DateTimeProvider dtProv;
     private DaoSession session;
@@ -23,6 +25,8 @@ public class GreenDaoFactWriter {
         fact.setTimestamp(dtProv.getDate());
 
         FactDao factDao = session.getFactDao();
-        factDao.insert(fact);
+        factDao.insertOrReplace(fact);
+
+        fact.setStrValue("sddsfsdfd sd sdg sd");
     }
 }

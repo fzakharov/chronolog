@@ -30,35 +30,80 @@ public class GreenDaoFactWriterTests {
         DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(RuntimeEnvironment.application, null);
         Database db = openHelper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
+        daoSession.clear();
 
-        testFact = new Fact(null, null, new Date(), 33, 42, "str val");
+        testFact = new Fact(null, null, new Date(), 42, 55, "str val");
 
         dtProv = mock(DateTimeProvider.class);
         sut = new GreenDaoFactWriter(dtProv, daoSession);
     }
 
-    // TODO: 25.11.2016 test fact update
-    // TODO: 25.11.2016 test fact update and timestamp updated auto 
     // TODO: 25.11.2016 clean testdb
 
     @Test
-    public void Should_write_properties_When_write() {
+    public void should_add_fact_with_current_timestamp_When_write_with_id_null() {
         // Given
-        Date expectedTimestamp = new Date();
-        Mockito.when(dtProv.getDate())
-                .thenReturn(expectedTimestamp);
-
-        sut.write(testFact);
+        Date curentDate = new Date();
+        setupDateTimeProvider(curentDate);
 
         // When
-        Fact saved = daoSession.getFactDao().load(testFact.getId());
+        sut.write(testFact);
+        daoSession.clear();
 
         // Then
-        assertEquals(saved.getFactType(), testFact.getFactType());
-        assertEquals(saved.getStrValue(), testFact.getStrValue());
-        assertEquals(saved.getIntValue(), testFact.getIntValue());
-        assertTrue(saved.getFactDate().getTime() - testFact.getFactDate().getTime() < 1000);
-        assertTrue(saved.getFactDate().getTime() - expectedTimestamp.getTime() < 1000);
+        datesEquals(curentDate, testFact.getTimestamp());
+        dbShouldContainFact(testFact);
     }
 
+    @Test
+    public void should_update_properties_and_timestamp_When_update() {
+        // Given
+        Date curentDate = new Date(1000);
+        setupDateTimeProvider(curentDate);
+
+        sut.write(testFact);
+        daoSession.clear();
+
+        testFact.setStrValue(testFact.getStrValue() + "addition");
+        testFact.setIntValue(testFact.getIntValue() + 1);
+        testFact.setFactDate(new Date(testFact.getFactDate().getTime() + 10000));
+        testFact.setFactType(testFact.getFactType() + 1);
+
+        curentDate = new Date(curentDate.getTime() + 10000);
+        setupDateTimeProvider(curentDate);
+
+        // When
+        sut.write(testFact);
+        daoSession.clear();
+
+        // Then
+        datesEquals(curentDate, testFact.getTimestamp());
+        dbShouldContainFact(testFact);
+    }
+
+    void setupDateTimeProvider(Date curentDate) {
+        Mockito.when(dtProv.getDate())
+                .thenReturn(curentDate);
+    }
+
+    void dbShouldContainFact(Fact expected) {
+        Fact actual = daoSession.getFactDao().load(expected.getId());
+        factEquals(expected, actual);
+    }
+
+    void factEquals(Fact expected, Fact actual) {
+        assertEquals(expected.getFactType(), actual.getFactType());
+        assertEquals(expected.getStrValue(), actual.getStrValue());
+        assertEquals(expected.getIntValue(), actual.getIntValue());
+        datesEquals(expected.getFactDate(), actual.getFactDate());
+        datesEquals(expected.getTimestamp(), actual.getTimestamp());
+    }
+
+    void datesEquals(Date expected, Date actual) {
+        datesEquals(expected, actual, 1000);
+    }
+
+    void datesEquals(Date expected, Date actual, long precission) {
+        assertTrue(expected.getTime() - actual.getTime() < precission);
+    }
 }
