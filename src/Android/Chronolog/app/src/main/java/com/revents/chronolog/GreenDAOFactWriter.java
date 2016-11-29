@@ -1,32 +1,35 @@
 package com.revents.chronolog;
 
-import java.util.Date;
-
 public class GreenDaoFactWriter {
-    private DateTimeProvider dtProv;
-    private DaoSession session;
+    private DateTimeProvider mDateTimeProvider;
+    private DaoSession mSession;
 
-    public GreenDaoFactWriter(DateTimeProvider dtProv, DaoSession session) {
-        if (dtProv == null)
-            throw new IllegalArgumentException("dtProv");
+    public GreenDaoFactWriter(DateTimeProvider dateTimeProvider, DaoSession session) {
+        if (dateTimeProvider == null)
+            throw new IllegalArgumentException("dateTimeProvider");
 
         if (session == null)
             throw new IllegalArgumentException("session");
 
-
-        this.session = session;
-        this.dtProv = dtProv;
+        mSession = session;
+        mDateTimeProvider = dateTimeProvider;
     }
 
     public void write(Fact fact){
         if (fact == null)
             throw new IllegalArgumentException("fact");
 
-        fact.setTimestamp(dtProv.getDate());
+        fact.setTimestamp(mDateTimeProvider.getDate());
 
-        FactDao factDao = session.getFactDao();
+        FactDao factDao = mSession.getFactDao();
         factDao.insertOrReplace(fact);
+    }
 
-        fact.setStrValue("sddsfsdfd sd sdg sd");
+    public void delete(Fact fact) {
+        if (fact == null)
+            throw new IllegalArgumentException("fact");
+
+        FactDao factDao = mSession.getFactDao();
+        factDao.delete(fact);
     }
 }
