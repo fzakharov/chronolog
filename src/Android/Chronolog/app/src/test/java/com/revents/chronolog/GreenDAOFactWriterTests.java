@@ -21,12 +21,13 @@ import static org.mockito.Mockito.mock;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 16)
 public class GreenDaoFactWriterTests {
-    GreenDaoFactWriter sut;
     DateTimeProvider mDateProvider;
     Database mDb;
     DaoSession mDaoSession;
+    Date mCurentDate;
     Fact mTestFact;
-    private Date mCurentDate;
+
+    GreenDaoFactWriter sut;
 
     @Before
     public void setUp() throws Exception {
