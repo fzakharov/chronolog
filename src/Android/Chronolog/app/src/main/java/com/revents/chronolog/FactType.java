@@ -7,10 +7,10 @@ import org.greenrobot.greendao.annotation.Property;
 import org.greenrobot.greendao.annotation.Generated;
 
 @Entity
-public class FactDescriptor
+public class FactType
 {
     @Id(autoincrement = true)
-    private long id;
+    private Long id;
 
     @Property
     @NotNull
@@ -20,23 +20,22 @@ public class FactDescriptor
     @NotNull
     private String Description;
 
-    @Generated(hash = 438224640)
-    public FactDescriptor(long id, @NotNull String Name,
-            @NotNull String Description) {
+    @Generated(hash = 1434017515)
+    public FactType(Long id, @NotNull String Name, @NotNull String Description) {
         this.id = id;
         this.Name = Name;
         this.Description = Description;
     }
 
-    @Generated(hash = 1013034916)
-    public FactDescriptor() {
+    @Generated(hash = 21486405)
+    public FactType() {
     }
 
-    public long getId() {
+    public Long getId() {
         return this.id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

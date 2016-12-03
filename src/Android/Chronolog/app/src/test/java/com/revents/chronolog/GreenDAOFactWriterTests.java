@@ -25,6 +25,8 @@ public class GreenDaoFactWriterTests {
     Database mDb;
     DaoSession mDaoSession;
     Date mCurentDate;
+
+    FactType mTestFactType;
     Fact mTestFact;
 
     GreenDaoFactWriter sut;
@@ -35,7 +37,10 @@ public class GreenDaoFactWriterTests {
         mDb = openHelper.getWritableDb();
         mDaoSession = new DaoMaster(mDb).newSession();
 
-        mTestFact = new Fact(null, null, new Date(1), 42, 55, "str val");
+        FactTypeDao ftd = mDaoSession.getFactTypeDao();
+        mTestFactType = new FactType(null, "Fact", "Fact descr");
+        ftd.insert(mTestFactType);
+        mTestFact = new Fact(null, null, new Date(1), 55, "str val", ftd.insert(new FactType(null, "Fact", "Fact descr")));
 
         mDateProvider = mock(DateTimeProvider.class);
         sut = new GreenDaoFactWriter(mDateProvider, mDaoSession);
@@ -68,7 +73,7 @@ public class GreenDaoFactWriterTests {
         mTestFact.setStrValue("new str value");
         mTestFact.setIntValue(mTestFact.getIntValue() + 1);
         mTestFact.setFactDate(new Date(3));
-        mTestFact.setFactType(mTestFact.getFactType() + 1);
+        mTestFact.setFactType(mTestFactType);
 
         Date newTimestamp = new Date(4);
         setupDateTimeProvider(newTimestamp);
