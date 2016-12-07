@@ -34,7 +34,9 @@ public class FactsViewActivityTests {
                 .start()
                 .get();
 
+
         // When
+
         // Then
         RelativeLayout frame = (RelativeLayout) sut.findViewById(R.id.content_facts_view);
         ListView list = (ListView) frame.findViewById(R.id.factsList);
