@@ -1,5 +1,6 @@
 package com.revents.chronolog;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -31,6 +32,10 @@ public class FactsViewActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                Intent intent = new Intent(FactsViewActivity.this, FactTypesListActivity.class);
+                startActivity(intent);
+
                 Fact fact = addFact();
 
                 ReloadFacts();
@@ -40,9 +45,7 @@ public class FactsViewActivity extends AppCompatActivity {
             }
         });
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "fatcs-db");
-        Database db = helper.getWritableDb();
-        daoSession = new DaoMaster(db).newSession();
+        daoSession = ((App)getApplication()).getDaoSession();
 
         fillFactTypes();
 
