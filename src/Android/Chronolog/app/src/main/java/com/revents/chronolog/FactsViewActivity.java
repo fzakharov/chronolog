@@ -36,18 +36,24 @@ public class FactsViewActivity extends AppCompatActivity {
                 Intent intent = new Intent(FactsViewActivity.this, FactTypesListActivity.class);
                 startActivity(intent);
 
-                Fact fact = addFact();
-
                 ReloadFacts();
 
-                Snackbar.make(view, fact.getFactDate().toString(), Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, fact.getFactDate().toString(), Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+
             }
         });
 
-        daoSession = ((App)getApplication()).getDaoSession();
+        daoSession = ((App) getApplication()).getDaoSession();
 
         fillFactTypes();
+
+        ReloadFacts();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
 
         ReloadFacts();
     }
@@ -63,27 +69,6 @@ public class FactsViewActivity extends AppCompatActivity {
 
         ListView lvEvents = (ListView) findViewById(R.id.factsList);
         lvEvents.setAdapter(adapter);
-    }
-
-    private Fact addFact() {
-        JavaDateTimeProvider dateTimeProvider = new JavaDateTimeProvider();
-        GreenDaoFactWriter wr = new GreenDaoFactWriter(dateTimeProvider, daoSession);
-
-        FactType ft = loadFactType(FACT_COFFE);
-        Fact fact = new Fact(null, null, dateTimeProvider.getDate(), 1, "", ft.getId());
-        wr.write(fact);
-
-        return fact;
-    }
-
-    private FactType loadFactType(String name) {
-        FactTypeDao factTypeDao = daoSession.getFactTypeDao();
-        List list = factTypeDao.queryBuilder().where(FactTypeDao.Properties.Name.eq(name)).list();
-
-        if (list.size() != 1)
-            throw new InvalidParameterException("FactType count with name " + "'" + name + "': " + list.size());
-
-        return (FactType) list.get(0);
     }
 
     private void safeAddFactType(String name, String description) {
