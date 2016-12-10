@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FactTypesListActivity"></activity>
+        <activity android:name=".FactTypesListActivity" />
+        <activity android:name=".EditFactTypeActivity"></activity>
     </application>
 
 </manifest>
