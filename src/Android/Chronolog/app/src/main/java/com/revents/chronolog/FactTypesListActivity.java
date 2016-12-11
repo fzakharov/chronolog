@@ -13,9 +13,11 @@ import org.greenrobot.greendao.query.Query;
 
 import java.util.List;
 
+// TODO: 11.12.2016 select fact type activity 
 public class FactTypesListActivity extends AppCompatActivity {
 
     private DaoSession daoSession;
+    private ListView mTypesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,8 @@ public class FactTypesListActivity extends AppCompatActivity {
             }
         });
 
-        ListView lvEvents = (ListView) findViewById(R.id.factTypesList);
-        lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mTypesList = (ListView) findViewById(R.id.factTypesList);
+        mTypesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
 
@@ -54,18 +56,13 @@ public class FactTypesListActivity extends AppCompatActivity {
         List list = factTypeDao.loadAll();
 
         FactTypesAdapter adapter = new FactTypesAdapter(this, list);
-
-        ListView lvEvents = (ListView) findViewById(R.id.factTypesList);
-        lvEvents.setAdapter(adapter);
+        mTypesList.setAdapter(adapter);
     }
 
-    private Fact addFact(long fatcTypeId) {
-        JavaDateTimeProvider dateTimeProvider = new JavaDateTimeProvider();
-        GreenDaoFactWriter wr = new GreenDaoFactWriter(dateTimeProvider, daoSession);
+    private void addFact(long factTypeId) {
 
-        Fact fact = new Fact(null, null, dateTimeProvider.getDate(), 1, "", fatcTypeId);
-        wr.write(fact);
-
-        return fact;
+        Intent intent = new Intent(FactTypesListActivity.this, EditFactActivity.class);
+        intent.putExtra("factTypeId", factTypeId);
+        startActivity(intent);
     }
 }

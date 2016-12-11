@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".FactTypesListActivity" />
-        <activity android:name=".EditFactTypeActivity"></activity>
+        <activity android:name=".EditFactTypeActivity" />
+        <activity android:name=".EditFactActivity"></activity>
     </application>
 
 </manifest>
