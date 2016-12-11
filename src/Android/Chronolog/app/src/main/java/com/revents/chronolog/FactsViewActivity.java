@@ -47,8 +47,6 @@ public class FactsViewActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
 
         fillFactTypes();
-
-        ReloadFacts();
     }
 
     @Override
@@ -61,6 +59,7 @@ public class FactsViewActivity extends AppCompatActivity {
     private void ReloadFacts() {
         FactDao factDao = daoSession.getFactDao();
 
+        // TODO: 11.12.2016 to facts reader
         // query all notes, sorted a-z by their text
         Query<Fact> factsQuery = factDao.queryBuilder().orderDesc(FactDao.Properties.FactDate).build();
 
@@ -93,6 +92,7 @@ public class FactsViewActivity extends AppCompatActivity {
 
     private void fillFactTypes() {
 
+        // TODO: 11.12.2016 Use in app load. Move to db initialization 
         safeAddFactType(FACT_COFFE, "Выпил чашку кофе");
         safeAddFactType(FACT_WAKEUP, "Подъем - качество сна 1-3");
         safeAddFactType(FACT_WENT_TO_SLEEP, "Лег спать - состояние 1-3");

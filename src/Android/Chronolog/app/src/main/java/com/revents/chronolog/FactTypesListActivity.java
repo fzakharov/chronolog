@@ -35,6 +35,21 @@ public class FactTypesListActivity extends AppCompatActivity {
             }
         });
 
+        ListView lvEvents = (ListView) findViewById(R.id.factTypesList);
+        lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+                addFact(id);
+                finish();
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         FactTypeDao factTypeDao = daoSession.getFactTypeDao();
         List list = factTypeDao.loadAll();
 
@@ -42,16 +57,6 @@ public class FactTypesListActivity extends AppCompatActivity {
 
         ListView lvEvents = (ListView) findViewById(R.id.factTypesList);
         lvEvents.setAdapter(adapter);
-
-        lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-
-                Fact fact = addFact(id);
-
-                finish();
-            }
-        });
     }
 
     private Fact addFact(long fatcTypeId) {

@@ -15,9 +15,9 @@
         android:layout_height="wrap_content"
         android:inputType="textMultiLine"
         android:ems="10"
-        android:layout_below="@+id/editText6"
+        android:layout_below="@+id/nameTxt"
         android:layout_alignParentStart="true"
-        android:id="@+id/editText7"
+        android:id="@+id/descrTxt"
         android:layout_alignParentEnd="true" />
 
     <Button
@@ -26,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/button4"
-        android:layout_toStartOf="@+id/button5" />
+        android:id="@+id/addFactTypeBtn"
+        android:layout_toStartOf="@+id/closeBtn" />
 
     <Button
         android:text="X"
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:id="@+id/button5"
+        android:id="@+id/closeBtn"
         style="@style/Widget.AppCompat.Button.Small" />
 
     <EditText
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText6"
+        android:id="@+id/nameTxt"
         android:contentDescription="Событие"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
