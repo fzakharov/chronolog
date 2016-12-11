@@ -1,19 +1,27 @@
 package com.revents.chronolog;
 
-import android.content.Intent;
-import android.support.annotation.IdRes;
-import android.support.design.widget.FloatingActionButton;
+import android.app.DatePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
-// TODO: 11.12.2016 date Dialog http://startandroid.ru/ru/uroki/vse-uroki-spiskom/118-urok-59-dialogi-datepickerdialog.html
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
+// TODO: 11.12.2016 date Dialog http://metanit.com/java/android/18.1.php
 public class EditFactActivity extends AppCompatActivity {
 
     private DaoSession daoSession;
     private long mfactTypeId;
+    private EditText mDateEdit;
+    private SimpleDateFormat mDateFormatter;
+    Calendar dateAndTime = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,16 +31,6 @@ public class EditFactActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
         mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
 
-        Button addBtn = (Button) findViewById(R.id.addFactBtn);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //String name = getFromText(R.id.nameTxt);
-                addFact(mfactTypeId);
-                finish();
-            }
-        });
-
         Button closeBtn = (Button) findViewById(R.id.cancelBtn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +38,42 @@ public class EditFactActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
+
+        mDateEdit = (EditText) findViewById(R.id.dateEdit);
+        mDateEdit.setText(new StringBuilder().append(mDateFormatter.format(new Date())));
+    }
+
+    public void addFactClick(View v) {
+        //String name = getFromText(R.id.nameTxt);
+        addFact(mfactTypeId);
+        finish();
+    }
+
+    public void setDateClick(View v) {
+        new DatePickerDialog(EditFactActivity.this, d,
+                dateAndTime.get(Calendar.YEAR),
+                dateAndTime.get(Calendar.MONTH),
+                dateAndTime.get(Calendar.DAY_OF_MONTH))
+                .show();
+    }
+
+    DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            dateAndTime.set(Calendar.YEAR, year);
+            dateAndTime.set(Calendar.MONTH, monthOfYear);
+            dateAndTime.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            setInitialDateTime();
+        }
+    };
+
+    private void setInitialDateTime() {
+
+        mDateEdit.setText(DateUtils.formatDateTime(this,
+                dateAndTime.getTimeInMillis(),
+                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
+                        | DateUtils.FORMAT_SHOW_TIME));
     }
 
     private void addFact(long fatcTypeId) {
@@ -48,12 +82,5 @@ public class EditFactActivity extends AppCompatActivity {
 
         Fact fact = new Fact(null, null, dateTimeProvider.getDate(), 1, "", fatcTypeId);
         wr.write(fact);
-    }
-
-    private String getFromText(@IdRes int id)
-    {
-        EditText txt = (EditText) findViewById(id);
-
-        return txt.getText().toString();
     }
 }

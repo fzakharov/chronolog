@@ -23,7 +23,8 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:id="@+id/addFactBtn"
-            android:layout_toStartOf="@+id/cancelBtn" />
+            android:layout_toStartOf="@+id/cancelBtn"
+            android:onClick="addFactClick" />
 
         <Button
             android:text="X"
@@ -38,36 +39,19 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:layout_alignParentTop="true"
+            android:id="@+id/dateEdit"
+            android:layout_below="@+id/addFactBtn"
             android:layout_alignParentStart="true"
-            android:layout_marginTop="55dp"
-            android:id="@+id/editText"
+            android:layout_toStartOf="@+id/cancelBtn" />
+
+        <Button
+            android:text="*"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateSelectBtn"
+            android:onClick="setDateClick"
+            android:layout_below="@+id/addFactBtn"
             android:layout_alignParentEnd="true" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:id="@+id/editText4"
-            android:layout_below="@+id/editText3"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:ems="10"
-            android:id="@+id/editText2"
-            android:layout_below="@+id/editText"
-            android:layout_alignParentStart="true" />
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/numberPicker"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true" />
     </RelativeLayout>
 </RelativeLayout>
