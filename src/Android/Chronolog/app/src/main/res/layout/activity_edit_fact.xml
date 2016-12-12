@@ -24,15 +24,8 @@
             android:layout_alignParentStart="true"
             android:id="@+id/addFactBtn"
             android:layout_toStartOf="@+id/cancelBtn"
-            android:onClick="addFactClick" />
-
-        <Button
-            android:text="X"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/cancelBtn" />
+            android:onClick="addFactClick"
+            android:layout_alignParentEnd="true" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -42,16 +35,46 @@
             android:id="@+id/dateEdit"
             android:layout_below="@+id/addFactBtn"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/cancelBtn" />
+            android:layout_toStartOf="@+id/cancelBtn"
+            android:layout_alignParentEnd="true" />
 
         <Button
-            android:text="*"
+            android:text="Дата"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/dateSelectBtn"
             android:onClick="setDateClick"
-            android:layout_below="@+id/addFactBtn"
+            android:layout_below="@+id/dateEdit"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/timeSelectBtn" />
+
+        <Button
+            android:text="Время"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timeSelectBtn"
+            android:onClick="setTimeClick"
+            android:layout_below="@+id/dateEdit"
             android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/valueEditTxt"
+            android:layout_below="@+id/dateSelectBtn"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:layout_below="@+id/valueEditTxt"
+            android:layout_alignParentStart="true"
+            android:id="@+id/strValueEditTxt" />
 
     </RelativeLayout>
 </RelativeLayout>

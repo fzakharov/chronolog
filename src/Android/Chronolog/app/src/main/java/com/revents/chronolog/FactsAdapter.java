@@ -34,7 +34,7 @@ public class FactsAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int position) {
-        return  data.get(position).getId();
+        return data.get(position).getId();
     }
 
     @Override
@@ -45,10 +45,13 @@ public class FactsAdapter extends BaseAdapter {
         if (vi == null)
             vi = inflater.inflate(R.layout.event_listview_item, null);
         TextView text = (TextView) vi.findViewById(R.id.header);
-        text.setText( fact.getFactType().getName());
+        text.setText(fact.getFactType().getName() + " - " + fact.getIntValue());
 
         text = (TextView) vi.findViewById(R.id.text);
-        text.setText( fact.getFactDate().toString() + ": " + fact.getFactType().getDescription());
+        text.setText(
+                fact.getFactDate().toString() + ": " +
+                        fact.getStrValue() + " " +
+                        fact.getFactType().getDescription());
         return vi;
     }
 }

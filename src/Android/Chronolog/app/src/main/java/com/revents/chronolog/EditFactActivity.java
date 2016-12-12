@@ -1,6 +1,7 @@
 package com.revents.chronolog;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +24,8 @@ public class EditFactActivity extends AppCompatActivity {
     private EditText mDateEdit;
     private SimpleDateFormat mDateFormatter;
     Calendar dateAndTime = Calendar.getInstance();
+    private EditText mValueEditTxt;
+    private EditText mStrValueEditTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,23 +34,14 @@ public class EditFactActivity extends AppCompatActivity {
 
         daoSession = ((App) getApplication()).getDaoSession();
         mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
-
-        Button closeBtn = (Button) findViewById(R.id.cancelBtn);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
-        mDateFormatter = new SimpleDateFormat("dd-MM-yyyy", Locale.ROOT);
-
         mDateEdit = (EditText) findViewById(R.id.dateEdit);
-        mDateEdit.setText(new StringBuilder().append(mDateFormatter.format(new Date())));
+        mValueEditTxt = (EditText) findViewById(R.id.valueEditTxt);
+        mStrValueEditTxt = (EditText) findViewById(R.id.strValueEditTxt);
+
+        setInitialDateTime();
     }
 
     public void addFactClick(View v) {
-        //String name = getFromText(R.id.nameTxt);
         addFact(mfactTypeId);
         finish();
     }
@@ -59,6 +54,13 @@ public class EditFactActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void setTimeClick(View v) {
+        new TimePickerDialog(EditFactActivity.this, t,
+                dateAndTime.get(Calendar.HOUR_OF_DAY),
+                dateAndTime.get(Calendar.MINUTE), true)
+                .show();
+    }
+
     DatePickerDialog.OnDateSetListener d = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             dateAndTime.set(Calendar.YEAR, year);
@@ -68,19 +70,43 @@ public class EditFactActivity extends AppCompatActivity {
         }
     };
 
+    TimePickerDialog.OnTimeSetListener t = new TimePickerDialog.OnTimeSetListener() {
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            dateAndTime.set(Calendar.HOUR_OF_DAY, hourOfDay);
+            dateAndTime.set(Calendar.MINUTE, minute);
+            setInitialDateTime();
+        }
+    };
+
     private void setInitialDateTime() {
 
         mDateEdit.setText(DateUtils.formatDateTime(this,
                 dateAndTime.getTimeInMillis(),
-                DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_SHOW_YEAR
-                        | DateUtils.FORMAT_SHOW_TIME));
+                DateUtils.FORMAT_SHOW_DATE |
+                        DateUtils.FORMAT_SHOW_YEAR |
+                        DateUtils.FORMAT_SHOW_TIME));
     }
 
     private void addFact(long fatcTypeId) {
         JavaDateTimeProvider dateTimeProvider = new JavaDateTimeProvider();
         GreenDaoFactWriter wr = new GreenDaoFactWriter(dateTimeProvider, daoSession);
 
-        Fact fact = new Fact(null, null, dateTimeProvider.getDate(), 1, "", fatcTypeId);
+        int intVal = getIntVal();
+        String strVal = mStrValueEditTxt.getText().toString();
+
+        Fact fact = new Fact(null, null, dateAndTime.getTime(), intVal, strVal, fatcTypeId);
         wr.write(fact);
+    }
+
+    private int getIntVal() {
+        int myNum = 0;
+
+        try {
+            myNum = Integer.parseInt(mValueEditTxt.getText().toString());
+        } catch(NumberFormatException nfe) {
+            return 1; // TODO: 12.12.2016 error handling to prevent invalid valies write
+        }
+
+        return myNum;
     }
 }
