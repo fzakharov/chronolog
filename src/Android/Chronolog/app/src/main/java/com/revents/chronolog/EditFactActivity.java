@@ -24,6 +24,8 @@ public class EditFactActivity extends AppCompatActivity {
     private EditText mDateEdit;
     private SimpleDateFormat mDateFormatter;
     Calendar dateAndTime = Calendar.getInstance();
+    private EditText mValueEditTxt;
+    private EditText mStrValueEditTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,9 @@ public class EditFactActivity extends AppCompatActivity {
         daoSession = ((App) getApplication()).getDaoSession();
         mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
         mDateEdit = (EditText) findViewById(R.id.dateEdit);
+        mValueEditTxt = (EditText) findViewById(R.id.valueEditTxt);
+        mStrValueEditTxt = (EditText) findViewById(R.id.strValueEditTxt);
+
         setInitialDateTime();
     }
 
@@ -86,7 +91,22 @@ public class EditFactActivity extends AppCompatActivity {
         JavaDateTimeProvider dateTimeProvider = new JavaDateTimeProvider();
         GreenDaoFactWriter wr = new GreenDaoFactWriter(dateTimeProvider, daoSession);
 
-        Fact fact = new Fact(null, null, dateAndTime.getTime(), 1, "", fatcTypeId);
+        int intVal = getIntVal();
+        String strVal = mStrValueEditTxt.getText().toString();
+
+        Fact fact = new Fact(null, null, dateAndTime.getTime(), intVal, strVal, fatcTypeId);
         wr.write(fact);
+    }
+
+    private int getIntVal() {
+        int myNum = 0;
+
+        try {
+            myNum = Integer.parseInt(mValueEditTxt.getText().toString());
+        } catch(NumberFormatException nfe) {
+            return 1; // TODO: 12.12.2016 error handling to prevent invalid valies write
+        }
+
+        return myNum;
     }
 }

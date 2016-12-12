@@ -57,5 +57,24 @@
             android:layout_below="@+id/dateEdit"
             android:layout_alignParentEnd="true" />
 
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:ems="10"
+            android:id="@+id/valueEditTxt"
+            android:layout_below="@+id/dateSelectBtn"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:layout_below="@+id/valueEditTxt"
+            android:layout_alignParentStart="true"
+            android:id="@+id/strValueEditTxt" />
+
     </RelativeLayout>
 </RelativeLayout>
