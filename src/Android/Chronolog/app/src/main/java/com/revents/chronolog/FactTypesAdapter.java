@@ -47,7 +47,7 @@ public class FactTypesAdapter extends BaseAdapter {
         TextView text = (TextView) vi.findViewById(R.id.header);
         text.setText( fact.getName());
 
-        text = (TextView) vi.findViewById(R.id.text);
+        text = (TextView) vi.findViewById(R.id.valueTxt);
         text.setText( fact.getDescription());
         return vi;
     }
