@@ -43,11 +43,11 @@ public class FactTypesAdapter extends BaseAdapter {
         FactType fact = data.get(position);
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.event_listview_item, null);
-        TextView text = (TextView) vi.findViewById(R.id.header);
+            vi = inflater.inflate(R.layout.facttype_listview_item, null);
+        TextView text = (TextView) vi.findViewById(R.id.tvName);
         text.setText( fact.getName());
 
-        text = (TextView) vi.findViewById(R.id.valueTxt);
+        text = (TextView) vi.findViewById(R.id.tvDescription);
         text.setText( fact.getDescription());
         return vi;
     }

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class FactsAdapter extends BaseAdapter {
         Fact fact = data.get(position);
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.event_listview_item, null);
+            vi = inflater.inflate(R.layout.fact_listview_item, null);
 
         TextView text = (TextView) vi.findViewById(R.id.header);
         text.setText(fact.getFactType().getName());
