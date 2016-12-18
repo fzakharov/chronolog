@@ -37,7 +37,10 @@
 
         <ListView android:id="@+id/factsList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:longClickable="true"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"/>
 
     </RelativeLayout>
 

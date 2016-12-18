@@ -39,6 +39,8 @@ public class EditFactActivity extends AppCompatActivity {
         mStrValueEditTxt = (EditText) findViewById(R.id.strValueEditTxt);
 
         setInitialDateTime();
+
+        mValueEditTxt.requestFocus();
     }
 
     public void addFactClick(View v) {

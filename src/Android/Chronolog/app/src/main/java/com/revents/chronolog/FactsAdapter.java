@@ -7,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class FactsAdapter extends BaseAdapter {
 
+    private final SimpleDateFormat mWeekFormat;
     Context context;
     List<Fact> data;
+    SimpleDateFormat mTimeFormat;
     private static LayoutInflater inflater = null;
 
     public FactsAdapter(Context context, List<Fact> data) {
@@ -20,6 +23,9 @@ public class FactsAdapter extends BaseAdapter {
         this.data = data;
         inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        mTimeFormat = new SimpleDateFormat("HH:mm");
+        mWeekFormat = new SimpleDateFormat("EEEE");
     }
 
     @Override
@@ -43,15 +49,19 @@ public class FactsAdapter extends BaseAdapter {
         Fact fact = data.get(position);
 
         if (vi == null)
-            vi = inflater.inflate(R.layout.event_listview_item, null);
-        TextView text = (TextView) vi.findViewById(R.id.header);
-        text.setText(fact.getFactType().getName() + " - " + fact.getIntValue());
+            vi = inflater.inflate(R.layout.fact_listview_item, null);
 
-        text = (TextView) vi.findViewById(R.id.text);
-        text.setText(
-                fact.getFactDate().toString() + ": " +
-                        fact.getStrValue() + " " +
-                        fact.getFactType().getDescription());
+        TextView text = (TextView) vi.findViewById(R.id.header);
+        text.setText(fact.getFactType().getName());
+
+        text = (TextView) vi.findViewById(R.id.valueTxt);
+        text.setText(fact.getIntValue().toString());
+
+        text = (TextView) vi.findViewById(R.id.time);
+        text.setText(mTimeFormat.format(fact.getFactDate()));
+
+        text = (TextView) vi.findViewById(R.id.weekDay);
+        text.setText(mWeekFormat.format(fact.getFactDate()));
         return vi;
     }
 }

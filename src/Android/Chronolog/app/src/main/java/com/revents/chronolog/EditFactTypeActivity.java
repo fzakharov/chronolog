@@ -36,6 +36,8 @@ public class EditFactTypeActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        findViewById(R.id.nameTxt).requestFocus();
     }
 
     private String getFromText(@IdRes int id)
