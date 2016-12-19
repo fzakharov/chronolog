@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.revents.chronolog.Model.DaoSession;
+import com.revents.chronolog.Model.FactType;
+
 public class EditFactTypeActivity extends AppCompatActivity {
 
     private DaoSession daoSession;
@@ -24,7 +27,9 @@ public class EditFactTypeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String name = getFromText(R.id.nameTxt);
                 String descr = getFromText(R.id.descrTxt);
-                daoSession.getFactTypeDao().insert(new FactType(null, name, descr));
+
+                // TODO: 19.12.2016 restore code
+                //daoSession.getFactTypeDao().insert(new FactType(null, name, descr));
                 finish();
             }
         });

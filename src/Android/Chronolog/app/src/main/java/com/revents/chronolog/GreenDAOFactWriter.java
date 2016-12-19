@@ -1,5 +1,9 @@
 package com.revents.chronolog;
 
+import com.revents.chronolog.Model.DaoSession;
+import com.revents.chronolog.Model.Fact;
+import com.revents.chronolog.Model.FactDao;
+
 public class GreenDaoFactWriter {
     private DateTimeProvider mDateTimeProvider;
     private DaoSession mSession;

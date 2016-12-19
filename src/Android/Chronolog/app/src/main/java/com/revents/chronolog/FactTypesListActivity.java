@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.revents.chronolog.Model.DaoSession;
+import com.revents.chronolog.Model.FactTypeDao;
+
 import org.greenrobot.greendao.query.Query;
 
 import java.util.List;

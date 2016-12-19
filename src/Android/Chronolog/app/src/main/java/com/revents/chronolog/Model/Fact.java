@@ -1,4 +1,4 @@
-package com.revents.chronolog;
+package com.revents.chronolog.Model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -25,7 +25,7 @@ public class Fact {
     private Date factDate;
 
     @Property
-    private Integer intValue;
+    private Long longValue;
 
     @Property
     private String strValue;
@@ -43,13 +43,13 @@ public class Fact {
     @Generated(hash = 613572807)
     private transient FactDao myDao;
 
-    @Generated(hash = 1656744356)
+    @Generated(hash = 1950071540)
     public Fact(Long id, @NotNull Date timestamp, @NotNull Date factDate,
-            Integer intValue, String strValue, long factTypeId) {
+            Long longValue, String strValue, long factTypeId) {
         this.id = id;
         this.timestamp = timestamp;
         this.factDate = factDate;
-        this.intValue = intValue;
+        this.longValue = longValue;
         this.strValue = strValue;
         this.factTypeId = factTypeId;
     }
@@ -82,12 +82,12 @@ public class Fact {
         this.factDate = factDate;
     }
 
-    public Integer getIntValue() {
-        return this.intValue;
+    public Long getLongValue() {
+        return this.longValue;
     }
 
-    public void setIntValue(Integer intValue) {
-        this.intValue = intValue;
+    public void setLongValue(Long longValue) {
+        this.longValue = longValue;
     }
 
     public String getStrValue() {

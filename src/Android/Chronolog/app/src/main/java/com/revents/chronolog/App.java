@@ -2,6 +2,9 @@ package com.revents.chronolog;
 
 import android.app.Application;
 
+import com.revents.chronolog.Model.DaoMaster;
+import com.revents.chronolog.Model.DaoSession;
+
 import org.greenrobot.greendao.database.Database;
 
 public class App extends Application {

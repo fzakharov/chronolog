@@ -6,15 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
+import com.revents.chronolog.Model.DaoSession;
+import com.revents.chronolog.Model.Fact;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 // TODO: 11.12.2016 date Dialog http://metanit.com/java/android/18.1.php
 public class EditFactActivity extends AppCompatActivity {
@@ -93,7 +93,7 @@ public class EditFactActivity extends AppCompatActivity {
         JavaDateTimeProvider dateTimeProvider = new JavaDateTimeProvider();
         GreenDaoFactWriter wr = new GreenDaoFactWriter(dateTimeProvider, daoSession);
 
-        int intVal = getIntVal();
+        long intVal = getIntVal();
         String strVal = mStrValueEditTxt.getText().toString();
 
         Fact fact = new Fact(null, null, dateAndTime.getTime(), intVal, strVal, fatcTypeId);

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.revents.chronolog.Model.Fact;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class FactsAdapter extends BaseAdapter {
         text.setText(fact.getFactType().getName());
 
         text = (TextView) vi.findViewById(R.id.valueTxt);
-        text.setText(fact.getIntValue().toString());
+        text.setText(fact.getLongValue().toString());
 
         text = (TextView) vi.findViewById(R.id.time);
         text.setText(mTimeFormat.format(fact.getFactDate()));
