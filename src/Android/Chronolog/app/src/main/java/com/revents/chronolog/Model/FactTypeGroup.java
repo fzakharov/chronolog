@@ -1,4 +1,4 @@
-package com.revents.chronolog.Model;
+package com.revents.chronolog.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;

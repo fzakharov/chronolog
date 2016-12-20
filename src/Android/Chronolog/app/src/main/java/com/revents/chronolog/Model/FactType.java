@@ -1,4 +1,4 @@
-package com.revents.chronolog.Model;
+package com.revents.chronolog.model;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -22,6 +22,10 @@ public class FactType
     @NotNull
     private String description;
 
+    @Property
+    @NotNull
+    private boolean disabled;
+
     private long factTypeGroupId;
     @ToOne(joinProperty = "factTypeGroupId")
     private FactTypeGroup factTypeGroup;
@@ -37,12 +41,13 @@ public class FactType
     /** Used for active entity operations. */
     @Generated(hash = 980237178)
     private transient FactTypeDao myDao;
-    @Generated(hash = 2042931279)
+    @Generated(hash = 2137036623)
     public FactType(Long id, @NotNull String name, @NotNull String description,
-            long factTypeGroupId, long valueDescriptorId) {
+            boolean disabled, long factTypeGroupId, long valueDescriptorId) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.disabled = disabled;
         this.factTypeGroupId = factTypeGroupId;
         this.valueDescriptorId = valueDescriptorId;
     }
@@ -66,6 +71,12 @@ public class FactType
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public boolean getDisabled() {
+        return this.disabled;
+    }
+    public void setDisabled(boolean disabled) {
+        this.disabled = disabled;
     }
     public long getFactTypeGroupId() {
         return this.factTypeGroupId;
@@ -186,5 +197,7 @@ public class FactType
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getFactTypeDao() : null;
     }
+
+
 }
 

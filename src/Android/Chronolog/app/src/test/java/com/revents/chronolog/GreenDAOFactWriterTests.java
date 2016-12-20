@@ -1,10 +1,10 @@
 package com.revents.chronolog;
 
-import com.revents.chronolog.Model.DaoMaster;
-import com.revents.chronolog.Model.DaoSession;
-import com.revents.chronolog.Model.Fact;
-import com.revents.chronolog.Model.FactType;
-import com.revents.chronolog.Model.FactTypeDao;
+import com.revents.chronolog.model.DaoMaster;
+import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.FactTypeDao;
 
 import org.greenrobot.greendao.database.Database;
 import org.junit.After;

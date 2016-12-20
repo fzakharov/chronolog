@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.revents.chronolog.Model.DaoSession;
-import com.revents.chronolog.Model.FactType;
+import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.model.DaoSession;
 
 public class EditFactTypeActivity extends AppCompatActivity {
 
@@ -19,7 +19,7 @@ public class EditFactTypeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fact_type);
 
-        daoSession = ((App) getApplication()).getDaoSession();
+        daoSession = ((ChronologApp) getApplication()).getDaoSession();
 
         Button addBtn = (Button) findViewById(R.id.addFactTypeBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {

@@ -10,8 +10,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
-import com.revents.chronolog.Model.DaoSession;
-import com.revents.chronolog.Model.Fact;
+import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.Fact;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,7 +33,7 @@ public class EditFactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fact);
 
-        daoSession = ((App) getApplication()).getDaoSession();
+        daoSession = ((ChronologApp) getApplication()).getDaoSession();
         mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
         mDateEdit = (EditText) findViewById(R.id.dateEdit);
         mValueEditTxt = (EditText) findViewById(R.id.valueEditTxt);

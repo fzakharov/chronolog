@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.revents.chronolog.Model.FactType;
+import com.revents.chronolog.model.FactType;
 
 import java.util.List;
 

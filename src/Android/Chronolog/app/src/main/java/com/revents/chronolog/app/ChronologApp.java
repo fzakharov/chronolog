@@ -1,20 +1,20 @@
-package com.revents.chronolog;
+package com.revents.chronolog.app;
 
 import android.app.Application;
 
-import com.revents.chronolog.Model.DaoMaster;
-import com.revents.chronolog.Model.DaoSession;
+import com.revents.chronolog.model.DaoMaster;
+import com.revents.chronolog.model.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 
-public class App extends Application {
+public class ChronologApp extends Application {
     private DaoSession daoSession;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "chronolog-facts-db");
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "chronolog-db");
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
     }
