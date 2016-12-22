@@ -1,5 +1,6 @@
 package com.revents.chronolog.features.factsfeed;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.features.facttypes.FactTypesActivity;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
@@ -21,8 +23,8 @@ public class FactsfeedActivity extends AppCompatActivity {
 
     public void addFactClick(View v)
     {
-        Snackbar.make(v, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        Intent intent = new Intent(FactsfeedActivity.this, FactTypesActivity.class);
+        startActivity(intent);
     }
 
 }

@@ -31,6 +31,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".features.facttypes.FactTypesActivity"
+            android:label="@string/title_activity_fact_types"
+            android:parentActivityName=".features.factsfeed.FactsfeedActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.revents.chronolog.features.factsfeed.FactsfeedActivity" />
+        </activity>
     </application>
 
 </manifest>
