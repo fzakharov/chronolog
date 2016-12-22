@@ -15,37 +15,40 @@ import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.annotation.Config;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = LOLLIPOP, packageName = "com.revents.chronolog")
+@Config(constants = BuildConfig.class, sdk = LOLLIPOP)
 public class FactsfeedActivityTests {
+
+    private FactCreator mFactCreateor;
+    private FactsfeedActivity sut;
 
     @Before
     public void setUp() throws Exception {
+       mFactCreateor = mock(FactCreator.class);
 
-    }
-
-    @Test
-    public void should_start_FactTypesActivity_When_addFactClick() {
-        // Given
-        FactsfeedActivity sut = Robolectric.buildActivity(FactsfeedActivity.class)
+       sut = Robolectric.buildActivity(FactsfeedActivity.class)
                 .create()
                 .start()
                 .resume()
                 .get();
 
+        sut.inject(mFactCreateor);
+    }
+
+    @Test
+    public void should_call_addFact_When_addFactClick() {
+        // Given
         FloatingActionButton addBtn = (FloatingActionButton)sut.findViewById(R.id.addFactFab);
 
         // When
         addBtn.performClick();
 
         // Then
-        Intent expectedIntent = new Intent(sut, FactTypesActivity.class);
-        //assertThat(shadowOf(sut).getNextStartedActivity()).isEqualTo(expectedIntent);
-        assertEquals(shadowOf(sut).getNextStartedActivity(), expectedIntent);
+        verify(mFactCreateor).addFact();
     }
-
 }
