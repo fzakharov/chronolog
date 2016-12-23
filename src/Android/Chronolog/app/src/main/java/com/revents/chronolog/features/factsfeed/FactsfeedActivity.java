@@ -1,28 +1,25 @@
 package com.revents.chronolog.features.factsfeed;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
-import com.revents.chronolog.app.DaggerAppComponent;
-import com.revents.chronolog.features.facttypes.FactTypesActivity;
+import com.revents.chronolog.app.Command;
 
 import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
-    private FactCreator mFactCreator;
+    private Command mFactCreator;
 
     @Inject
-    public void inject(FactCreator factCreator)
-    {
+    public void inject(Command factCreator) {
         mFactCreator = factCreator;
     }
 
@@ -33,14 +30,17 @@ public class FactsfeedActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AppComponent appcomp = ((ChronologApp)getApplication()).getAppComponent();
-
+        AppComponent appcomp = ((ChronologApp) getApplication()).getAppComponent();
         appcomp.inject(this);
 
     }
 
-    public void addFactClick(View v)
-    {
-        mFactCreator.addFact();
+    public void addFactClick(View v) {
+        mFactCreator.execute();
+    }
+
+    public void setAdapter(BaseAdapter adapter) {
+        ListView lvFeed = (ListView) findViewById(R.id.factsfeedListView);
+        lvFeed.setAdapter(adapter);
     }
 }

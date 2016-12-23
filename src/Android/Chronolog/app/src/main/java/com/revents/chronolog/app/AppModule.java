@@ -2,9 +2,6 @@ package com.revents.chronolog.app;
 
 import android.content.Context;
 
-import com.revents.chronolog.features.factsfeed.FactCreator;
-import com.revents.chronolog.features.factsfeed.InteractiveFactCreator;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -29,9 +26,9 @@ public class AppModule
 
     @Provides
     @Singleton
-    public FactCreator provideFactCReator(Context context)
+    public Command provideFactCReator()
     {
-        return new InteractiveFactCreator(context);
+        return new ManualAddFactCommand();
     }
 }
 
