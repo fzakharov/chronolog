@@ -22,5 +22,6 @@ public class ManualAddFactCommandTests {
         sut.execute();
 
         // Then
+        throw new UnsupportedOperationException();
     }
 }

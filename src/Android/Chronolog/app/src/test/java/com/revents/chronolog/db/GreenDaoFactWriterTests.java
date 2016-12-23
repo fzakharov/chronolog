@@ -1,15 +1,12 @@
-package com.revents.chronolog;
+package com.revents.chronolog.db;
 
-import com.revents.chronolog.model.DaoMaster;
-import com.revents.chronolog.model.DaoSession;
-import com.revents.chronolog.model.Fact;
-import com.revents.chronolog.model.FactType;
-import com.revents.chronolog.model.FactTypeDao;
+import com.revents.chronolog.BuildConfig;
+import com.revents.chronolog.app.DateTimeProvider;
+import com.revents.chronolog.db.GreenDaoFactWriter;
+import com.revents.chronolog.model.*;
 
 import org.greenrobot.greendao.database.Database;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -32,6 +29,8 @@ public class GreenDaoFactWriterTests {
     DaoSession mDaoSession;
     Date mCurentDate;
 
+    FactTypeGroup mTestFactTypeGroup;
+    ValueDescriptor mTestValueDescriptor;
     FactType mTestFactType;
     Fact mTestFact;
 
@@ -43,12 +42,17 @@ public class GreenDaoFactWriterTests {
         mDb = openHelper.getWritableDb();
         mDaoSession = new DaoMaster(mDb).newSession();
 
+        FactTypeGroupDao ftgd = mDaoSession.getFactTypeGroupDao();
+        ValueDescriptorDao vdd = mDaoSession.getValueDescriptorDao();
         FactTypeDao ftd = mDaoSession.getFactTypeDao();
-        // TODO: 19.12.2016 restore code
-        //mTestFactType = new FactType(null, "Fact", "Fact descr");
+
+        mTestFactTypeGroup = new FactTypeGroup(null,"Group", "Gr descr", 0);
+        mTestValueDescriptor = new ValueDescriptor(null,"Value name", "descr", "ClassName", "");
+
+        mTestFactType = new FactType(null, "Fact type", "Fact type descr", false, ftgd.insert(mTestFactTypeGroup),vdd.insert(mTestValueDescriptor));
         ftd.insert(mTestFactType);
-        // TODO: 19.12.2016 restore code
-        //mTestFact = new Fact(null, null, new Date(1), 55, "str val", ftd.insert(new FactType(null, "Fact", "Fact descr")));
+
+        mTestFact = new Fact(null, null, new Date(1), 55l, "str val", mTestFactType.getId());
 
         mDateProvider = mock(DateTimeProvider.class);
         sut = new GreenDaoFactWriter(mDateProvider, mDaoSession);
@@ -58,7 +62,7 @@ public class GreenDaoFactWriterTests {
     }
 
     @After
-    public void after(){
+    public void after() {
         mDaoSession.clear();
         mDb.close();
     }
@@ -81,7 +85,7 @@ public class GreenDaoFactWriterTests {
         mTestFact.setStrValue("new str value");
         mTestFact.setLongValue(mTestFact.getLongValue() + 1);
         mTestFact.setFactDate(new Date(3));
-        mTestFact.setFactType(mTestFactType);
+        mTestFact.setFactType(mTestFactType); // TODO: 23.12.2016 Test should use another factType to check changes
 
         Date newTimestamp = new Date(4);
         setupDateTimeProvider(newTimestamp);
