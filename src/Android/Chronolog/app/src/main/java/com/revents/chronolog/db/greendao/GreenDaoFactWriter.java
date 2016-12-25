@@ -1,11 +1,12 @@
-package com.revents.chronolog.db;
+package com.revents.chronolog.db.greendao;
 
 import com.revents.chronolog.app.DateTimeProvider;
+import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactDao;
 
-public class GreenDaoFactWriter {
+public class GreenDaoFactWriter implements FactWriter {
     private DateTimeProvider mDateTimeProvider;
     private DaoSession mSession;
 

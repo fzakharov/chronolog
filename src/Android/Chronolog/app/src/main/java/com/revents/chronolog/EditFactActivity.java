@@ -12,7 +12,7 @@ import android.widget.TimePicker;
 
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.JavaDateTimeProvider;
-import com.revents.chronolog.db.GreenDaoFactWriter;
+import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 

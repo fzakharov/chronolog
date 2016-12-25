@@ -16,16 +16,17 @@ import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
-    private Command mFactCreator;
+    private Command mAddFactCommand;
 
     @Inject
-    public void inject(Command factCreator) {
-        mFactCreator = factCreator;
+    public void inject(Command addFactCommand) {
+        mAddFactCommand = addFactCommand;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_factsfeed);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -36,7 +37,7 @@ public class FactsfeedActivity extends AppCompatActivity {
     }
 
     public void addFactClick(View v) {
-        mFactCreator.execute();
+        mAddFactCommand.execute();
     }
 
     public void setAdapter(BaseAdapter adapter) {

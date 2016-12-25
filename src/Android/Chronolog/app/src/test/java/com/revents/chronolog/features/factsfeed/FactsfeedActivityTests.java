@@ -25,12 +25,12 @@ import static org.mockito.Mockito.verify;
 @Config(constants = BuildConfig.class, sdk = LOLLIPOP)
 public class FactsfeedActivityTests {
 
-    private Command mFactCreateor;
+    private Command addFactCommand;
     private FactsfeedActivity sut;
 
     @Before
     public void setUp() throws Exception {
-        mFactCreateor = mock(Command.class);
+        addFactCommand = mock(Command.class);
 
         sut = Robolectric.buildActivity(FactsfeedActivity.class)
                 .create()
@@ -38,7 +38,7 @@ public class FactsfeedActivityTests {
                 .resume()
                 .get();
 
-        sut.inject(mFactCreateor);
+        sut.inject(addFactCommand);
     }
 
     @Test
@@ -55,15 +55,15 @@ public class FactsfeedActivityTests {
     }
 
     @Test
-    public void should_call_addFact_When_addFactFab_clicked() {
+    public void should_execute_addFactCommand_When_addFactFab_clicked() {
         // Given
-        FloatingActionButton addBtn = this.viewById(R.id.addFactFab);
+        FloatingActionButton addBtn = viewById(R.id.addFactFab);
 
         // When
         addBtn.performClick();
 
         // Then
-        verify(mFactCreateor).execute();
+        verify(addFactCommand).execute();
     }
 
     private <T> T viewById(@IdRes int id)

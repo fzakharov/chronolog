@@ -1,12 +1,21 @@
-package com.revents.chronolog.db;
+package com.revents.chronolog.db.greendao;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.app.DateTimeProvider;
-import com.revents.chronolog.db.GreenDaoFactWriter;
-import com.revents.chronolog.model.*;
+import com.revents.chronolog.model.DaoMaster;
+import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.FactTypeDao;
+import com.revents.chronolog.model.FactTypeGroup;
+import com.revents.chronolog.model.FactTypeGroupDao;
+import com.revents.chronolog.model.ValueDescriptor;
+import com.revents.chronolog.model.ValueDescriptorDao;
 
 import org.greenrobot.greendao.database.Database;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.robolectric.RobolectricGradleTestRunner;
