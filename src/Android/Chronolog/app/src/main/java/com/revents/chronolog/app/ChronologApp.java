@@ -1,6 +1,7 @@
 package com.revents.chronolog.app;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.revents.chronolog.model.DaoMaster;
 import com.revents.chronolog.model.DaoSession;
@@ -19,10 +20,7 @@ public class ChronologApp extends Application {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
-        mComponent = DaggerAppComponent
-                .builder()
-                .appModule(new AppModule(this)) // This also corresponds to the name of your module: %component_name%Module
-                .build();
+        initComponent();
     }
 
     public AppComponent getAppComponent() {
@@ -31,6 +29,19 @@ public class ChronologApp extends Application {
 
     public DaoSession getDaoSession() {
         return daoSession;
+    }
+
+    protected void initComponent()
+    {
+        mComponent = DaggerAppComponent
+                .builder()
+                .appModule(getAppModule()) // This also corresponds to the name of your module: %component_name%Module
+                .build();
+    }
+
+    @NonNull
+    protected AppModule getAppModule() {
+        return new AppModule(this);
     }
 }
 

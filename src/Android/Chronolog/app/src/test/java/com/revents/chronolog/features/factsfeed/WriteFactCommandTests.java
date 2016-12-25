@@ -5,7 +5,12 @@ import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnit;
+import org.mockito.junit.MockitoRule;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -13,16 +18,17 @@ import static org.mockito.Mockito.when;
 
 public class WriteFactCommandTests {
 
-    private WriteFactCommand sut;
-    private FactWriter factWriter;
-    private FactBuilder factBuilder;
+    @Rule
+    public MockitoRule mockitoRule = MockitoJUnit.rule();
 
-    @Before
-    public void setUp() {
-        factWriter = mock(FactWriter.class);
-        factBuilder = mock(FactBuilder.class);
-        sut = new WriteFactCommand(factWriter, factBuilder);
-    }
+    @InjectMocks
+    WriteFactCommand sut;
+
+    @Mock
+    FactWriter factWriter;
+
+    @Mock
+    FactBuilder factBuilder;
 
     @Test
     public void should_write_built_Fact_to_FactWriter_When_execute() {

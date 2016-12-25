@@ -7,22 +7,32 @@ import android.widget.ListView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
+import com.revents.chronolog.app.AppModule;
 import com.revents.chronolog.app.Command;
+import com.revents.chronolog.app.FactBuilder;
+import com.revents.chronolog.app.TestChronologApp;
+import com.revents.chronolog.db.FactWriter;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = LOLLIPOP)
+@Config(constants = BuildConfig.class,
+        sdk = LOLLIPOP,
+        application = TestChronologApp.class)
 public class FactsfeedActivityTests {
 
     private Command addFactCommand;
@@ -32,13 +42,22 @@ public class FactsfeedActivityTests {
     public void setUp() throws Exception {
         addFactCommand = mock(Command.class);
 
+        TestChronologApp testApp = (TestChronologApp) RuntimeEnvironment.application;
+
+        AppModule appModule = mock(AppModule.class);
+        when(appModule.provideContext()).thenReturn(testApp);
+        when(appModule.provideFactBuilder()).thenReturn(mock(FactBuilder.class));
+        when(appModule.provideFactWriter()).thenReturn(mock(FactWriter.class));
+        when(appModule.provideWriteFactCommand(isA(FactWriter.class), isA(FactBuilder.class)))
+                .thenReturn(addFactCommand);
+
+        testApp.setAppModule(appModule);
+
         sut = Robolectric.buildActivity(FactsfeedActivity.class)
                 .create()
                 .start()
                 .resume()
                 .get();
-
-        sut.inject(addFactCommand);
     }
 
     @Test
@@ -51,7 +70,7 @@ public class FactsfeedActivityTests {
         sut.setAdapter(testAdapter);
 
         // Then
-        assertEquals(testAdapter,lvFeed.getAdapter());
+        assertEquals(testAdapter, lvFeed.getAdapter());
     }
 
     @Test
@@ -66,8 +85,7 @@ public class FactsfeedActivityTests {
         verify(addFactCommand).execute();
     }
 
-    private <T> T viewById(@IdRes int id)
-    {
-        return (T)sut.findViewById(id);
+    private <T> T viewById(@IdRes int id) {
+        return (T) sut.findViewById(id);
     }
 }
