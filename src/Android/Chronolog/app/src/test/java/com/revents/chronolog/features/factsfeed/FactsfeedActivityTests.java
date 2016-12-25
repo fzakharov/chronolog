@@ -9,9 +9,11 @@ import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppModule;
 import com.revents.chronolog.app.Command;
+import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.FactBuilder;
 import com.revents.chronolog.app.TestChronologApp;
 import com.revents.chronolog.db.FactWriter;
+import com.revents.chronolog.model.DaoSession;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +49,7 @@ public class FactsfeedActivityTests {
         AppModule appModule = mock(AppModule.class);
         when(appModule.provideContext()).thenReturn(testApp);
         when(appModule.provideFactBuilder()).thenReturn(mock(FactBuilder.class));
-        when(appModule.provideFactWriter()).thenReturn(mock(FactWriter.class));
+        when(appModule.provideFactWriter(mock(DateTimeProvider.class), mock(DaoSession.class))).thenReturn(mock(FactWriter.class));
         when(appModule.provideWriteFactCommand(isA(FactWriter.class), isA(FactBuilder.class)))
                 .thenReturn(addFactCommand);
 

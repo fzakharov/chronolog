@@ -6,6 +6,7 @@ import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.factsfeed.WriteFactCommand;
 import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.Fact;
 
 import javax.inject.Singleton;
 
@@ -14,10 +15,10 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
-    private Context appContext;
+    private ChronologApp appContext;
 
     public AppModule(Context context) {
-        appContext = context;
+        appContext = (ChronologApp)context;
     }
 
     @Provides
@@ -28,14 +29,31 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public FactWriter provideFactWriter() {
-        throw new UnsupportedOperationException();
+    public DateTimeProvider provideDateTimeProvider() {
+        return new JavaDateTimeProvider();
+    }
+
+    @Provides
+    @Singleton
+    public DaoSession provideDaoSession() {
+        return appContext.getDaoSession();
+    }
+
+    @Provides
+    @Singleton
+    public FactWriter provideFactWriter(DateTimeProvider dateTimeProvider, DaoSession session) {
+        return new GreenDaoFactWriter(dateTimeProvider, session);
     }
 
     @Provides
     @Singleton
     public FactBuilder provideFactBuilder() {
-        throw new UnsupportedOperationException();
+        return new FactBuilder() {
+            @Override
+            public Fact build() {
+                return null;
+            }
+        };
     }
 
     @Provides
