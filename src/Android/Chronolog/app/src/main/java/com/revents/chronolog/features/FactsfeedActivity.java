@@ -1,4 +1,4 @@
-package com.revents.chronolog.features.factsfeed;
+package com.revents.chronolog.features;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,19 +8,19 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.app.ActivityCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
-import com.revents.chronolog.app.Command;
 
 import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
-    private Command mAddFactCommand;
+    private ActivityCommand mAddFactActivityCommand;
 
     @Inject
-    public void inject(Command addFactCommand) {
-        mAddFactCommand = addFactCommand;
+    public void inject(ActivityCommand addFactActivityCommand) {
+        mAddFactActivityCommand = addFactActivityCommand;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class FactsfeedActivity extends AppCompatActivity {
     }
 
     public void addFactClick(View v) {
-        mAddFactCommand.execute();
+        mAddFactActivityCommand.execute(this);
     }
 
     public void setAdapter(BaseAdapter adapter) {

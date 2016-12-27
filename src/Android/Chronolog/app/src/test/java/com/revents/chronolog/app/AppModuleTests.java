@@ -4,11 +4,11 @@ import android.content.Context;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.DaoSession;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
@@ -67,5 +67,14 @@ public class AppModuleTests {
 
         // Then
         assertNotNull(fw);
+    }
+
+    @Test
+    public void should_create_NewFactActivityCommand_When_provideNewFactActivityCommand() {
+        // Given // When
+        NewFactActivityCommand cmd = (NewFactActivityCommand) sut.provideNewFactActivityCommand();
+
+        // Then
+        assertNotNull(cmd);
     }
 }

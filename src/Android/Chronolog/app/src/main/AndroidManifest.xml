@@ -17,7 +17,7 @@
         <activity android:name=".EditFactTypeActivity" />
         <activity android:name=".EditFactActivity" />
         <activity
-            android:name=".features.factsfeed.FactsfeedActivity"
+            android:name=".features.FactsfeedActivity"
             android:label="@string/title_activity_factsfeed"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -26,13 +26,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".features.facttypes.FactTypesActivity"
+            android:name=".features.FactTypesActivity"
             android:label="@string/title_activity_fact_types"
-            android:parentActivityName=".features.factsfeed.FactsfeedActivity"
+            android:parentActivityName=".features.FactsfeedActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.factsfeed.FactsfeedActivity" />
+                android:value="com.revents.chronolog.features.FactsfeedActivity" />
         </activity>
     </application>
 

@@ -1,6 +1,6 @@
 package com.revents.chronolog.app;
 
-import com.revents.chronolog.features.factsfeed.FactsfeedActivity;
+import com.revents.chronolog.features.FactsfeedActivity;
 
 import javax.inject.Singleton;
 

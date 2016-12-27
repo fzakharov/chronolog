@@ -1,4 +1,4 @@
-package com.revents.chronolog.features.factsfeed;
+package com.revents.chronolog.features;
 
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
@@ -7,12 +7,12 @@ import android.widget.ListView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
+import com.revents.chronolog.app.ActivityCommand;
 import com.revents.chronolog.app.AppModule;
-import com.revents.chronolog.app.Command;
 import com.revents.chronolog.app.DateTimeProvider;
-import com.revents.chronolog.app.FactBuilder;
 import com.revents.chronolog.app.TestChronologApp;
 import com.revents.chronolog.db.FactWriter;
+import com.revents.chronolog.features.FactsfeedActivity;
 import com.revents.chronolog.model.DaoSession;
 
 import org.junit.Before;
@@ -37,21 +37,26 @@ import static org.mockito.Mockito.when;
         application = TestChronologApp.class)
 public class FactsfeedActivityTests {
 
-    private Command addFactCommand;
+    private ActivityCommand addFactActivityCommand;
     private FactsfeedActivity sut;
 
     @Before
     public void setUp() throws Exception {
-        addFactCommand = mock(Command.class);
+        addFactActivityCommand = mock(ActivityCommand.class);
 
         TestChronologApp testApp = (TestChronologApp) RuntimeEnvironment.application;
 
         AppModule appModule = mock(AppModule.class);
-        when(appModule.provideContext()).thenReturn(testApp);
-        when(appModule.provideFactBuilder()).thenReturn(mock(FactBuilder.class));
-        when(appModule.provideFactWriter(mock(DateTimeProvider.class), mock(DaoSession.class))).thenReturn(mock(FactWriter.class));
-        when(appModule.provideWriteFactCommand(isA(FactWriter.class), isA(FactBuilder.class)))
-                .thenReturn(addFactCommand);
+        when(appModule.provideContext())
+                .thenReturn(testApp);
+        when(appModule.provideDateTimeProvider())
+                .thenReturn(mock(DateTimeProvider.class));
+        when(appModule.provideDaoSession())
+                .thenReturn(mock(DaoSession.class));
+        when(appModule.provideFactWriter(isA(DateTimeProvider.class), isA(DaoSession.class)))
+                .thenReturn(mock(FactWriter.class));
+        when(appModule.provideNewFactActivityCommand())
+                .thenReturn(addFactActivityCommand);
 
         testApp.setAppModule(appModule);
 
@@ -84,7 +89,7 @@ public class FactsfeedActivityTests {
         addBtn.performClick();
 
         // Then
-        verify(addFactCommand).execute();
+        verify(addFactActivityCommand).execute(sut);
     }
 
     private <T> T viewById(@IdRes int id) {

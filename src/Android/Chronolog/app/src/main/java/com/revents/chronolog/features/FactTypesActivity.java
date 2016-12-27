@@ -1,4 +1,4 @@
-package com.revents.chronolog.features.facttypes;
+package com.revents.chronolog.features;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

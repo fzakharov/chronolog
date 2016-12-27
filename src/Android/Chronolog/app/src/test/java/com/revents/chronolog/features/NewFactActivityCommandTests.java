@@ -1,10 +1,12 @@
-package com.revents.chronolog.features.factsfeed;
+package com.revents.chronolog.features;
 
-import com.revents.chronolog.app.FactBuilder;
+import android.app.Activity;
+
 import com.revents.chronolog.db.FactWriter;
+import com.revents.chronolog.features.FactEditor;
+import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.Fact;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -12,33 +14,35 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class WriteFactCommandTests {
+public class NewFactActivityCommandTests {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    WriteFactCommand sut;
+    NewFactActivityCommand sut;
 
     @Mock
     FactWriter factWriter;
 
     @Mock
-    FactBuilder factBuilder;
+    FactEditor factEditor;
 
     @Test
-    public void should_write_built_Fact_to_FactWriter_When_execute() {
+    public void should_start_FactType_selection_When_execute() {
         // Given
         Fact expected = mock(Fact.class);
-        when(factBuilder.build())
+        Activity currentActivity = mock(Activity.class);
+        when(factEditor.newFact(currentActivity))
                 .thenReturn(expected);
 
         // When
-        sut.execute();
+        sut.execute(currentActivity);
 
         // Then
         verify(factWriter).write(expected);

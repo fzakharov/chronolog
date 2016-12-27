@@ -44,6 +44,7 @@ public class FactsViewActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent = new Intent(FactsViewActivity.this, FactTypesListActivity.class);
+
                 startActivity(intent);
 
                 ReloadFacts();

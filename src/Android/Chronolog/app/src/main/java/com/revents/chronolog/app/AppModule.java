@@ -4,9 +4,8 @@ import android.content.Context;
 
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
-import com.revents.chronolog.features.factsfeed.WriteFactCommand;
+import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.DaoSession;
-import com.revents.chronolog.model.Fact;
 
 import javax.inject.Singleton;
 
@@ -18,7 +17,7 @@ public class AppModule {
     private ChronologApp appContext;
 
     public AppModule(Context context) {
-        appContext = (ChronologApp)context;
+        appContext = (ChronologApp) context;
     }
 
     @Provides
@@ -36,6 +35,7 @@ public class AppModule {
     @Provides
     @Singleton
     public DaoSession provideDaoSession() {
+        // TODO: 26.12.2016 move here db init and session
         return appContext.getDaoSession();
     }
 
@@ -47,19 +47,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public FactBuilder provideFactBuilder() {
-        return new FactBuilder() {
-            @Override
-            public Fact build() {
-                return null;
-            }
-        };
-    }
-
-    @Provides
-    @Singleton
-    public Command provideWriteFactCommand(FactWriter factWriter, FactBuilder factBuilder) {
-        return new WriteFactCommand(factWriter, factBuilder);
+    public ActivityCommand provideNewFactActivityCommand() {
+        return new NewFactActivityCommand(null, null);
     }
 }
 
