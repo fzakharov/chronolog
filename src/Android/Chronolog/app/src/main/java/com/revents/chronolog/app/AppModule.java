@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
+import com.revents.chronolog.features.SelectFactTypeActivityCommand;
 import com.revents.chronolog.model.DaoSession;
 
 import javax.inject.Singleton;
@@ -47,8 +49,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ActivityCommand provideNewFactActivityCommand() {
-        return new NewFactActivityCommand(null, null);
+    public IntentFactory provideIntentFactory() {
+        return new DefaultIntentFactory();
+    }
+
+    @Provides
+    @Singleton
+    public ActivityCommand provideNewFactActivityCommand(IntentFactory intentFactory) {
+        return new NewFactActivityCommand(new SelectFactTypeActivityCommand(intentFactory));
     }
 }
 

@@ -20,7 +20,7 @@ public class ChronologApp extends Application {
         Database db = helper.getWritableDb();
         daoSession = new DaoMaster(db).newSession();
 
-        initComponent();
+        mComponent = buildAppComponent();
     }
 
     public AppComponent getAppComponent() {
@@ -31,9 +31,8 @@ public class ChronologApp extends Application {
         return daoSession;
     }
 
-    protected void initComponent()
-    {
-        mComponent = DaggerAppComponent
+    protected AppComponent buildAppComponent() {
+        return DaggerAppComponent
                 .builder()
                 .appModule(getAppModule()) // This also corresponds to the name of your module: %component_name%Module
                 .build();

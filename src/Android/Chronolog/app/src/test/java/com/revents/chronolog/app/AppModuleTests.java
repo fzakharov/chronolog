@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.DaoSession;
 
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.mock;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
         sdk = LOLLIPOP,
-        application = TestChronologApp.class)
+        application = FakeChronologApp.class)
 public class AppModuleTests {
 
     private AppModule sut;
@@ -72,7 +73,7 @@ public class AppModuleTests {
     @Test
     public void should_create_NewFactActivityCommand_When_provideNewFactActivityCommand() {
         // Given // When
-        NewFactActivityCommand cmd = (NewFactActivityCommand) sut.provideNewFactActivityCommand();
+        NewFactActivityCommand cmd = (NewFactActivityCommand) sut.provideNewFactActivityCommand(mock(IntentFactory.class));
 
         // Then
         assertNotNull(cmd);

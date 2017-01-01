@@ -1,5 +1,6 @@
 package com.revents.chronolog.features;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -38,6 +39,13 @@ public class FactsfeedActivity extends AppCompatActivity {
 
     public void addFactClick(View v) {
         mAddFactActivityCommand.execute(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        mAddFactActivityCommand.onResult(requestCode, resultCode, data);
     }
 
     public void setAdapter(BaseAdapter adapter) {

@@ -2,9 +2,8 @@ package com.revents.chronolog.features;
 
 import android.app.Activity;
 
+import com.revents.chronolog.app.ActivityCommand;
 import com.revents.chronolog.db.FactWriter;
-import com.revents.chronolog.features.FactEditor;
-import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.Fact;
 
 import org.junit.Rule;
@@ -28,23 +27,17 @@ public class NewFactActivityCommandTests {
     NewFactActivityCommand sut;
 
     @Mock
-    FactWriter factWriter;
-
-    @Mock
-    FactEditor factEditor;
+    ActivityCommand mSelectFactTypeCommand;
 
     @Test
     public void should_start_FactType_selection_When_execute() {
         // Given
-        Fact expected = mock(Fact.class);
         Activity currentActivity = mock(Activity.class);
-        when(factEditor.newFact(currentActivity))
-                .thenReturn(expected);
 
         // When
         sut.execute(currentActivity);
 
         // Then
-        verify(factWriter).write(expected);
+        verify(mSelectFactTypeCommand).execute(currentActivity);
     }
 }
