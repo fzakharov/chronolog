@@ -7,6 +7,7 @@ import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.FactType;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -73,7 +74,7 @@ public class AppModuleTests {
     @Test
     public void should_create_NewFactActivityCommand_When_provideNewFactActivityCommand() {
         // Given // When
-        NewFactActivityCommand cmd = (NewFactActivityCommand) sut.provideNewFactActivityCommand(mock(IntentFactory.class));
+        NewFactActivityCommand cmd = (NewFactActivityCommand) sut.provideNewFactActivityCommand((ActivityCommand<FactType>) mock(ActivityCommand.class));
 
         // Then
         assertNotNull(cmd);

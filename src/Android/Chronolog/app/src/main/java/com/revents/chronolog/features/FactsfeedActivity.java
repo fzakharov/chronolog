@@ -12,15 +12,16 @@ import com.revents.chronolog.R;
 import com.revents.chronolog.app.ActivityCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.model.Fact;
 
 import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
-    private ActivityCommand mAddFactActivityCommand;
+    private ActivityCommand<Fact> mAddFactActivityCommand;
 
     @Inject
-    public void inject(ActivityCommand addFactActivityCommand) {
+    public void inject(ActivityCommand<Fact> addFactActivityCommand) {
         mAddFactActivityCommand = addFactActivityCommand;
     }
 
@@ -45,7 +46,9 @@ public class FactsfeedActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        mAddFactActivityCommand.onResult(requestCode, resultCode, data);
+        Fact fact = mAddFactActivityCommand.onResult(requestCode, resultCode, data);
+        if (fact != null)
+            setTitle(fact.getStrValue());
     }
 
     public void setAdapter(BaseAdapter adapter) {

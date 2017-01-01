@@ -8,6 +8,8 @@ import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.features.SelectFactTypeActivityCommand;
 import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.model.FactType;
 
 import javax.inject.Singleton;
 
@@ -55,8 +57,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ActivityCommand provideNewFactActivityCommand(IntentFactory intentFactory) {
-        return new NewFactActivityCommand(new SelectFactTypeActivityCommand(intentFactory));
+    public ActivityCommand<FactType> provideSelectFactTypeActivityCommand(IntentFactory intentFactory) {
+        return new SelectFactTypeActivityCommand(intentFactory);
+    }
+
+    @Provides
+    @Singleton
+    public ActivityCommand<Fact> provideNewFactActivityCommand(ActivityCommand<FactType> selectFactTypeCommand) {
+        return new NewFactActivityCommand(selectFactTypeCommand);
     }
 }
 

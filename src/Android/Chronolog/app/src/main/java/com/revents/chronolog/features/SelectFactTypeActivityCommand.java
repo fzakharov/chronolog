@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.model.FactType;
 
-public class SelectFactTypeActivityCommand implements ActivityCommand {
+public class SelectFactTypeActivityCommand implements ActivityCommand<FactType> {
 
     private IntentFactory mIntentFactory;
-    public static final int FACT_TYPE_ID_REQUEST_CODE = 1;
+    public static final int FACT_TYPE_ID_REQUEST_CODE = 100;
 
-    public SelectFactTypeActivityCommand(IntentFactory mIntentFactory) {
-        this.mIntentFactory = mIntentFactory;
+    public SelectFactTypeActivityCommand(IntentFactory intentFactory) {
+        mIntentFactory = intentFactory;
     }
 
     @Override
@@ -21,6 +22,14 @@ public class SelectFactTypeActivityCommand implements ActivityCommand {
     }
 
     @Override
-    public void onResult(int requestCode, int resultCode, Intent data) {
+    public FactType onResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FACT_TYPE_ID_REQUEST_CODE) {
+            long id = data.getLongExtra("FactTypeId", -1);
+
+            if (id >= 0)
+                return new FactType(id, "Fact type yhaa!", "", false, 0, 0);
+        }
+
+        return null;
     }
 }

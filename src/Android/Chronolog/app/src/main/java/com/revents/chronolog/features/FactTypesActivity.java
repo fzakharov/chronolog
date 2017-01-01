@@ -1,5 +1,6 @@
 package com.revents.chronolog.features;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.model.Fact;
+
+import javax.inject.Inject;
 
 public class FactTypesActivity extends AppCompatActivity {
 
@@ -18,15 +23,15 @@ public class FactTypesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    public void addFactTypeClick(View v)
+    {
+        Intent data = new Intent();
+        data.putExtra("FactTypeId", 42l);
+
+        setResult(RESULT_OK, data);
+        finish();
+    }
 }
