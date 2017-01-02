@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.EditFactActivityCommand;
 import com.revents.chronolog.features.NewFactActivityCommand;
+import com.revents.chronolog.features.SelectFactTypeActivityCommand;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.FactType;
 
@@ -75,8 +77,8 @@ public class AppModuleTests {
         // Given // When
         NewFactActivityCommand cmd = (NewFactActivityCommand)
                 sut.provideNewFactActivityCommand(
-                        (ActivityCommand<FactType>) mock(ActivityCommand.class),
-                        mock(ParametrizedActivityCommand.class));
+                        mock(SelectFactTypeActivityCommand.class),
+                        mock(EditFactActivityCommand.class));
 
         // Then
         assertNotNull(cmd);

@@ -1,5 +1,6 @@
 package com.revents.chronolog.app;
 
+import com.revents.chronolog.features.FactTypesActivity;
 import com.revents.chronolog.features.FactsfeedActivity;
 
 import javax.inject.Singleton;
@@ -11,4 +12,6 @@ import dagger.Component;
 public interface AppComponent {
 
     void inject(FactsfeedActivity ffa);
+
+    void inject(FactTypesActivity fta);
 }
