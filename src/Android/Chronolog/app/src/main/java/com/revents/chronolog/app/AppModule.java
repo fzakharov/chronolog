@@ -2,8 +2,11 @@ package com.revents.chronolog.app;
 
 import android.content.Context;
 
+import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
+import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.EditFactActivityCommand;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.features.SelectFactTypeActivityCommand;
@@ -51,20 +54,32 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public FactReader provideFactReader(DaoSession session) {
+        return new GreenDaoFactReader(session);
+    }
+
+    @Provides
+    @Singleton
     public IntentFactory provideIntentFactory() {
         return new DefaultIntentFactory();
     }
 
     @Provides
     @Singleton
-    public ActivityCommand<FactType> provideSelectFactTypeActivityCommand(IntentFactory intentFactory) {
-        return new SelectFactTypeActivityCommand(intentFactory);
+    public ActivityCommand<FactType> provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new SelectFactTypeActivityCommand(intentFactory, factReader);
     }
 
     @Provides
     @Singleton
-    public ActivityCommand<Fact> provideNewFactActivityCommand(ActivityCommand<FactType> selectFactTypeCommand) {
-        return new NewFactActivityCommand(selectFactTypeCommand);
+    public ParametrizedActivityCommand<Fact, FactType> provideEditFactActivityCommand() {
+        return new EditFactActivityCommand();
+    }
+
+    @Provides
+    @Singleton
+    public ActivityCommand<Fact> provideNewFactActivityCommand(ActivityCommand<FactType> selectFactTypeCommand, ParametrizedActivityCommand<Fact, FactType> editFactCommand) {
+        return new NewFactActivityCommand(selectFactTypeCommand, editFactCommand);
     }
 }
 

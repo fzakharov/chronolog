@@ -33,8 +33,8 @@ public class FactsfeedActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        AppComponent appcomp = ((ChronologApp) getApplication()).getAppComponent();
-        appcomp.inject(this);
+        AppComponent appComp = ((ChronologApp) getApplication()).getAppComponent();
+        appComp.inject(this);
 
     }
 
@@ -46,7 +46,7 @@ public class FactsfeedActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fact fact = mAddFactActivityCommand.onResult(requestCode, resultCode, data);
+        Fact fact = mAddFactActivityCommand.onResult(this, requestCode, resultCode, data);
         if (fact != null)
             setTitle(fact.getStrValue());
     }

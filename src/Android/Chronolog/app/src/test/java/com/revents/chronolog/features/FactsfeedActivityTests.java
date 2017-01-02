@@ -92,7 +92,7 @@ public class FactsfeedActivityTests {
                 resultIntent);
 
         // Then
-        verify(addFactActivityCommand).onResult(requestCode, resultCode, resultIntent);
+        verify(addFactActivityCommand).onResult(sut, requestCode, resultCode, resultIntent);
     }
 
     @Test

@@ -4,15 +4,20 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
 
+import static android.app.Activity.RESULT_OK;
+
 public class SelectFactTypeActivityCommand implements ActivityCommand<FactType> {
-
-    private IntentFactory mIntentFactory;
     public static final int FACT_TYPE_ID_REQUEST_CODE = 100;
+    public static final String FACT_TYPE_ID_EXTRA_NAME = "SelectedFactTypeId";
+    private IntentFactory mIntentFactory;
+    private FactReader mFactReader;
 
-    public SelectFactTypeActivityCommand(IntentFactory intentFactory) {
+    public SelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
         mIntentFactory = intentFactory;
+        mFactReader = factReader;
     }
 
     @Override
@@ -22,13 +27,18 @@ public class SelectFactTypeActivityCommand implements ActivityCommand<FactType> 
     }
 
     @Override
-    public FactType onResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == FACT_TYPE_ID_REQUEST_CODE) {
-            long id = data.getLongExtra("FactTypeId", -1);
+    public FactType onResult(Activity activity, int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK)
+            return null;
 
-            if (id >= 0)
-                return new FactType(id, "Fact type yhaa!", "", false, 0, 0);
-        }
+        if (requestCode != FACT_TYPE_ID_REQUEST_CODE)
+            return null;
+
+        long id = data.getLongExtra(FACT_TYPE_ID_EXTRA_NAME, -1);
+
+        if (id >= 0)
+            return mFactReader.loadFactType(id);
+
 
         return null;
     }
