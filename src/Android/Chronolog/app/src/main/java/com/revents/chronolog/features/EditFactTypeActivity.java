@@ -1,4 +1,4 @@
-package com.revents.chronolog;
+package com.revents.chronolog.features;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.revents.chronolog.R;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.model.DaoSession;
 
 public class EditFactTypeActivity extends AppCompatActivity {
 
+    public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
     private DaoSession daoSession;
 
     @Override

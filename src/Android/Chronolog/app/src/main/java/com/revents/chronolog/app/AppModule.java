@@ -85,8 +85,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ActivityCommand<FactType> provideNewFactTypeActivityCommand() {
-        return new NewFactTypeActivityCommand();
+    public ActivityCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new NewFactTypeActivityCommand(intentFactory, factReader);
     }
 }
 

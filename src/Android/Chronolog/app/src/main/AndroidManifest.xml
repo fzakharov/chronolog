@@ -14,7 +14,7 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".FactTypesListActivity" />
-        <activity android:name=".EditFactTypeActivity" />
+        <activity android:name=".features.EditFactTypeActivity" />
         <activity android:name=".EditFactActivity" />
         <activity
             android:name=".features.FactsfeedActivity"
