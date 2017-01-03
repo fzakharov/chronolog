@@ -11,9 +11,13 @@ import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactActivityCommand;
 import com.revents.chronolog.features.NewFactTypeActivityCommand;
 import com.revents.chronolog.features.SelectFactTypeActivityCommand;
+import com.revents.chronolog.features.SelectFactTypeGroupActivityCommand;
+import com.revents.chronolog.features.SelectValueDescriptorActivityCommand;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.FactTypeGroup;
+import com.revents.chronolog.model.ValueDescriptor;
 
 import javax.inject.Singleton;
 
@@ -87,6 +91,18 @@ public class AppModule {
     @Singleton
     public ActivityCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
         return new NewFactTypeActivityCommand(intentFactory, factReader);
+    }
+
+    @Provides
+    @Singleton
+    public ActivityCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand() {
+        return new SelectFactTypeGroupActivityCommand();
+    }
+
+    @Provides
+    @Singleton
+    public ActivityCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand() {
+        return new SelectValueDescriptorActivityCommand();
     }
 }
 

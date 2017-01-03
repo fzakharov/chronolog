@@ -1,5 +1,6 @@
 package com.revents.chronolog.app;
 
+import com.revents.chronolog.features.EditFactTypeActivity;
 import com.revents.chronolog.features.FactTypesActivity;
 import com.revents.chronolog.features.FactsfeedActivity;
 
@@ -14,4 +15,6 @@ public interface AppComponent {
     void inject(FactsfeedActivity ffa);
 
     void inject(FactTypesActivity fta);
+
+    void inject(EditFactTypeActivity efta);
 }

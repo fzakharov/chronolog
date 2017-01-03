@@ -17,6 +17,8 @@ import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.DaoSession;
+import com.revents.chronolog.model.FactTypeGroup;
+import com.revents.chronolog.model.ValueDescriptor;
 
 import org.junit.Before;
 import org.junit.Test;
