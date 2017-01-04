@@ -33,6 +33,7 @@ public class ExampleInstrumentedTest {
 
         Click(R.id.addFactFab);
         Click(R.id.addFactTypeFab);
+        Click(R.id.selectGroupBtn);
     }
 
     private void Click(final int id)

@@ -7,6 +7,8 @@ import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.EditFactActivityCommand;
+import com.revents.chronolog.features.FactTypeGroupIntentExtractor;
+import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.NewFactUiCommand;
 import com.revents.chronolog.features.NewFactTypeUiCommand;
@@ -95,8 +97,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public UiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand() {
-        return new SelectFactTypeGroupUiCommand();
+    public IntentExtractor<FactTypeGroup> provideIntentExtractorFactTypeGroup(FactReader factReader) {
+        return new FactTypeGroupIntentExtractor(factReader);
+    }
+
+    @Provides
+    @Singleton
+    public UiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+        return new SelectFactTypeGroupUiCommand(intentFactory, extractor);
     }
 
     @Provides

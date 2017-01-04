@@ -11,8 +11,6 @@ import com.revents.chronolog.R;
 
 public class FactTypeGroupsActivity extends AppCompatActivity {
 
-    public static final int FACT_TYPE_GROUP_ID_REQUEST_CODE = 300;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

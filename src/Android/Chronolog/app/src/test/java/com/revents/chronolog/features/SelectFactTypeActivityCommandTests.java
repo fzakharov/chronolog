@@ -20,6 +20,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+// TODO: 04.01.2017 Clean tests with new dependencies. And remove copypaste with other tests
 public class SelectFactTypeActivityCommandTests {
 
     @Rule
@@ -37,12 +38,10 @@ public class SelectFactTypeActivityCommandTests {
     @Test
     public void should_start_FactTypesActivity_When_execute() {
         // Given
-        int expectedReqCode = SelectFactTypeUiCommand.FACT_TYPE_ID_REQUEST_CODE;
-        Class<FactTypesActivity> factTypesActivityClass = FactTypesActivity.class;
         Activity currentActivity = mock(Activity.class);
         Intent expectedIntent = mock(Intent.class);
 
-        when(mIntentFactory.Create(currentActivity, factTypesActivityClass))
+        when(mIntentFactory.Create(currentActivity, FactTypesActivity.class))
                 .thenReturn(expectedIntent);
 
         // When
@@ -50,7 +49,7 @@ public class SelectFactTypeActivityCommandTests {
 
         // Then
         verify(currentActivity)
-                .startActivityForResult(expectedIntent, expectedReqCode);
+                .startActivityForResult(expectedIntent, SelectFactTypeUiCommand.FACT_TYPE_ID_REQUEST_CODE);
     }
 
     @Test

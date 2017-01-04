@@ -1,19 +1,14 @@
 package com.revents.chronolog.features;
 
-import android.app.Activity;
-import android.content.Intent;
-
-import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.model.FactTypeGroup;
 
-public class SelectFactTypeGroupUiCommand implements UiCommand<FactTypeGroup> {
-    @Override
-    public void execute(Activity activity) {
+public class SelectFactTypeGroupUiCommand extends ResultUiCommand<FactTypeGroup> {
+    public static final int FACT_TYPE_GROUP_ID_REQUEST_CODE = 300;
 
-    }
-
-    @Override
-    public FactTypeGroup onResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        return null;
+    public SelectFactTypeGroupUiCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+        super(FactTypeGroupsActivity.class,
+                FACT_TYPE_GROUP_ID_REQUEST_CODE,
+                extractor,
+                intentFactory);
     }
 }
