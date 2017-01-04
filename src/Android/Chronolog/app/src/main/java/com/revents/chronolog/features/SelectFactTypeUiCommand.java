@@ -3,19 +3,19 @@ package com.revents.chronolog.features;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
 
 import static android.app.Activity.RESULT_OK;
 
-public class SelectFactTypeActivityCommand implements ActivityCommand<FactType> {
+public class SelectFactTypeUiCommand implements UiCommand<FactType> {
     public static final int FACT_TYPE_ID_REQUEST_CODE = 100;
     public static final String FACT_TYPE_ID_EXTRA_NAME = "SelectedFactTypeId";
     private IntentFactory mIntentFactory;
     private FactReader mFactReader;
 
-    public SelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+    public SelectFactTypeUiCommand(IntentFactory intentFactory, FactReader factReader) {
         mIntentFactory = intentFactory;
         mFactReader = factReader;
     }

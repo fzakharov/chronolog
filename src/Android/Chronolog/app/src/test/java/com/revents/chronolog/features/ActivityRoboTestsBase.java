@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.revents.chronolog.BuildConfig;
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.FakeChronologApp;
 
 import org.junit.runner.RunWith;
@@ -25,7 +25,7 @@ public abstract class ActivityRoboTestsBase<T extends Activity> {
     protected T sut;
     protected ActivityController<T> sutBuilder;
 
-    protected void should_execute_When_click_test_case(@IdRes int id, ActivityCommand command)
+    protected void should_execute_When_click_test_case(@IdRes int id, UiCommand command)
     {
         // Given
         Button btn = (Button) viewById(id);

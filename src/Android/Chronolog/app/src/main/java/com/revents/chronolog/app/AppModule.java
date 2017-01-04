@@ -8,11 +8,11 @@ import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.EditFactActivityCommand;
 import com.revents.chronolog.features.IntentFactory;
-import com.revents.chronolog.features.NewFactActivityCommand;
-import com.revents.chronolog.features.NewFactTypeActivityCommand;
-import com.revents.chronolog.features.SelectFactTypeActivityCommand;
-import com.revents.chronolog.features.SelectFactTypeGroupActivityCommand;
-import com.revents.chronolog.features.SelectValueDescriptorActivityCommand;
+import com.revents.chronolog.features.NewFactUiCommand;
+import com.revents.chronolog.features.NewFactTypeUiCommand;
+import com.revents.chronolog.features.SelectFactTypeUiCommand;
+import com.revents.chronolog.features.SelectFactTypeGroupUiCommand;
+import com.revents.chronolog.features.SelectValueDescriptorUiCommand;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
@@ -71,8 +71,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public SelectFactTypeActivityCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new SelectFactTypeActivityCommand(intentFactory, factReader);
+    public SelectFactTypeUiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new SelectFactTypeUiCommand(intentFactory, factReader);
     }
 
     @Provides
@@ -83,26 +83,26 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ActivityCommand<Fact> provideNewFactActivityCommand(SelectFactTypeActivityCommand selectFactTypeCommand, EditFactActivityCommand editFactCommand) {
-        return new NewFactActivityCommand(selectFactTypeCommand, editFactCommand);
+    public UiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeUiCommand selectFactTypeCommand, EditFactActivityCommand editFactCommand) {
+        return new NewFactUiCommand(selectFactTypeCommand, editFactCommand);
     }
 
     @Provides
     @Singleton
-    public ActivityCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new NewFactTypeActivityCommand(intentFactory, factReader);
+    public UiCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new NewFactTypeUiCommand(intentFactory, factReader);
     }
 
     @Provides
     @Singleton
-    public ActivityCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand() {
-        return new SelectFactTypeGroupActivityCommand();
+    public UiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand() {
+        return new SelectFactTypeGroupUiCommand();
     }
 
     @Provides
     @Singleton
-    public ActivityCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand() {
-        return new SelectValueDescriptorActivityCommand();
+    public UiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand() {
+        return new SelectValueDescriptorUiCommand();
     }
 }
 

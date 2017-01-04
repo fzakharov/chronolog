@@ -3,13 +3,11 @@ package com.revents.chronolog.features;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.ParametrizedActivityCommand;
-import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -29,10 +27,10 @@ public class NewFactActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    NewFactActivityCommand sut;
+    NewFactUiCommand sut;
 
     @Mock
-    ActivityCommand<FactType> mSelectFactTypeCommand;
+    UiCommand<FactType> mSelectFactTypeCommand;
 
     @Mock
     ParametrizedActivityCommand<Fact, FactType> mEditFactCommand;

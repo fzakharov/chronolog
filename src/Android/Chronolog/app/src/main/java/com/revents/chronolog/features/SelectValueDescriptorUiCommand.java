@@ -3,10 +3,10 @@ package com.revents.chronolog.features;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.model.ValueDescriptor;
 
-public class SelectValueDescriptorActivityCommand implements ActivityCommand<ValueDescriptor> {
+public class SelectValueDescriptorUiCommand implements UiCommand<ValueDescriptor> {
     @Override
     public void execute(Activity activity) {
 

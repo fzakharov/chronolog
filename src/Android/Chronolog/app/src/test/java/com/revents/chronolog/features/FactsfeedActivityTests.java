@@ -9,16 +9,10 @@ import android.widget.ListView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.AppComponent;
-import com.revents.chronolog.app.AppModule;
 import com.revents.chronolog.app.ChronologApp;
-import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.FakeChronologApp;
-import com.revents.chronolog.db.FactWriter;
-import com.revents.chronolog.model.DaoSession;
-import com.revents.chronolog.model.FactTypeGroup;
-import com.revents.chronolog.model.ValueDescriptor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,11 +28,9 @@ import org.robolectric.util.ActivityController;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -47,13 +39,13 @@ import static org.robolectric.Shadows.shadowOf;
         application = FakeChronologApp.class)
 public class FactsfeedActivityTests {
 
-    private ActivityCommand addFactActivityCommand;
+    private UiCommand addFactUiCommand;
     private FactsfeedActivity sut;
     private ActivityController<FactsfeedActivity> sutBuilder;
 
     @Before
     public void setUp() throws Exception {
-        addFactActivityCommand = mock(ActivityCommand.class);
+        addFactUiCommand = mock(UiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(FactsfeedActivity.class);
         sut = sutBuilder.get();
@@ -71,7 +63,7 @@ public class FactsfeedActivityTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(addFactActivityCommand);
+                activity.inject(addFactUiCommand);
                 return null;
             }
         }).when(cmp).inject(sut);
@@ -94,7 +86,7 @@ public class FactsfeedActivityTests {
                 resultIntent);
 
         // Then
-        verify(addFactActivityCommand).onResult(sut, requestCode, resultCode, resultIntent);
+        verify(addFactUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
     }
 
     @Test
@@ -119,7 +111,7 @@ public class FactsfeedActivityTests {
         addBtn.performClick();
 
         // Then
-        verify(addFactActivityCommand).execute(sut);
+        verify(addFactUiCommand).execute(sut);
     }
 
     private <T> T viewById(@IdRes int id) {

@@ -19,7 +19,7 @@ public class SelectFactTypeGroupActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    SelectFactTypeGroupActivityCommand sut;
+    SelectFactTypeGroupUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;

@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.model.Fact;
@@ -18,11 +18,11 @@ import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity {
 
-    private ActivityCommand<Fact> mAddFactActivityCommand;
+    private UiCommand<Fact> mAddFactUiCommand;
 
     @Inject
-    public void inject(ActivityCommand<Fact> addFactActivityCommand) {
-        mAddFactActivityCommand = addFactActivityCommand;
+    public void inject(UiCommand<Fact> addFactUiCommand) {
+        mAddFactUiCommand = addFactUiCommand;
     }
 
     @Override
@@ -39,14 +39,14 @@ public class FactsfeedActivity extends AppCompatActivity {
     }
 
     public void addFactClick(View v) {
-        mAddFactActivityCommand.execute(this);
+        mAddFactUiCommand.execute(this);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fact fact = mAddFactActivityCommand.onResult(this, requestCode, resultCode, data);
+        Fact fact = mAddFactUiCommand.onResult(this, requestCode, resultCode, data);
         if (fact != null)
             setTitle(fact.getStrValue());
     }

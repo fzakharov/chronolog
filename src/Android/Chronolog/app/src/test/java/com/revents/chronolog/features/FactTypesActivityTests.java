@@ -7,7 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.FakeChronologApp;
@@ -37,12 +37,12 @@ import static org.robolectric.Shadows.shadowOf;
 public class FactTypesActivityTests {
     private FactTypesActivity sut;
     private ActivityController<FactTypesActivity> sutBuilder;
-    private ActivityCommand<FactType> mAddFactTypeActivityCommand;
+    private UiCommand<FactType> mAddFactTypeUiCommand;
 
     @Before
     public void setUp() throws Exception {
 
-        mAddFactTypeActivityCommand = (ActivityCommand<FactType>) mock(ActivityCommand.class);
+        mAddFactTypeUiCommand = (UiCommand<FactType>) mock(UiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(FactTypesActivity.class);
         sut = sutBuilder.get();
@@ -69,7 +69,7 @@ public class FactTypesActivityTests {
                 resultIntent);
 
         // Then
-        verify(mAddFactTypeActivityCommand).onResult(sut, requestCode, resultCode, resultIntent);
+        verify(mAddFactTypeUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class FactTypesActivityTests {
         addBtn.performClick();
 
         // Then
-        verify(mAddFactTypeActivityCommand).execute(sut);
+        verify(mAddFactTypeUiCommand).execute(sut);
     }
 
     private <T> T viewById(@IdRes int id) {
@@ -96,7 +96,7 @@ public class FactTypesActivityTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(mAddFactTypeActivityCommand);
+                activity.inject(mAddFactTypeUiCommand);
                 return null;
             }
         }).when(cmp).inject(sut);

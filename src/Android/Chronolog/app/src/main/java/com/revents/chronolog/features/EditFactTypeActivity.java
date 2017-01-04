@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.ActivityCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.model.FactTypeGroup;
@@ -19,11 +19,11 @@ import javax.inject.Inject;
 public class EditFactTypeActivity extends AppCompatActivity {
 
     public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
-    private ActivityCommand<FactTypeGroup> mSelectFactTypeGroup;
-    private ActivityCommand<ValueDescriptor> mSelectValueDescriptor;
+    private UiCommand<FactTypeGroup> mSelectFactTypeGroup;
+    private UiCommand<ValueDescriptor> mSelectValueDescriptor;
 
     @Inject
-    public void inject(ActivityCommand<FactTypeGroup> selectFactTypeGroupCommand, ActivityCommand<ValueDescriptor> selectValueDescriptorCommand) {
+    public void inject(UiCommand<FactTypeGroup> selectFactTypeGroupCommand, UiCommand<ValueDescriptor> selectValueDescriptorCommand) {
         mSelectFactTypeGroup = selectFactTypeGroupCommand;
         mSelectValueDescriptor = selectValueDescriptorCommand;
     }

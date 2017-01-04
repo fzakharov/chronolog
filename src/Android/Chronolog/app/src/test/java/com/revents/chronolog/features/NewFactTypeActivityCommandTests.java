@@ -25,7 +25,7 @@ public class NewFactTypeActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    NewFactTypeActivityCommand sut;
+    NewFactTypeUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -47,7 +47,7 @@ public class NewFactTypeActivityCommandTests {
 
         // Then
         verify(currentActivity)
-                .startActivityForResult(data, NewFactTypeActivityCommand.NEW_FACT_TYPE_REQUEST_CODE);
+                .startActivityForResult(data, NewFactTypeUiCommand.NEW_FACT_TYPE_REQUEST_CODE);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class NewFactTypeActivityCommandTests {
         // When
         FactType actual = sut.onResult(
                 currentActivity,
-                NewFactTypeActivityCommand.NEW_FACT_TYPE_REQUEST_CODE,
+                NewFactTypeUiCommand.NEW_FACT_TYPE_REQUEST_CODE,
                 RESULT_OK,
                 data);
 

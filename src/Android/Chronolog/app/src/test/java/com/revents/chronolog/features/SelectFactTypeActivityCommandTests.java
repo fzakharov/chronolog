@@ -26,7 +26,7 @@ public class SelectFactTypeActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    SelectFactTypeActivityCommand sut;
+    SelectFactTypeUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -37,7 +37,7 @@ public class SelectFactTypeActivityCommandTests {
     @Test
     public void should_start_FactTypesActivity_When_execute() {
         // Given
-        int expectedReqCode = SelectFactTypeActivityCommand.FACT_TYPE_ID_REQUEST_CODE;
+        int expectedReqCode = SelectFactTypeUiCommand.FACT_TYPE_ID_REQUEST_CODE;
         Class<FactTypesActivity> factTypesActivityClass = FactTypesActivity.class;
         Activity currentActivity = mock(Activity.class);
         Intent expectedIntent = mock(Intent.class);
@@ -74,14 +74,14 @@ public class SelectFactTypeActivityCommandTests {
         long factTypeId = 42;
 
         Intent data = mock(Intent.class);
-        when(data.getLongExtra(SelectFactTypeActivityCommand.FACT_TYPE_ID_EXTRA_NAME, -1))
+        when(data.getLongExtra(SelectFactTypeUiCommand.FACT_TYPE_ID_EXTRA_NAME, -1))
                 .thenReturn(factTypeId);
 
         when(mFactReader.loadFactType(factTypeId))
                 .thenReturn(expected);
 
         // When
-        FactType actual = sut.onResult(currentActivity, SelectFactTypeActivityCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
+        FactType actual = sut.onResult(currentActivity, SelectFactTypeUiCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
 
         // Then
         assertEquals(expected, actual);
