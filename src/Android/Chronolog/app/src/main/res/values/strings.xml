@@ -4,4 +4,5 @@
     <string name="title_activity_fact_types">Создать событие</string>
     <string name="title_activity_edit_fact_type">Тип события</string>
     <string name="title_activity_fact_type_groups">FactTypeGroupsActivity</string>
+    <string name="title_activity_value_descriptors">ValueDescriptorsActivity</string>
 </resources>

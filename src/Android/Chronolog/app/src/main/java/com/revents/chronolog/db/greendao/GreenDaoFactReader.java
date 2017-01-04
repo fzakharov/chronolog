@@ -4,6 +4,7 @@ import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
+import com.revents.chronolog.model.ValueDescriptor;
 
 // TODO: 04.01.2017 Tests
 public class GreenDaoFactReader implements FactReader {
@@ -23,5 +24,10 @@ public class GreenDaoFactReader implements FactReader {
     @Override
     public FactTypeGroup loadFactTypeGroup(long id) {
         return mSession.getFactTypeGroupDao().load(id);
+    }
+
+    @Override
+    public ValueDescriptor loadValueDescriptor(long id) {
+        return mSession.getValueDescriptorDao().load(id);
     }
 }

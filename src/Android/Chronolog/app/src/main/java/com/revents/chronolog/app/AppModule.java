@@ -15,6 +15,7 @@ import com.revents.chronolog.features.NewFactTypeUiCommand;
 import com.revents.chronolog.features.SelectFactTypeUiCommand;
 import com.revents.chronolog.features.SelectFactTypeGroupUiCommand;
 import com.revents.chronolog.features.SelectValueDescriptorUiCommand;
+import com.revents.chronolog.features.ValueDescriptorIntentExtractor;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
@@ -103,14 +104,20 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public IntentExtractor<ValueDescriptor> provideIntentExtractorValueDescriptor(FactReader factReader) {
+        return new ValueDescriptorIntentExtractor(factReader);
+    }
+
+    @Provides
+    @Singleton
     public UiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
         return new SelectFactTypeGroupUiCommand(intentFactory, extractor);
     }
 
     @Provides
     @Singleton
-    public UiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand() {
-        return new SelectValueDescriptorUiCommand();
+    public UiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
+        return new SelectValueDescriptorUiCommand(intentFactory, intentExtractor);
     }
 }
 

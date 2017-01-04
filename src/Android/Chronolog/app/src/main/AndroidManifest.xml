@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".FactsViewActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FactTypesListActivity" />
         <activity android:name=".EditFactActivity" />
         <activity
@@ -45,6 +45,15 @@
         <activity
             android:name=".features.FactTypeGroupsActivity"
             android:label="@string/title_activity_fact_type_groups"
+            android:parentActivityName=".features.EditFactTypeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.revents.chronolog.features.EditFactTypeActivity" />
+        </activity>
+        <activity
+            android:name=".features.ValueDescriptorsActivity"
+            android:label="@string/title_activity_value_descriptors"
             android:parentActivityName=".features.EditFactTypeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

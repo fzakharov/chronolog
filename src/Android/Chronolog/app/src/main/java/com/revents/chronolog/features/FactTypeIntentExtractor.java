@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.ValueDescriptor;
 
 public class FactTypeIntentExtractor implements IntentExtractor<FactType>
 {
@@ -20,3 +21,4 @@ public class FactTypeIntentExtractor implements IntentExtractor<FactType>
         return mFactReader.loadFactType(id);
     }
 }
+
