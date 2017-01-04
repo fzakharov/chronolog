@@ -70,7 +70,7 @@ public class NewFactTypeActivityCommandTests {
         long factTypeId = 42l;
 
         Intent data = mock(Intent.class);
-        when(data.getLongExtra(EditFactTypeActivity.FACT_TYPE_ID_EXTRA_NAME, -1))
+        when(data.getLongExtra(FactTypeIntentExtractor.FACT_TYPE_ID_EXTRA_NAME, -1))
                 .thenReturn(factTypeId);
 
         FactType expected = new FactType();

@@ -74,7 +74,7 @@ public class SelectFactTypeActivityCommandTests {
         long factTypeId = 42;
 
         Intent data = mock(Intent.class);
-        when(data.getLongExtra(SelectFactTypeUiCommand.FACT_TYPE_ID_EXTRA_NAME, -1))
+        when(data.getLongExtra(FactTypeIntentExtractor.FACT_TYPE_ID_EXTRA_NAME, -1))
                 .thenReturn(factTypeId);
 
         when(mFactReader.loadFactType(factTypeId))

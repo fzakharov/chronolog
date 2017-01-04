@@ -12,22 +12,13 @@ import java.util.Date;
 
 public class EditFactActivityCommand implements ParametrizedActivityCommand<Fact, FactType> {
 
-    public static final int EDIT_FACT_REQUEST_CODE = 200;
-
     @Override
     public void execute(Activity current, FactType factType) {
-        Intent intent = new Intent(current, EditFactActivity.class);
-        current.startActivityForResult(intent, EDIT_FACT_REQUEST_CODE);
+        throw new UnsupportedOperationException("Implement");
     }
 
     @Override
     public Fact onResult(Activity activity, int requestCode, int resultCode, Intent data) {
-        if (requestCode == EDIT_FACT_REQUEST_CODE) {
-            String str = data.getStringExtra("FactStrValue");
-
-            return new Fact(42l, new Date(), new Date(), 22l, str, 22l);
-        }
-
-        return null;
+        throw new UnsupportedOperationException("Implement");
     }
 }

@@ -37,7 +37,7 @@ import static org.robolectric.Shadows.shadowOf;
 @Config(constants = BuildConfig.class,
         sdk = LOLLIPOP,
         application = FakeChronologApp.class)
-public class FactsfeedActivityTests {
+public class FactsfeedActivityRoboTests {
 
     private UiCommand addFactUiCommand;
     private FactsfeedActivity sut;

@@ -18,7 +18,6 @@ import javax.inject.Inject;
 
 public class EditFactTypeActivity extends AppCompatActivity {
 
-    public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
     private UiCommand<FactTypeGroup> mSelectFactTypeGroup;
     private UiCommand<ValueDescriptor> mSelectValueDescriptor;
 
