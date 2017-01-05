@@ -1,24 +1,18 @@
 package com.revents.chronolog.features;
 
-import android.content.Intent;
-
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
-import com.revents.chronolog.model.ValueDescriptor;
 
-public class FactTypeIntentExtractor implements IntentExtractor<FactType>
-{
+public class FactTypeIntentExtractor extends LoadByIdIntentExtractorBase<FactType> {
     public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
-    private final FactReader mFactReader;
 
-    public FactTypeIntentExtractor(FactReader factReader){
-        mFactReader = factReader;
+    public FactTypeIntentExtractor(FactReader factReader) {
+        super(FACT_TYPE_ID_EXTRA_NAME, factReader);
     }
 
     @Override
-    public FactType extract(Intent data) {
-        long id = data.getLongExtra(FACT_TYPE_ID_EXTRA_NAME, -1);
-        return mFactReader.loadFactType(id);
+    protected FactType loadFrom(FactReader factReader, long id) {
+        return factReader.loadFactType(id);
     }
 }
 
