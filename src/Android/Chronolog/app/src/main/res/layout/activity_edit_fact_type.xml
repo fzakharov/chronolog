@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.revents.chronolog.features.EditFactTypeActivity">
+    tools:context="com.revents.chronolog.features.type.EditFactTypeActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

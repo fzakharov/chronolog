@@ -1,20 +1,16 @@
 package com.revents.chronolog;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.revents.chronolog.features.FactsfeedActivity;
+import com.revents.chronolog.features.feed.FactsfeedActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import static org.junit.Assert.*;
 
 /**
  * Instrumentation test, which will execute on an Android device.
@@ -29,11 +25,21 @@ public class ExampleInstrumentedTest {
             FactsfeedActivity.class);
 
     @Test
-    public void useAppContext() throws Exception {
+    public void should_select_group() throws Exception {
 
         Click(R.id.addFactFab);
         Click(R.id.addFactTypeFab);
         Click(R.id.selectGroupBtn);
+        Click(R.id.addFactTypeGroupFab);
+    }
+
+    @Test
+    public void should_select_value_type() throws Exception {
+
+        Click(R.id.addFactFab);
+        Click(R.id.addFactTypeFab);
+        Click(R.id.selectValueDescriptorBtn);
+        Click(R.id.addValueDescriptorFab);
     }
 
     private void Click(final int id)

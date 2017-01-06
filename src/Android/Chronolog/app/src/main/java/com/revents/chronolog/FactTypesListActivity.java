@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.revents.chronolog.app.ChronologApp;
-import com.revents.chronolog.features.EditFactTypeActivity;
+import com.revents.chronolog.features.type.EditFactTypeActivity;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.FactTypeDao;
 

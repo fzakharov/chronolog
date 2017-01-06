@@ -15,7 +15,7 @@
         <activity android:name=".FactTypesListActivity" />
         <activity android:name=".EditFactActivity" />
         <activity
-            android:name=".features.FactsfeedActivity"
+            android:name=".features.feed.FactsfeedActivity"
             android:label="@string/title_activity_factsfeed"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -25,40 +25,58 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".features.FactTypesActivity"
+            android:name=".features.type.FactTypesActivity"
             android:label="@string/title_activity_fact_types"
-            android:parentActivityName=".features.FactsfeedActivity"
+            android:parentActivityName=".features.feed.FactsfeedActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.FactsfeedActivity" />
+                android:value="com.revents.chronolog.features.feed.FactsfeedActivity" />
         </activity>
         <activity
-            android:name=".features.EditFactTypeActivity"
+            android:name=".features.type.EditFactTypeActivity"
             android:label="@string/title_activity_edit_fact_type"
-            android:parentActivityName=".features.FactTypesActivity"
+            android:parentActivityName=".features.type.FactTypesActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.FactTypesActivity" />
+                android:value="com.revents.chronolog.features.type.FactTypesActivity" />
         </activity>
         <activity
-            android:name=".features.FactTypeGroupsActivity"
+            android:name=".features.group.FactTypeGroupsActivity"
             android:label="@string/title_activity_fact_type_groups"
-            android:parentActivityName=".features.EditFactTypeActivity"
+            android:parentActivityName=".features.type.EditFactTypeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.EditFactTypeActivity" />
+                android:value="com.revents.chronolog.features.type.EditFactTypeActivity" />
         </activity>
         <activity
-            android:name=".features.ValueDescriptorsActivity"
+            android:name=".features.value.ValueDescriptorsActivity"
             android:label="@string/title_activity_value_descriptors"
-            android:parentActivityName=".features.EditFactTypeActivity"
+            android:parentActivityName=".features.type.EditFactTypeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.EditFactTypeActivity" />
+                android:value="com.revents.chronolog.features.type.EditFactTypeActivity" />
+        </activity>
+        <activity
+            android:name=".features.group.EditFactTypeGroupActivity"
+            android:label="@string/title_activity_edit_fact_type_group"
+            android:parentActivityName=".features.group.FactTypeGroupsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.revents.chronolog.features.group.FactTypeGroupsActivity" />
+        </activity>
+        <activity
+            android:name=".features.value.ValueTypesActivity"
+            android:label="@string/title_activity_value_types"
+            android:parentActivityName=".features.value.ValueDescriptorsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.revents.chronolog.features.value.ValueDescriptorsActivity" />
         </activity>
     </application>
 
