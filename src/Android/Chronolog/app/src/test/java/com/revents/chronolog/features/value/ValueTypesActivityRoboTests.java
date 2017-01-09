@@ -10,6 +10,7 @@ import com.revents.chronolog.features.HeadedLvItem;
 import com.revents.chronolog.features.value.ValueType;
 import com.revents.chronolog.features.value.ValueTypesActivity;
 import com.revents.chronolog.features.value.ValueTypesProvider;
+import com.ximpleware.xpath.UnsupportedException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,10 +46,11 @@ public class ValueTypesActivityRoboTests extends ActivityRoboTestsBase<ValueType
     }
 
     @Test
-    public void should() {
+    public void should_XXX_When_item_clicked() {
         // Given
 
         // When
+        throw new UnsupportedOperationException();
 
         // Then
     }
