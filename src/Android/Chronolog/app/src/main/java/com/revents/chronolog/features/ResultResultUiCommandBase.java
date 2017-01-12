@@ -3,14 +3,12 @@ package com.revents.chronolog.features;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.revents.chronolog.app.UiCommand;
-
 import static android.app.Activity.RESULT_OK;
 
-public abstract class ResultUiCommandBase<T> implements UiCommand<T> {
+public abstract class ResultResultUiCommandBase<T> implements com.revents.chronolog.app.ResultUiCommand<T> {
     private IntentFactory mIntentFactory;
 
-    protected ResultUiCommandBase(IntentFactory intentFactory) {
+    protected ResultResultUiCommandBase(IntentFactory intentFactory) {
         mIntentFactory = intentFactory;
     }
 

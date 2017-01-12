@@ -8,6 +8,7 @@ import android.widget.ListView;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.features.HeadedItemsListAdapter;
 import com.revents.chronolog.features.HeadedLvItem;
 

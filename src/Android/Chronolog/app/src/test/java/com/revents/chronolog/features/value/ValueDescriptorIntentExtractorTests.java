@@ -3,7 +3,6 @@ package com.revents.chronolog.features.value;
 import android.content.Intent;
 
 import com.revents.chronolog.db.FactReader;
-import com.revents.chronolog.features.value.ValueDescriptorIntentExtractor;
 import com.revents.chronolog.model.ValueDescriptor;
 
 import org.junit.Rule;

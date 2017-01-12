@@ -2,8 +2,6 @@ package com.revents.chronolog.features.group;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -11,8 +9,7 @@ import android.view.View;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
-import com.revents.chronolog.app.UiCommand;
-import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.model.FactTypeGroup;
 
 import javax.inject.Inject;
@@ -20,19 +17,19 @@ import javax.inject.Named;
 
 public class FactTypeGroupsActivity extends AppCompatActivity {
 
-    private UiCommand<FactTypeGroup> mAddFactTypeGroupUiCommand;
+    private ResultUiCommand<FactTypeGroup> mAddFactTypeGroupResultUiCommand;
 
     @Inject
-    public void inject(@Named("New") UiCommand<FactTypeGroup> addFactTypeGroupUiCommand) {
+    public void inject(@Named("New") ResultUiCommand<FactTypeGroup> addFactTypeGroupResultUiCommand) {
 
-        mAddFactTypeGroupUiCommand = addFactTypeGroupUiCommand;
+        mAddFactTypeGroupResultUiCommand = addFactTypeGroupResultUiCommand;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        mAddFactTypeGroupUiCommand.onResult(this, requestCode, resultCode, data);
+        mAddFactTypeGroupResultUiCommand.onResult(this, requestCode, resultCode, data);
     }
 
     @Override
@@ -49,6 +46,6 @@ public class FactTypeGroupsActivity extends AppCompatActivity {
     }
 
     public void addFactTypeGroupClick(View v) {
-        mAddFactTypeGroupUiCommand.execute(this);
+        mAddFactTypeGroupResultUiCommand.execute(this);
     }
 }

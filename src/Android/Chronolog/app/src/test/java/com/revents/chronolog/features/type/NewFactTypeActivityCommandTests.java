@@ -5,9 +5,6 @@ import android.content.Intent;
 
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.features.IntentFactory;
-import com.revents.chronolog.features.type.EditFactTypeActivity;
-import com.revents.chronolog.features.type.FactTypeIntentExtractor;
-import com.revents.chronolog.features.type.NewFactTypeUiCommand;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Rule;
@@ -29,7 +26,7 @@ public class NewFactTypeActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    NewFactTypeUiCommand sut;
+    NewFactTypeResultUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -51,7 +48,7 @@ public class NewFactTypeActivityCommandTests {
 
         // Then
         verify(currentActivity)
-                .startActivityForResult(data, NewFactTypeUiCommand.NEW_FACT_TYPE_REQUEST_CODE);
+                .startActivityForResult(data, NewFactTypeResultUiCommand.NEW_FACT_TYPE_REQUEST_CODE);
     }
 
     @Test
@@ -84,7 +81,7 @@ public class NewFactTypeActivityCommandTests {
         // When
         FactType actual = sut.onResult(
                 currentActivity,
-                NewFactTypeUiCommand.NEW_FACT_TYPE_REQUEST_CODE,
+                NewFactTypeResultUiCommand.NEW_FACT_TYPE_REQUEST_CODE,
                 RESULT_OK,
                 data);
 

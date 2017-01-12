@@ -7,7 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.UiCommand;
+import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.model.FactType;
@@ -16,19 +16,19 @@ import javax.inject.Inject;
 
 public class FactTypesActivity extends AppCompatActivity {
 
-    private UiCommand<FactType> mAddFactTypeUiCommand;
+    private ResultUiCommand<FactType> mAddFactTypeResultUiCommand;
 
     @Inject
-    public void inject(UiCommand<FactType> addFactTypeUiCommand) {
+    public void inject(ResultUiCommand<FactType> addFactTypeResultUiCommand) {
 
-        mAddFactTypeUiCommand = addFactTypeUiCommand;
+        mAddFactTypeResultUiCommand = addFactTypeResultUiCommand;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        mAddFactTypeUiCommand.onResult(this, requestCode, resultCode, data);
+        mAddFactTypeResultUiCommand.onResult(this, requestCode, resultCode, data);
     }
 
     @Override
@@ -46,6 +46,6 @@ public class FactTypesActivity extends AppCompatActivity {
     }
 
     public void addFactTypeClick(View v) {
-        mAddFactTypeUiCommand.execute(this);
+        mAddFactTypeResultUiCommand.execute(this);
     }
 }

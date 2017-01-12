@@ -6,8 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.revents.chronolog.BuildConfig;
-import com.revents.chronolog.app.UiCommand;
-import com.revents.chronolog.app.FakeChronologApp;
+import com.revents.chronolog.app.*;
 
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricGradleTestRunner;
@@ -26,7 +25,7 @@ public abstract class ActivityRoboTestsBase<T extends Activity> {
     protected T sut;
     protected ActivityController<T> sutBuilder;
 
-    protected void should_execute_When_click_test_case(@IdRes int id, UiCommand command)
+    protected void should_execute_When_click_test_case(@IdRes int id, com.revents.chronolog.app.ResultUiCommand command)
     {
         // Given
         Button btn = (Button) viewById(id);

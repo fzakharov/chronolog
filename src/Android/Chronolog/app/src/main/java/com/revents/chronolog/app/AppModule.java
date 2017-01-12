@@ -7,17 +7,17 @@ import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
+import com.revents.chronolog.features.feed.NewFactResultUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
+import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.type.SelectFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
 import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.features.IntentFactory;
-import com.revents.chronolog.features.group.NewFactTypeGroupUiCommand;
-import com.revents.chronolog.features.feed.NewFactUiCommand;
-import com.revents.chronolog.features.type.NewFactTypeUiCommand;
-import com.revents.chronolog.features.value.NewValueDescriptorUiCommand;
-import com.revents.chronolog.features.type.SelectFactTypeUiCommand;
-import com.revents.chronolog.features.group.SelectFactTypeGroupUiCommand;
-import com.revents.chronolog.features.value.SelectValueDescriptorUiCommand;
+import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
+import com.revents.chronolog.features.value.NewValueDescriptorResultUiCommand;
+import com.revents.chronolog.features.value.SelectValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.ValueDescriptorIntentExtractor;
 import com.revents.chronolog.features.value.ValueTypesProvider;
 import com.revents.chronolog.model.DaoSession;
@@ -79,8 +79,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public SelectFactTypeUiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new SelectFactTypeUiCommand(intentFactory, factReader);
+    public SelectFactTypeResultUiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new SelectFactTypeResultUiCommand(intentFactory, factReader);
     }
 
     @Provides
@@ -91,14 +91,14 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public UiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeUiCommand selectFactTypeCommand, EditFactActivityCommand editFactCommand) {
-        return new NewFactUiCommand(selectFactTypeCommand, editFactCommand);
+    public ResultUiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeResultUiCommand selectFactTypeCommand, EditFactActivityCommand editFactCommand) {
+        return new NewFactResultUiCommand(selectFactTypeCommand, editFactCommand);
     }
 
     @Provides
     @Singleton
-    public UiCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new NewFactTypeUiCommand(intentFactory, factReader);
+    public ResultUiCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new NewFactTypeResultUiCommand(intentFactory, factReader);
     }
 
     @Provides
@@ -116,29 +116,29 @@ public class AppModule {
     @Provides
     @Singleton
     @Named(CommandTypes.SELECT)
-    public UiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
-        return new SelectFactTypeGroupUiCommand(intentFactory, extractor);
+    public ResultUiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+        return new SelectFactTypeGroupResultUiCommand(intentFactory, extractor);
     }
 
     @Provides
     @Singleton
     @Named(CommandTypes.NEW)
-    public UiCommand<FactTypeGroup> provideNewFactTypeGroupUiCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
-        return new NewFactTypeGroupUiCommand(intentFactory, extractor);
+    public ResultUiCommand<FactTypeGroup> provideNewFactTypeGroupUiCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+        return new NewFactTypeGroupResultUiCommand(intentFactory, extractor);
     }
 
     @Provides
     @Singleton
     @Named(CommandTypes.SELECT)
-    public UiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
-        return new SelectValueDescriptorUiCommand(intentFactory, intentExtractor);
+    public ResultUiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
+        return new SelectValueDescriptorResultUiCommand(intentFactory, intentExtractor);
     }
 
     @Provides
     @Singleton
     @Named(CommandTypes.NEW)
-    public UiCommand<ValueDescriptor> provideNewValueDescriptorUiCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
-        return new NewValueDescriptorUiCommand(intentFactory, intentExtractor);
+    public ResultUiCommand<ValueDescriptor> provideNewValueDescriptorUiCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
+        return new NewValueDescriptorResultUiCommand(intentFactory, intentExtractor);
     }
 
     @Provides
