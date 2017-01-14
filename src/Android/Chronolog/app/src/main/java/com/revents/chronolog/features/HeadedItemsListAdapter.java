@@ -52,4 +52,5 @@ public class HeadedItemsListAdapter extends BaseAdapter {
 
         return vi;
     }
+
 }

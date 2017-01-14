@@ -7,6 +7,7 @@ import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactDao;
 import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.ValueDescriptor;
 
 public class GreenDaoFactWriter implements FactWriter {
     private DateTimeProvider mDateTimeProvider;
@@ -39,5 +40,12 @@ public class GreenDaoFactWriter implements FactWriter {
 
         FactDao factDao = mSession.getFactDao();
         factDao.delete(fact);
+    }
+
+    @Override
+    public void write(ValueDescriptor valueDescriptor) {
+
+        // TODO: 07.01.2017 test
+        mSession.getValueDescriptorDao().insert(valueDescriptor);
     }
 }
