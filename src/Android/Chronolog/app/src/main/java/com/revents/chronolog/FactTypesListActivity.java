@@ -26,8 +26,6 @@ public class FactTypesListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fact_types_list);
 
-        daoSession = ((ChronologApp) getApplication()).getDaoSession();
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

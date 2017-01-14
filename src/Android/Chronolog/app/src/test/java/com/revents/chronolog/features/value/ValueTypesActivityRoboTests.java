@@ -31,11 +31,9 @@ public class ValueTypesActivityRoboTests extends ActivityRoboTestsBase<ValueType
     ValueTypesProvider mValueTypesProvider;
     ValueType mTestValueType;
     FactWriter mFactWriter;
-    private UiCommand mCommand;
 
     @Before
     public void setUp() throws Exception {
-        mCommand = mock(UiCommand.class);
         mValueTypesProvider = mock(ValueTypesProvider.class);
         mFactWriter = mock(FactWriter.class);
 
@@ -66,8 +64,6 @@ public class ValueTypesActivityRoboTests extends ActivityRoboTestsBase<ValueType
         assertEquals(mTestValueType.className, actual.getClassName());
         assertEquals(mTestValueType.name, actual.getName());
         assertEquals(mTestValueType.description, actual.getDescription());
-
-        //verify(mCommand).execute(sut);
     }
 
     @Test

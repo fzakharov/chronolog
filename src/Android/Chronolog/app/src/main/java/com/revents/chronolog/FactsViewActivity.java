@@ -55,8 +55,6 @@ public class FactsViewActivity extends AppCompatActivity {
             }
         });
 
-        daoSession = ((ChronologApp) getApplication()).getDaoSession();
-
         lvFacts = (ListView) findViewById(R.id.factsList);
 
         lvFacts.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {

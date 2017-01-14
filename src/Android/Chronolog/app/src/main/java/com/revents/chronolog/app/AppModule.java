@@ -20,11 +20,14 @@ import com.revents.chronolog.features.value.NewValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.SelectValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.ValueDescriptorIntentExtractor;
 import com.revents.chronolog.features.value.ValueTypesProvider;
+import com.revents.chronolog.model.DaoMaster;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
+
+import org.greenrobot.greendao.database.Database;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -34,6 +37,8 @@ import dagger.Provides;
 
 @Module
 public class AppModule {
+
+    private DaoSession mDaoSession;
     private ChronologApp appContext;
 
     public AppModule(Context context) {
@@ -54,9 +59,15 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public DaoSession provideDaoSession() {
-        // TODO: 26.12.2016 move db init and session
-        return appContext.getDaoSession();
+    public DaoSession provideDaoSession(Context context) {
+        if (mDaoSession == null) // TODO: 14.01.2017 write test
+        {
+            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "chronolog-db");
+            Database db = helper.getWritableDb();
+            mDaoSession = new DaoMaster(db).newSession();
+        }
+
+        return mDaoSession;
     }
 
     @Provides
