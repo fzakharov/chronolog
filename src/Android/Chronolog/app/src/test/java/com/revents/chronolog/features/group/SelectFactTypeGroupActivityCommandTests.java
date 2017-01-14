@@ -5,8 +5,6 @@ import android.content.Intent;
 
 import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.features.IntentFactory;
-import com.revents.chronolog.features.group.FactTypeGroupsActivity;
-import com.revents.chronolog.features.group.SelectFactTypeGroupUiCommand;
 import com.revents.chronolog.model.FactTypeGroup;
 
 import org.junit.Rule;
@@ -28,7 +26,7 @@ public class SelectFactTypeGroupActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    SelectFactTypeGroupUiCommand sut;
+    SelectFactTypeGroupResultUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -51,7 +49,7 @@ public class SelectFactTypeGroupActivityCommandTests {
         // Then
         verify(currentActivity)
                 .startActivityForResult(expectedIntent,
-                        SelectFactTypeGroupUiCommand.FACT_TYPE_GROUP_ID_REQUEST_CODE);
+                        SelectFactTypeGroupResultUiCommand.FACT_TYPE_GROUP_ID_REQUEST_CODE);
     }
 
     @Test
@@ -76,7 +74,7 @@ public class SelectFactTypeGroupActivityCommandTests {
 
         // When
         FactTypeGroup actual = sut.onResult(mock(Activity.class),
-                SelectFactTypeGroupUiCommand.FACT_TYPE_GROUP_ID_REQUEST_CODE, RESULT_OK, data);
+                SelectFactTypeGroupResultUiCommand.FACT_TYPE_GROUP_ID_REQUEST_CODE, RESULT_OK, data);
 
         // Then
         assertEquals(expected, actual);

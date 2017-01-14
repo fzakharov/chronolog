@@ -7,11 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.UiCommand;
+import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.FakeChronologApp;
-import com.revents.chronolog.features.type.FactTypesActivity;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Before;
@@ -38,12 +37,12 @@ import static org.robolectric.Shadows.shadowOf;
 public class FactTypesActivityRoboTests {
     private FactTypesActivity sut;
     private ActivityController<FactTypesActivity> sutBuilder;
-    private UiCommand<FactType> mAddFactTypeUiCommand;
+    private ResultUiCommand<FactType> mAddFactTypeResultUiCommand;
 
     @Before
     public void setUp() throws Exception {
 
-        mAddFactTypeUiCommand = (UiCommand<FactType>) mock(UiCommand.class);
+        mAddFactTypeResultUiCommand = (ResultUiCommand<FactType>) mock(ResultUiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(FactTypesActivity.class);
         sut = sutBuilder.get();
@@ -70,7 +69,7 @@ public class FactTypesActivityRoboTests {
                 resultIntent);
 
         // Then
-        verify(mAddFactTypeUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
+        verify(mAddFactTypeResultUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
     }
 
     @Test
@@ -82,7 +81,7 @@ public class FactTypesActivityRoboTests {
         addBtn.performClick();
 
         // Then
-        verify(mAddFactTypeUiCommand).execute(sut);
+        verify(mAddFactTypeResultUiCommand).execute(sut);
     }
 
     private <T> T viewById(@IdRes int id) {
@@ -97,7 +96,7 @@ public class FactTypesActivityRoboTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(mAddFactTypeUiCommand);
+                activity.inject(mAddFactTypeResultUiCommand);
                 return null;
             }
         }).when(cmp).inject(sut);

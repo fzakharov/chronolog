@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.UiCommand;
+import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.features.ActivityRoboTestsBase;
-import com.revents.chronolog.features.type.EditFactTypeActivity;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
 
@@ -29,13 +28,13 @@ import static org.robolectric.Shadows.shadowOf;
 
 public class EditFactTypeActivityRoboTests extends ActivityRoboTestsBase<EditFactTypeActivity> {
 
-    private UiCommand<FactTypeGroup> mSelectFactTypeGroupCommand;
-    private UiCommand<ValueDescriptor> mSelectValueDescriptorCommand;
+    private ResultUiCommand<FactTypeGroup> mSelectFactTypeGroupCommand;
+    private ResultUiCommand<ValueDescriptor> mSelectValueDescriptorCommand;
 
     @Before
     public void setUp() throws Exception {
-        mSelectFactTypeGroupCommand = (UiCommand<FactTypeGroup>) mock(UiCommand.class);
-        mSelectValueDescriptorCommand = (UiCommand<ValueDescriptor>) mock(UiCommand.class);
+        mSelectFactTypeGroupCommand = (ResultUiCommand<FactTypeGroup>) mock(ResultUiCommand.class);
+        mSelectValueDescriptorCommand = (ResultUiCommand<ValueDescriptor>) mock(ResultUiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(EditFactTypeActivity.class);
         sut = sutBuilder.get();

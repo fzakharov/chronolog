@@ -9,11 +9,10 @@ import android.widget.ListView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
-import com.revents.chronolog.app.UiCommand;
+import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.FakeChronologApp;
-import com.revents.chronolog.features.feed.FactsfeedActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,13 +39,13 @@ import static org.robolectric.Shadows.shadowOf;
         application = FakeChronologApp.class)
 public class FactsfeedActivityRoboTests {
 
-    private UiCommand addFactUiCommand;
+    private ResultUiCommand addFactResultUiCommand;
     private FactsfeedActivity sut;
     private ActivityController<FactsfeedActivity> sutBuilder;
 
     @Before
     public void setUp() throws Exception {
-        addFactUiCommand = mock(UiCommand.class);
+        addFactResultUiCommand = mock(ResultUiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(FactsfeedActivity.class);
         sut = sutBuilder.get();
@@ -64,7 +63,7 @@ public class FactsfeedActivityRoboTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(addFactUiCommand);
+                activity.inject(addFactResultUiCommand);
                 return null;
             }
         }).when(cmp).inject(sut);
@@ -87,7 +86,7 @@ public class FactsfeedActivityRoboTests {
                 resultIntent);
 
         // Then
-        verify(addFactUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
+        verify(addFactResultUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
     }
 
     @Test
@@ -112,7 +111,7 @@ public class FactsfeedActivityRoboTests {
         addBtn.performClick();
 
         // Then
-        verify(addFactUiCommand).execute(sut);
+        verify(addFactResultUiCommand).execute(sut);
     }
 
     private <T> T viewById(@IdRes int id) {
