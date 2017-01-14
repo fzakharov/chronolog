@@ -5,10 +5,10 @@ import android.content.Intent;
 
 import static android.app.Activity.RESULT_OK;
 
-public abstract class ResultResultUiCommandBase<T> implements com.revents.chronolog.app.ResultUiCommand<T> {
+public abstract class ResultUiCommandBase<T> implements com.revents.chronolog.app.ResultUiCommand<T> {
     private IntentFactory mIntentFactory;
 
-    protected ResultResultUiCommandBase(IntentFactory intentFactory) {
+    protected ResultUiCommandBase(IntentFactory intentFactory) {
         mIntentFactory = intentFactory;
     }
 

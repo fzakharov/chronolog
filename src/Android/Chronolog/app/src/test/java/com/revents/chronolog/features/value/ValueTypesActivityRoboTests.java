@@ -5,17 +5,11 @@ import android.widget.ListView;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
-<<<<<<< HEAD
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.features.ActivityRoboTestsBase;
 import com.revents.chronolog.features.HeadedLvItem;
 import com.revents.chronolog.model.ValueDescriptor;
-=======
-import com.revents.chronolog.app.ResultUiCommand;
-import com.revents.chronolog.app.UiCommand;
-import com.revents.chronolog.features.ActivityRoboTestsBase;
-import com.revents.chronolog.features.HeadedLvItem;
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,10 +19,6 @@ import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.Shadows;
-<<<<<<< HEAD
-import org.robolectric.shadows.ShadowListView;
-=======
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doAnswer;
@@ -40,11 +30,8 @@ public class ValueTypesActivityRoboTests extends ActivityRoboTestsBase<ValueType
 
     ValueTypesProvider mValueTypesProvider;
     ValueType mTestValueType;
-<<<<<<< HEAD
     FactWriter mFactWriter;
-=======
     private UiCommand mCommand;
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
 
     @Before
     public void setUp() throws Exception {
@@ -65,31 +52,22 @@ public class ValueTypesActivityRoboTests extends ActivityRoboTestsBase<ValueType
     }
 
     @Test
-<<<<<<< HEAD
     public void should_write_new_ValueDescriptor_When_click() {
         // Given
         ListView lv = (ListView) viewById(R.id.valueTypesLv);
-
         ArgumentCaptor<ValueDescriptor> argument = ArgumentCaptor.forClass(ValueDescriptor.class);
-=======
-    public void should_XXX_When_item_clicked() {
-        // Given
-        ListView lv = (ListView) viewById(R.id.valueTypesLv);
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
 
         // When
         Shadows.shadowOf(lv).performItemClick(0);
 
         // Then
-<<<<<<< HEAD
         verify(mFactWriter).write(argument.capture());
         ValueDescriptor actual = argument.getValue();
         assertEquals(mTestValueType.className, actual.getClassName());
         assertEquals(mTestValueType.name, actual.getName());
         assertEquals(mTestValueType.description, actual.getDescription());
-=======
-        verify(mCommand).execute(sut);
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
+
+        //verify(mCommand).execute(sut);
     }
 
     @Test

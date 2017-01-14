@@ -2,7 +2,7 @@ package com.revents.chronolog.features;
 
 import android.content.Intent;
 
-public class ResultResultUiCommand<T> extends ResultResultUiCommandBase<T> {
+public class ResultResultUiCommand<T> extends ResultUiCommandBase<T> {
 
 
     private Class<?> mActivityClass;

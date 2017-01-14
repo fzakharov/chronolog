@@ -10,11 +10,7 @@ import android.widget.ListView;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
-<<<<<<< HEAD
 import com.revents.chronolog.db.FactWriter;
-=======
-import com.revents.chronolog.app.UiCommand;
->>>>>>> 1481ac02bf933053c42878049742474230bbba5a
 import com.revents.chronolog.features.HeadedItemsListAdapter;
 import com.revents.chronolog.features.HeadedLvItem;
 import com.revents.chronolog.model.ValueDescriptor;
