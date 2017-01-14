@@ -1,6 +1,7 @@
 package com.revents.chronolog.app;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 
 import com.revents.chronolog.model.DaoMaster;
 import com.revents.chronolog.model.DaoSession;
@@ -8,18 +9,35 @@ import com.revents.chronolog.model.DaoSession;
 import org.greenrobot.greendao.database.Database;
 
 public class ChronologApp extends Application {
-    private DaoSession daoSession;
+
+    private AppComponent mComponent;
+
+    // TODO: 14.01.2017 On deploy functionality: add predefined fact types
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, "chronolog-db");
-        Database db = helper.getWritableDb();
-        daoSession = new DaoMaster(db).newSession();
+        mComponent = buildAppComponent();
     }
 
-    public DaoSession getDaoSession() {
-        return daoSession;
+
+
+    public AppComponent getAppComponent() {
+        return mComponent;
+    }
+
+    protected AppComponent buildAppComponent() {
+        return DaggerAppComponent
+                .builder()
+                .appModule(getAppModule()) // This also corresponds to the name of your module: %component_name%Module
+                .build();
+    }
+
+    @NonNull
+    protected AppModule getAppModule() {
+        return new AppModule(this);
     }
 }
+
+

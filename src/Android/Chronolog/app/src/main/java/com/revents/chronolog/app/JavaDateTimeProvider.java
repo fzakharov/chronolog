@@ -1,4 +1,6 @@
-package com.revents.chronolog;
+package com.revents.chronolog.app;
+
+import com.revents.chronolog.app.DateTimeProvider;
 
 import java.util.Date;
 

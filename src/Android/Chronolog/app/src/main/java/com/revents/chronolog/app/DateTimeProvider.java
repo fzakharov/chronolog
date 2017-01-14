@@ -1,4 +1,4 @@
-package com.revents.chronolog;
+package com.revents.chronolog.app;
 
 import java.util.Date;
 

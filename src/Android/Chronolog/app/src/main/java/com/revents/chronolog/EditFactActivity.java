@@ -2,6 +2,7 @@ package com.revents.chronolog;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -11,6 +12,8 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.JavaDateTimeProvider;
+import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 
@@ -33,19 +36,25 @@ public class EditFactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_fact);
 
-        daoSession = ((ChronologApp) getApplication()).getDaoSession();
-        mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
-        mDateEdit = (EditText) findViewById(R.id.dateEdit);
-        mValueEditTxt = (EditText) findViewById(R.id.valueEditTxt);
-        mStrValueEditTxt = (EditText) findViewById(R.id.strValueEditTxt);
-
-        setInitialDateTime();
-
-        mValueEditTxt.requestFocus();
+//        daoSession = ((ChronologApp) getApplication()).getDaoSession();
+//        mfactTypeId = getIntent().getLongExtra("factTypeId", -1);
+//        mDateEdit = (EditText) findViewById(R.id.dateEdit);
+//        mValueEditTxt = (EditText) findViewById(R.id.valueEditTxt);
+//        mStrValueEditTxt = (EditText) findViewById(R.id.strValueEditTxt);
+//
+//        setInitialDateTime();
+//
+//        mValueEditTxt.requestFocus();
     }
 
     public void addFactClick(View v) {
-        addFact(mfactTypeId);
+        //addFact(mfactTypeId);
+
+        Intent data = new Intent();
+        data.putExtra("FactStrValue", "new Fact added");
+
+        setResult(RESULT_OK, data);
+
         finish();
     }
 

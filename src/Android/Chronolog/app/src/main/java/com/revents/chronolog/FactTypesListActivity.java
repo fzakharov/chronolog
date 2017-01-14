@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.features.type.EditFactTypeActivity;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.FactTypeDao;
 
@@ -24,8 +25,6 @@ public class FactTypesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fact_types_list);
-
-        daoSession = ((ChronologApp) getApplication()).getDaoSession();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {

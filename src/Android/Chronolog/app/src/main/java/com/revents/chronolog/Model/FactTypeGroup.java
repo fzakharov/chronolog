@@ -22,11 +22,11 @@ public class FactTypeGroup
 
     @Property
     @NotNull
-    private String color;
+    private int color;
 
-    @Generated(hash = 47500634)
+    @Generated(hash = 2120565)
     public FactTypeGroup(Long id, @NotNull String name, @NotNull String description,
-            @NotNull String color) {
+            int color) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -61,11 +61,11 @@ public class FactTypeGroup
         this.description = description;
     }
 
-    public String getColor() {
+    public int getColor() {
         return this.color;
     }
 
-    public void setColor(String color) {
+    public void setColor(int color) {
         this.color = color;
     }
 }
