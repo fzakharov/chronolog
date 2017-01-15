@@ -1,5 +1,6 @@
 package com.revents.chronolog.app;
 
+import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.type.EditFactTypeActivity;
 import com.revents.chronolog.features.group.EditFactTypeGroupActivity;
 import com.revents.chronolog.features.group.FactTypeGroupsActivity;
@@ -29,4 +30,6 @@ public interface AppComponent {
     void inject(ValueDescriptorsActivity activity);
 
     void inject(ValueTypesActivity activity);
+
+    void inject(EditFactActivity activity);
 }

@@ -37,7 +37,7 @@ public class ChronologApp extends Application {
     }
 
     private void deployAlways() {
-        // TODO: 14.01.2017 fill database
+        // TODO: 14.01.2017 fill database with groups, facttypes, value descrs
     }
 
     public AppComponent getAppComponent() {
