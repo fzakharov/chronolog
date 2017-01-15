@@ -20,8 +20,10 @@ import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.JavaDateTimeProvider;
 import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.model.FactType;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,8 +32,11 @@ import javax.inject.Inject;
 
 public class EditFactActivity extends AppCompatActivity {
 
+    private IntentExtractor<FactType> mExtractor;
+
     @Inject
-    public void inject() {
+    public void inject(IntentExtractor<FactType> extractor) {
+        mExtractor = extractor;
     }
 
     @Override
@@ -44,6 +49,5 @@ public class EditFactActivity extends AppCompatActivity {
 
         AppComponent appComp = ((ChronologApp) getApplication()).getAppComponent();
         appComp.inject(this);
-
     }
 }

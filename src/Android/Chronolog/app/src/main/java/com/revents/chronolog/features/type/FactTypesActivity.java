@@ -10,6 +10,7 @@ import com.revents.chronolog.R;
 import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
 
 import javax.inject.Inject;
@@ -17,11 +18,13 @@ import javax.inject.Inject;
 public class FactTypesActivity extends AppCompatActivity {
 
     private ResultUiCommand<FactType> mAddFactTypeResultUiCommand;
+    private FactReader mFactReader;
 
     @Inject
-    public void inject(ResultUiCommand<FactType> addFactTypeResultUiCommand) {
+    public void inject(ResultUiCommand<FactType> addFactTypeResultUiCommand, FactReader factReader) {
 
         mAddFactTypeResultUiCommand = addFactTypeResultUiCommand;
+        mFactReader = factReader;
     }
 
     @Override

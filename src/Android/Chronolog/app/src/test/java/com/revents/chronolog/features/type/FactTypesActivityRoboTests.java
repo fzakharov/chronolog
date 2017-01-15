@@ -11,6 +11,8 @@ import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.FakeChronologApp;
+import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.features.ActivityRoboTestsBase;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Before;
@@ -24,24 +26,27 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
         sdk = LOLLIPOP,
         application = FakeChronologApp.class)
-public class FactTypesActivityRoboTests {
-    private FactTypesActivity sut;
-    private ActivityController<FactTypesActivity> sutBuilder;
+public class FactTypesActivityRoboTests extends ActivityRoboTestsBase<FactTypesActivity> {
     private ResultUiCommand<FactType> mAddFactTypeResultUiCommand;
+    private FactReader mFactReader;
 
     @Before
     public void setUp() throws Exception {
-
+        mFactReader = mock(FactReader.class);
         mAddFactTypeResultUiCommand = (ResultUiCommand<FactType>) mock(ResultUiCommand.class);
 
         sutBuilder = Robolectric.buildActivity(FactTypesActivity.class);
@@ -49,7 +54,24 @@ public class FactTypesActivityRoboTests {
 
         inject(sut);
 
-        sutBuilder.create().start().resume();
+        sutBuilder.create().start();
+    }
+
+    @Test
+    public void should_load_fact_types_When_resume() {
+        // Given
+        FactType factType = mock(FactType.class);
+        List<FactType> list = new ArrayList<>();
+        list.add(factType);
+
+        when(mFactReader.loadFactTypes())
+                .thenReturn(list);
+
+        // When
+        sutBuilder.resume();
+
+        // Then
+        throw new UnsupportedOperationException();
     }
 
     @Test
@@ -60,6 +82,7 @@ public class FactTypesActivityRoboTests {
         int resultCode = 33;
         Intent resultIntent = new Intent();
 
+        sutBuilder.resume();
         sut.startActivityForResult(new Intent(sut, activityClass), requestCode);
 
         // When
@@ -75,6 +98,7 @@ public class FactTypesActivityRoboTests {
     @Test
     public void should_execute_addFactTypeCommand_When_addFactTypeFab_clicked() {
         // Given
+        sutBuilder.resume();
         FloatingActionButton addBtn = viewById(R.id.addFactTypeFab);
 
         // When
@@ -82,10 +106,6 @@ public class FactTypesActivityRoboTests {
 
         // Then
         verify(mAddFactTypeResultUiCommand).execute(sut);
-    }
-
-    private <T> T viewById(@IdRes int id) {
-        return (T) sut.findViewById(id);
     }
 
     private void inject(final FactTypesActivity activity) {
@@ -96,7 +116,7 @@ public class FactTypesActivityRoboTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(mAddFactTypeResultUiCommand);
+                activity.inject(mAddFactTypeResultUiCommand, mFactReader);
                 return null;
             }
         }).when(cmp).inject(sut);

@@ -13,7 +13,6 @@
             android:name=".FactsViewActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FactTypesListActivity" />
-        <activity android:name=".features.feed.EditFactActivity" />
         <activity
             android:name=".features.feed.FactsfeedActivity"
             android:label="@string/title_activity_factsfeed"
@@ -77,6 +76,16 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.revents.chronolog.features.value.ValueDescriptorsActivity" />
+        </activity>
+
+        <activity
+            android:name=".features.feed.EditFactActivity"
+            android:label="@string/title_activity_edit_fact"
+            android:parentActivityName=".features.feed.FactsfeedActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.revents.chronolog.features.feed.EditFactActivity" />
         </activity>
     </application>
 

@@ -7,4 +7,5 @@
     <string name="title_activity_value_descriptors">Значения</string>
     <string name="title_activity_edit_fact_type_group">Редактор группы</string>
     <string name="title_activity_value_types">Типы значений</string>
+    <string name="title_activity_edit_fact">Редактор события</string>
 </resources>

@@ -11,6 +11,7 @@ import com.revents.chronolog.features.feed.NewFactResultUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.SelectFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
 import com.revents.chronolog.features.IntentExtractor;
@@ -120,6 +121,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public IntentExtractor<FactType> provideIntentExtractorFactType(FactReader factReader) {
+        return new FactTypeIntentExtractor(factReader);
+    }
+
+    @Provides
+    @Singleton
     public IntentExtractor<ValueDescriptor> provideIntentExtractorValueDescriptor(FactReader factReader) {
         return new ValueDescriptorIntentExtractor(factReader);
     }
@@ -154,8 +161,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ValueTypesProvider provideValueTypesProvider()
-    {
+    public ValueTypesProvider provideValueTypesProvider() {
         return new HardCodedValueTypesProvider();
     }
 }

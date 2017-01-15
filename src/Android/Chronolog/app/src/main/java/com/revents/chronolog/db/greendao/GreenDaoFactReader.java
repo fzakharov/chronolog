@@ -6,6 +6,8 @@ import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
 
+import java.util.List;
+
 // TODO: 04.01.2017 Tests
 public class GreenDaoFactReader implements FactReader {
     private DaoSession mSession;
@@ -17,7 +19,6 @@ public class GreenDaoFactReader implements FactReader {
 
     @Override
     public FactType loadFactType(long id) {
-
         return mSession.getFactTypeDao().load(id);
     }
 
@@ -29,5 +30,10 @@ public class GreenDaoFactReader implements FactReader {
     @Override
     public ValueDescriptor loadValueDescriptor(long id) {
         return mSession.getValueDescriptorDao().load(id);
+    }
+
+    @Override
+    public List<FactType> loadFactTypes() {
+        return mSession.getFactTypeDao().loadAll();
     }
 }

@@ -25,8 +25,7 @@ public abstract class ActivityRoboTestsBase<T extends Activity> {
     protected T sut;
     protected ActivityController<T> sutBuilder;
 
-    protected void should_execute_When_click_test_case(@IdRes int id, com.revents.chronolog.app.ResultUiCommand command)
-    {
+    protected void should_execute_When_click_test_case(@IdRes int id, com.revents.chronolog.app.ResultUiCommand command) {
         // Given
         Button btn = (Button) viewById(id);
 
@@ -37,7 +36,7 @@ public abstract class ActivityRoboTestsBase<T extends Activity> {
         verify(command).execute(sut);
     }
 
-    protected View viewById(@IdRes int id) {
-        return sut.findViewById(id);
+    protected <TView extends View> TView viewById(@IdRes int id) {
+        return (TView) sut.findViewById(id);
     }
 }
