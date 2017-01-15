@@ -62,7 +62,7 @@ public class AppModule {
     public DaoSession provideDaoSession(Context context) {
         if (mDaoSession == null) // TODO: 14.01.2017 write test
         {
-            DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, "chronolog-db");
+            ChronologDbOpenHelper helper = new ChronologDbOpenHelper(context, "chronolog-db");
             Database db = helper.getWritableDb();
             mDaoSession = new DaoMaster(db).newSession();
         }

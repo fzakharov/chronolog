@@ -1,6 +1,8 @@
 package com.revents.chronolog.app;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.revents.chronolog.model.DaoMaster;
@@ -19,9 +21,24 @@ public class ChronologApp extends Application {
         super.onCreate();
 
         mComponent = buildAppComponent();
+        deployWhenFirstRun();
+        deployAlways();
     }
 
+    void deployWhenFirstRun() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean previouslyStarted = prefs.getBoolean("ChronologApp.previouslyStarted", false);
+        if (!previouslyStarted) {
 
+            SharedPreferences.Editor edit = prefs.edit();
+            edit.putBoolean("ChronologApp.previouslyStarted", Boolean.TRUE);
+            edit.commit();
+        }
+    }
+
+    private void deployAlways() {
+        // TODO: 14.01.2017 fill database
+    }
 
     public AppComponent getAppComponent() {
         return mComponent;
