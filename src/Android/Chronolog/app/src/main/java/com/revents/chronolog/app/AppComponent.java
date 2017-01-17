@@ -32,4 +32,6 @@ public interface AppComponent {
     void inject(ValueTypesActivity activity);
 
     void inject(EditFactActivity activity);
+
+    void inject(ChronologApp chronologApp);
 }

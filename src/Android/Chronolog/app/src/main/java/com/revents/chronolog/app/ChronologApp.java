@@ -10,6 +10,8 @@ import com.revents.chronolog.model.DaoSession;
 
 import org.greenrobot.greendao.database.Database;
 
+import javax.inject.Inject;
+
 public class ChronologApp extends Application {
 
     private AppComponent mComponent;
@@ -21,8 +23,15 @@ public class ChronologApp extends Application {
         super.onCreate();
 
         mComponent = buildAppComponent();
+        mComponent.inject(this);
+
         deployWhenFirstRun();
         deployAlways();
+    }
+
+    @Inject
+    public void inject() {
+
     }
 
     void deployWhenFirstRun() {
@@ -37,7 +46,7 @@ public class ChronologApp extends Application {
     }
 
     private void deployAlways() {
-        // TODO: 14.01.2017 fill database with groups, facttypes, value descrs
+
     }
 
     public AppComponent getAppComponent() {

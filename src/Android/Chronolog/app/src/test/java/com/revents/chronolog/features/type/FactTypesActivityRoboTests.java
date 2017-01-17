@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.TextView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -60,7 +64,8 @@ public class FactTypesActivityRoboTests extends ActivityRoboTestsBase<FactTypesA
     @Test
     public void should_load_fact_types_When_resume() {
         // Given
-        FactType factType = mock(FactType.class);
+        String expectedName = "Fact Type name";
+        FactType factType = new FactType(42L, expectedName, "", false, 1L, 1L);
         List<FactType> list = new ArrayList<>();
         list.add(factType);
 
@@ -70,8 +75,13 @@ public class FactTypesActivityRoboTests extends ActivityRoboTestsBase<FactTypesA
         // When
         sutBuilder.resume();
 
+        RecyclerView rv = viewById(R.id.factTypesRv);
+        rv.measure(0, 0);
+        rv.layout(0, 0, 100, 1000);
+        TextView tv = (TextView) rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.factTypeNameTv);
+
         // Then
-        throw new UnsupportedOperationException();
+        assertEquals(expectedName, tv.getText());
     }
 
     @Test
