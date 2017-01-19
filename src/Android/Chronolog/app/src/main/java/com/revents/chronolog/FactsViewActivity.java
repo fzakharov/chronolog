@@ -105,13 +105,34 @@ public class FactsViewActivity extends AppCompatActivity {
         String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Chronolog.csv";
         FileWriter fw = new FileWriter(csv);
 
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("FactId").append(",")
+                .append("Timestamp").append(",")
+                .append("FactDate").append(",")
+                .append("IntValue").append(",")
+                .append("StrValue").append(",")
+                .append("FactTypeId").append(",")
+                .append("FactTypeName").append(",")
+                .append("FactTypeDescription").append(",")
+                .append("\n");
+
+        fw.write(sb.toString());
+
         for (int r = 0; r < mFacts.size(); r++) {
-            StringBuilder sb = new StringBuilder();
             Fact f = mFacts.get(r);
+
+            sb = new StringBuilder();
 
             sb
                     .append(f.getId()).append(",")
-                    .append(f.getFactType().getName())
+                    .append(f.getTimestamp()).append(",")
+                    .append(f.getFactDate()).append(",")
+                    .append(f.getIntValue()).append(",")
+                    .append(f.getStrValue()).append(",")
+                    .append(f.getFactType().getId()).append(",")
+                    .append(f.getFactType().getName()).append(",")
+                    .append(f.getFactType().getDescription()).append(",")
                     .append("\n");
 
             fw.write(sb.toString());
