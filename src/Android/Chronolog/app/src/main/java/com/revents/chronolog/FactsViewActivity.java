@@ -17,7 +17,9 @@ import org.greenrobot.greendao.query.Query;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // TODO: 07.12.2016 https://github.com/greenrobot/greenDAO/blob/master/examples/DaoExample/src/main/java/org/greenrobot/greendao/example/NotesAdapter.java
@@ -28,6 +30,7 @@ public class FactsViewActivity extends AppCompatActivity {
     ListView lvFacts;
     private List<Fact> mFacts;
     private FactsAdapter mAdapter;
+    private SimpleDateFormat mDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,8 +129,8 @@ public class FactsViewActivity extends AppCompatActivity {
 
             sb
                     .append(f.getId()).append(",")
-                    .append(f.getTimestamp()).append(",")
-                    .append(f.getFactDate()).append(",")
+                    .append(date2String(f.getTimestamp())).append(",")
+                    .append(date2String(f.getFactDate())).append(",")
                     .append(f.getIntValue()).append(",")
                     .append(f.getStrValue()).append(",")
                     .append(f.getFactType().getId()).append(",")
@@ -142,6 +145,10 @@ public class FactsViewActivity extends AppCompatActivity {
 
         Snackbar.make(v, csv, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
+    }
+
+    String date2String(Date date) {
+        return mDateTimeFormat.format(date);
     }
 
     private void ReloadFacts() {
