@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,12 @@ import com.revents.chronolog.model.FactTypeDao;
 
 import org.greenrobot.greendao.query.Query;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 // TODO: 07.12.2016 https://github.com/greenrobot/greenDAO/blob/master/examples/DaoExample/src/main/java/org/greenrobot/greendao/example/NotesAdapter.java
@@ -30,6 +37,7 @@ public class FactsViewActivity extends AppCompatActivity {
     ListView lvFacts;
     private List<Fact> mFacts;
     private FactsAdapter mAdapter;
+    private SimpleDateFormat mDateTimeFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +108,53 @@ public class FactsViewActivity extends AppCompatActivity {
         super.onResume();
 
         ReloadFacts();
+    }
+
+    public void exportClick(View v) throws IOException {
+        String csv = android.os.Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "Chronolog.csv";
+        FileWriter fw = new FileWriter(csv);
+
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("FactId").append(",")
+                .append("Timestamp").append(",")
+                .append("FactDate").append(",")
+                .append("IntValue").append(",")
+                .append("StrValue").append(",")
+                .append("FactTypeId").append(",")
+                .append("FactTypeName").append(",")
+                .append("FactTypeDescription").append(",")
+                .append("\n");
+
+        fw.write(sb.toString());
+
+        for (int r = 0; r < mFacts.size(); r++) {
+            Fact f = mFacts.get(r);
+
+            sb = new StringBuilder();
+
+            sb
+                    .append(f.getId()).append(",")
+                    .append(date2String(f.getTimestamp())).append(",")
+                    .append(date2String(f.getFactDate())).append(",")
+                    .append(f.getIntValue()).append(",")
+                    .append(f.getStrValue()).append(",")
+                    .append(f.getFactType().getId()).append(",")
+                    .append(f.getFactType().getName()).append(",")
+                    .append(f.getFactType().getDescription()).append(",")
+                    .append("\n");
+
+            fw.write(sb.toString());
+        }
+
+        fw.close();
+
+        Snackbar.make(v, csv, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
+    String date2String(Date date) {
+        return mDateTimeFormat.format(date);
     }
 
     private void ReloadFacts() {

@@ -53,4 +53,14 @@
         app:srcCompat="@android:drawable/ic_input_add"
         app:backgroundTint="@color/colorPrimary" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/expFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_gravity="top|end"
+        android:onClick="exportClick"
+        app:srcCompat="@android:drawable/ic_menu_upload"
+        app:backgroundTint="@color/colorPrimary" />
+
 </android.support.design.widget.CoordinatorLayout>
