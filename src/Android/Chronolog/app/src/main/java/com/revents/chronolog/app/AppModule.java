@@ -79,6 +79,12 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public AppCreateListener provideAppCreateListener(FactReader factReader, FactWriter factWriter) {
+        return new DefaultAppCreateListener(factReader, factWriter);
+    }
+
+    @Provides
+    @Singleton
     public FactReader provideFactReader(DaoSession session) {
         return new GreenDaoFactReader(session);
     }

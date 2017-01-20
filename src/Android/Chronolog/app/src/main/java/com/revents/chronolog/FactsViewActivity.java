@@ -119,7 +119,7 @@ public class FactsViewActivity extends AppCompatActivity {
                 .append("FactId").append(",")
                 .append("Timestamp").append(",")
                 .append("FactDate").append(",")
-                .append("IntValue").append(",")
+                .append("LongValue").append(",")
                 .append("StrValue").append(",")
                 .append("FactTypeId").append(",")
                 .append("FactTypeName").append(",")
@@ -137,11 +137,13 @@ public class FactsViewActivity extends AppCompatActivity {
                     .append(f.getId()).append(",")
                     .append(date2String(f.getTimestamp())).append(",")
                     .append(date2String(f.getFactDate())).append(",")
-                    .append(f.getIntValue()).append(",")
+                    .append(f.getLongValue()).append(",")
                     .append(f.getStrValue()).append(",")
+
                     .append(f.getFactType().getId()).append(",")
                     .append(f.getFactType().getName()).append(",")
                     .append(f.getFactType().getDescription()).append(",")
+
                     .append("\n");
 
             fw.write(sb.toString());
