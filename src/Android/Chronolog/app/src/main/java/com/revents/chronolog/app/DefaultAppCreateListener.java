@@ -10,6 +10,10 @@ import com.revents.chronolog.model.ValueDescriptor;
 
 public class DefaultAppCreateListener implements AppCreateListener {
 
+    public final static Long OTHER_GROUP_ID = 1L;
+    public static final Long DEFAULT_VALUE_DESCR_ID = 1L;
+    public static final Long COFFEE_FACT_TYPE_ID = 1L;
+
     private FactWriter mFactWriter;
     private FactReader mFactReader;
 
@@ -24,10 +28,13 @@ public class DefaultAppCreateListener implements AppCreateListener {
     }
 
     private void deployAlways() {
-//        FactTypeGroup group = new FactTypeGroup(null, "Разное", "", Color.TRANSPARENT);
-//
-//        ValueDescriptor valueDescriptor = new ValueDescriptor(null, "Число", "Событие со значением типа целое число.", "default", "");
-//
-//        FactType ft = new FactType(null, "Кофе", "", false, group.getId(), valueDescriptor.getId());
+        FactTypeGroup group = new FactTypeGroup(OTHER_GROUP_ID, "Разное", "", Color.TRANSPARENT);
+        mFactWriter.write(group);
+
+        ValueDescriptor valueDescriptor = new ValueDescriptor(DEFAULT_VALUE_DESCR_ID, "Число", "Событие со значением типа целое число.", "default", "");
+        mFactWriter.write(valueDescriptor);
+
+        FactType ft = new FactType(COFFEE_FACT_TYPE_ID, "Кофе", "", false, group.getId(), valueDescriptor.getId());
+        mFactWriter.write(ft);
     }
 }
