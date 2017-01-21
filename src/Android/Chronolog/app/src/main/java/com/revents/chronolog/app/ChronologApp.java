@@ -10,8 +10,6 @@ public class ChronologApp extends Application {
     private AppComponent mComponent;
     private AppCreateListener mCreateListener;
 
-    // TODO: 14.01.2017 On deploy functionality: add predefined fact types
-
     @Override
     public void onCreate() {
         super.onCreate();

@@ -9,18 +9,23 @@ import static org.mockito.Mockito.mock;
 public class FakeChronologApp extends ChronologApp {
 
     private AppComponent mAppComponent;
+    private AppCreateListener mCreateListener;
+
+    public AppCreateListener getCreateListener(){
+        return mCreateListener;
+    }
 
     @Override
     protected AppComponent buildAppComponent() {
         mAppComponent = mock(AppComponent.class);
+        mCreateListener = mock(AppCreateListener.class);
+
         final ChronologApp app = this;
 
         doAnswer(new Answer() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
-
-                // TODO: 20.01.2017 java.lang.StackOverflowError
-                mAppComponent.inject(app);
+                app.inject(mCreateListener);
                 return null;
             }
         }).when(mAppComponent).inject(this);

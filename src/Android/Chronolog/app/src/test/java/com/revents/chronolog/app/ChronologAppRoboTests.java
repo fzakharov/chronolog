@@ -17,6 +17,7 @@ import org.robolectric.annotation.Config;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
@@ -25,33 +26,20 @@ import static org.mockito.Mockito.mock;
 public class ChronologAppRoboTests {
 
     private AppCreateListener mAppCreateListener = mock(AppCreateListener.class);
-    private FakeChronologApp sut = (FakeChronologApp) RuntimeEnvironment.application;
+    private FakeChronologApp sut;
 
     @Before
     public void setUp() throws Exception {
 
-        inject(sut);
-    }
-
-    private void inject(final FakeChronologApp app) {
-        AppComponent cmp = app.getAppComponent();
-
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-
-                app.inject(mAppCreateListener);
-                return null;
-            }
-        }).when(cmp).inject(sut);
+        sut = (FakeChronologApp) RuntimeEnvironment.application;
     }
 
     @Test
     public void should_call_AppCreateListener_onCreate_When_onCreate() {
         // Given
         // When
-        sut.onCreate();
-
         // Then
+        AppCreateListener createListener = sut.getCreateListener();
+        verify(createListener).onCreate();
     }
 }

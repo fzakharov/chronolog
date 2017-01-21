@@ -13,6 +13,7 @@ import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
@@ -64,6 +65,7 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
         }).when(cmp).inject(sut);
     }
 
+    // TODO: 21.01.2017 implement
     @Test
     public void should_set_factType_name_When_onResume() {
         // Given
