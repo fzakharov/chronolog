@@ -22,6 +22,10 @@ tools:context="com.revents.chronolog.features.feed.EditFactActivity">
 
 </android.support.design.widget.AppBarLayout>
 
-<include layout="@layout/content_edit_fact" />
+<include
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    layout="@layout/content_edit_fact"/>
 
 </android.support.design.widget.CoordinatorLayout>
