@@ -37,18 +37,18 @@ import static org.mockito.Mockito.when;
 public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactActivity> {
 
     private IntentExtractor<FactType> mExtractor;
+    private Intent mIntent;
 
     @Before
     public void setUp() throws Exception {
 
         mExtractor = mock(IntentExtractor.class);
+        mIntent = new Intent();
 
         sutBuilder = Robolectric.buildActivity(EditFactActivity.class);
         sut = sutBuilder.get();
 
         inject(sut);
-
-        sutBuilder.create().start();
     }
 
     private void inject(final EditFactActivity activity) {
@@ -69,15 +69,19 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
     @Test
     public void should_set_factType_name_When_onResume() {
         // Given
+
         String expected = "fact type name";
-        TextView factTypeTv = viewById(R.id.factTypeTv);
-        Intent intent = mock(Intent.class);
         FactType factType = mock(FactType.class);
+
         when(factType.getName())
                 .thenReturn(expected);
 
-        when(mExtractor.extract(intent))
+        when(mExtractor.extract(mIntent))
                 .thenReturn(factType);
+
+        sutBuilder.withIntent(mIntent).create().start().get();
+
+        TextView factTypeTv = viewById(R.id.factTypeTv);
 
         // When
         sutBuilder.resume();
