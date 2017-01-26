@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="40dp"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="40dp"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/factTypeTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="asfasfasf"
-        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+        android:text="Тип факта"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +27,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="-" />
+            android:onClick="decreaseBtnClick"
+            android:text="-"
+            />
 
         <EditText
             android:id="@+id/valueEt"
@@ -36,7 +38,8 @@
             android:ems="10"
             android:inputType="number"
             android:text="1"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Large"/>
 
         <Button
             android:id="@+id/increaseBtn"
@@ -44,26 +47,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="+" />
+            android:onClick="increaseBtnClick"
+            android:text="+"/>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/timeTv"
+    <Button
+        android:id="@+id/timeBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:onClick="timeBtnOnClick"
         android:text="13:25"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
-    <TextView
-        android:id="@+id/dateTv"
+    <Button
+        android:id="@+id/dateBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:onClick="dateBtnOnClick"
         android:text="24.01.2017"
         android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+        android:textAppearance="@android:style/TextAppearance.Large"/>
 
     <Button
         android:id="@+id/updateBtn"
@@ -72,12 +78,12 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:onClick="updateBtnOnClick"
-        android:text="Сохранить" />
+        android:text="Сохранить"/>
 
     <EditText
         android:id="@+id/descrEt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:ems="10"
-        android:inputType="textMultiLine" />
+        android:inputType="textMultiLine"/>
 </LinearLayout>

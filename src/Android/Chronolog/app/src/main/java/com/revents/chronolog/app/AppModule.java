@@ -81,6 +81,18 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public DateDialog provideDateDialog() {
+        return new AndroidDateDialog();
+    }
+
+    @Provides
+    @Singleton
+    public TimeDialog provideTimeDialog() {
+        return new AndroidTimeDialog();
+    }
+
+    @Provides
+    @Singleton
     public AppCreateListener provideAppCreateListener(FactReader factReader, FactWriter factWriter) {
         return new DefaultAppCreateListener(factReader, factWriter);
     }

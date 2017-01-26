@@ -6,6 +6,14 @@ import com.revents.chronolog.model.Fact;
 public class EditFactActivityExtractor implements ActivityExtractor<Fact, EditFactActivity> {
     @Override
     public Fact extract(EditFactActivity editFactActivity) {
-        throw new UnsupportedOperationException();
+        Fact fact = new Fact();
+
+        fact.setId(editFactActivity.getFactId());
+        fact.setFactType(editFactActivity.getFactType());
+        fact.setFactDate(editFactActivity.getFactDate());
+        fact.setLongValue(editFactActivity.getFactValue());
+        fact.setStrValue(editFactActivity.getFactDescription());
+
+        return fact;
     }
 }
