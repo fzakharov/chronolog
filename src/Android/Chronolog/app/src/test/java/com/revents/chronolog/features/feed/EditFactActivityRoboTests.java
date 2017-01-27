@@ -56,6 +56,7 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
     private DateDialog mDateDialog;
     private TimeDialog mTimeDialog;
     private DateTimeProvider mDateTimeProv;
+    private Button mTimeBtn;
 
     @Before
     public void setUp() throws Exception {
@@ -78,6 +79,7 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
         mUpdateBtn = viewById(R.id.updateBtn);
         mDateBtn = viewById(R.id.dateBtn);
+        mTimeBtn = viewById(R.id.timeBtn);
         mValueEt = viewById(R.id.valueEt);
     }
 
@@ -90,6 +92,17 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
         // Then
         verify(mDateDialog).show(sut.getFactDate(), sut, sut);
+    }
+
+    @Test
+    public void should_show_time_dialog_When_click_time_btn() {
+        // Given
+
+        // When
+        mTimeBtn.performClick();
+
+        // Then
+        verify(mTimeDialog).show(sut.getFactDate(), sut, sut);
     }
 
     @Test
@@ -120,15 +133,18 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
     }
 
     @Test
-    public void should_change_time_through_time_dialog_When_timeBtn_click() {
+    public void should_update_timeBtn_text_When_onDateChanged() {
+        // Given
+        Date newDate = new Date(33);
+        String expected = "HH:MM";
+        when(mDateTimeProv.toTimeString(newDate))
+                .thenReturn(expected);
 
-        timeDialogTestCase(new Date(33), new Date(33), true);
-    }
+        // When
+        sut.onDateChanged(newDate);
 
-    @Test
-    public void should_not_change_time_through_time_dialog_When_timeBtn_click() {
-
-        timeDialogTestCase(sut.getFactDate(), new Date(33), false);
+        // Then
+        assertEquals(expected, mTimeBtn.getText());
     }
 
     @Test
@@ -195,21 +211,6 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
         // Then
         assertEquals(expected, factTypeTv.getText());
-    }
-
-    private void timeDialogTestCase(Date expected, Date returnDate, boolean showResult) {
-        // Given
-        when(mTimeDialog.Show(sut.getFactDate()))
-                .thenReturn(showResult);
-
-        when(mTimeDialog.getSelectedTime())
-                .thenReturn(returnDate);
-
-        // When
-        Click(R.id.timeBtn);
-
-        // Then
-        assertEquals(expected, sut.getFactDate());
     }
 
     private void change_value_buttons_testCase(@IdRes int btnId, long delta) {

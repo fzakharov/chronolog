@@ -10,7 +10,6 @@ import java.util.GregorianCalendar;
 
 public class AndroidDateDialog implements DateDialog {
     private Date mSelectedDate;
-    private boolean mResult = false;
 
     @Override
     public void show(Date selectedDate, Context context, final DateListener listener) {

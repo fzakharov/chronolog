@@ -45,6 +45,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     private TimeDialog mTimeDialog;
     private DateTimeProvider mDateTimeProvider;
     private Button mDateBtn;
+    private Button mTimeBtn;
 
     @Inject
     public void inject(
@@ -76,6 +77,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
 
         mUpdateBtn = (Button) findViewById(R.id.updateBtn);
         mDateBtn = (Button) findViewById(R.id.dateBtn);
+        mTimeBtn = (Button) findViewById(R.id.timeBtn);
 
         onDateChanged(mFactDate);
 
@@ -124,8 +126,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     }
 
     public void timeBtnOnClick(View v) {
-        if (mTimeDialog.Show(mFactDate))
-            mFactDate = mTimeDialog.getSelectedTime();
+        mTimeDialog.show(mFactDate, this, this);
     }
 
     public void dateBtnOnClick(View v) throws InterruptedException {
@@ -166,5 +167,6 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     public void onDateChanged(Date newDate) {
         mFactDate = newDate;
         mDateBtn.setText(mDateTimeProvider.toDateString(mFactDate));
+        mTimeBtn.setText(mDateTimeProvider.toTimeString(mFactDate));
     }
 }

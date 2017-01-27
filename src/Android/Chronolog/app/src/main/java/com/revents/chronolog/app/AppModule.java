@@ -80,13 +80,11 @@ public class AppModule {
     }
 
     @Provides
-    @Singleton
     public DateDialog provideDateDialog() {
         return new AndroidDateDialog();
     }
 
     @Provides
-    @Singleton
     public TimeDialog provideTimeDialog() {
         return new AndroidTimeDialog();
     }
