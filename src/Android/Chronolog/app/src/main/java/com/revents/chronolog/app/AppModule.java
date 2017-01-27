@@ -6,17 +6,19 @@ import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
+import com.revents.chronolog.features.IntentExtractor;
+import com.revents.chronolog.features.IntentFactory;
+import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
+import com.revents.chronolog.features.feed.EditFactActivityExtractor;
 import com.revents.chronolog.features.feed.NewFactResultUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
+import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.type.SelectFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
-import com.revents.chronolog.features.IntentExtractor;
-import com.revents.chronolog.features.IntentFactory;
-import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.NewValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.SelectValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.ValueDescriptorIntentExtractor;
@@ -78,6 +80,16 @@ public class AppModule {
     }
 
     @Provides
+    public DateDialog provideDateDialog() {
+        return new AndroidDateDialog();
+    }
+
+    @Provides
+    public TimeDialog provideTimeDialog() {
+        return new AndroidTimeDialog();
+    }
+
+    @Provides
     @Singleton
     public AppCreateListener provideAppCreateListener(FactReader factReader, FactWriter factWriter) {
         return new DefaultAppCreateListener(factReader, factWriter);
@@ -99,6 +111,12 @@ public class AppModule {
     @Singleton
     public SelectFactTypeResultUiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
         return new SelectFactTypeResultUiCommand(intentFactory, factReader);
+    }
+
+    @Provides
+    @Singleton
+    public ActivityExtractor<Fact, EditFactActivity> provideEditFactActivityExtractor() {
+        return new EditFactActivityExtractor();
     }
 
     @Provides

@@ -40,6 +40,7 @@ public class FactTypesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // TODO: 26.01.2017 copypaste in activities
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fact_types);
 

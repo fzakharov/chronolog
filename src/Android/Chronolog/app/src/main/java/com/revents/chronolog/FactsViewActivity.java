@@ -57,7 +57,7 @@ public class FactsViewActivity extends AppCompatActivity {
 
                 ReloadFacts();
 
-//                Snackbar.make(view, fact.getFactDate().toString(), Snackbar.LENGTH_LONG)
+//                Snackbar.make(view, fact.getmFactDate().toString(), Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
 
             }
