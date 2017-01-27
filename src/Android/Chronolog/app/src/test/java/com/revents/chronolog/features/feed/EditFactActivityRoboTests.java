@@ -84,6 +84,18 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
     }
 
     @Test
+    public void should_getFactDescription_expected_When_descr_edittext_changed() {
+        // Given
+        String expected = "descr";
+
+        // When
+        ((EditText) viewById(R.id.descrEt)).setText(expected);
+
+        // Then
+        assertEquals(expected, sut.getFactDescription());
+    }
+
+    @Test
     public void should_show_date_dialog_When_click_date_btn() {
         // Given
 

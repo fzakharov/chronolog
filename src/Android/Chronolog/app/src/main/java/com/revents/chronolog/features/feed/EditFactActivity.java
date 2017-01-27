@@ -41,6 +41,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     private Long mFactId;
     private Button mUpdateBtn;
     private EditText mValueEt;
+    private EditText mDescrEt;
     private DateDialog mDateDialog;
     private TimeDialog mTimeDialog;
     private DateTimeProvider mDateTimeProvider;
@@ -84,6 +85,8 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
         mValueEt = (EditText) findViewById(R.id.valueEt);
         mValueEt.setText(mFactValue.toString());
 
+        mDescrEt = (EditText) findViewById(R.id.descrEt);
+
         // TODO: 26.01.2017 refactor this
         mValueEt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -99,6 +102,24 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
                 } catch (NumberFormatException ex) {
                     mUpdateBtn.setEnabled(false);
                 }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        // TODO: 26.01.2017 refactor this
+        mDescrEt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mFactDescription = s.toString();
             }
 
             @Override
@@ -123,6 +144,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     public void updateBtnOnClick(View v) {
         Fact fact = mFactActivityExtractor.extract(this);
         mFactWriter.write(fact);
+        finish();
     }
 
     public void timeBtnOnClick(View v) {
