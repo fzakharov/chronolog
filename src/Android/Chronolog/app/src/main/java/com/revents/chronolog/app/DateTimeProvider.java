@@ -4,4 +4,6 @@ import java.util.Date;
 
 public interface DateTimeProvider {
     Date getDate();
+
+    String toDateString(Date date);
 }

@@ -16,6 +16,8 @@ import com.revents.chronolog.app.ActivityExtractor;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.DateDialog;
+import com.revents.chronolog.app.DateListener;
+import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.TimeDialog;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.features.IntentExtractor;
@@ -26,7 +28,7 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-public class EditFactActivity extends AppCompatActivity {
+public class EditFactActivity extends AppCompatActivity implements DateListener {
 
     private IntentExtractor<FactType> mExtractor;
     private FactType mFactType;
@@ -41,14 +43,19 @@ public class EditFactActivity extends AppCompatActivity {
     private EditText mValueEt;
     private DateDialog mDateDialog;
     private TimeDialog mTimeDialog;
+    private DateTimeProvider mDateTimeProvider;
+    private Button mDateBtn;
 
     @Inject
     public void inject(
             IntentExtractor<FactType> extractor,
             FactWriter factWriter,
             ActivityExtractor<Fact, EditFactActivity> factActivityExtractor,
-            DateDialog dateDialog, TimeDialog timeDialog) {
+            DateDialog dateDialog,
+            TimeDialog timeDialog,
+            DateTimeProvider dtProv) {
 
+        mDateTimeProvider = dtProv;
         mTimeDialog = timeDialog;
         mDateDialog = dateDialog;
         mExtractor = extractor;
@@ -68,6 +75,9 @@ public class EditFactActivity extends AppCompatActivity {
         appComp.inject(this);
 
         mUpdateBtn = (Button) findViewById(R.id.updateBtn);
+        mDateBtn = (Button) findViewById(R.id.dateBtn);
+
+        onDateChanged(mFactDate);
 
         mValueEt = (EditText) findViewById(R.id.valueEt);
         mValueEt.setText(mFactValue.toString());
@@ -118,9 +128,8 @@ public class EditFactActivity extends AppCompatActivity {
             mFactDate = mTimeDialog.getSelectedTime();
     }
 
-    public void dateBtnOnClick(View v) {
-        if (mDateDialog.Show(mFactDate))
-            mFactDate = mDateDialog.getSelectedDate();
+    public void dateBtnOnClick(View v) throws InterruptedException {
+        mDateDialog.show(mFactDate, this, this);
     }
 
     public void increaseBtnClick(View v) {
@@ -151,5 +160,11 @@ public class EditFactActivity extends AppCompatActivity {
 
     public Long getFactId() {
         return mFactId;
+    }
+
+    @Override
+    public void onDateChanged(Date newDate) {
+        mFactDate = newDate;
+        mDateBtn.setText(mDateTimeProvider.toDateString(mFactDate));
     }
 }

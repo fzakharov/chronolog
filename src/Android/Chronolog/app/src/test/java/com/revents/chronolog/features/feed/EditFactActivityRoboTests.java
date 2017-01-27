@@ -12,6 +12,7 @@ import com.revents.chronolog.app.ActivityExtractor;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.DateDialog;
+import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.app.TimeDialog;
 import com.revents.chronolog.db.FactWriter;
@@ -34,8 +35,6 @@ import java.util.Date;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -52,15 +51,19 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
     private FactWriter mFactWriter;
     private ActivityExtractor<Fact, EditFactActivity> mFactActivityExtractor;
     private Button mUpdateBtn;
+    private Button mDateBtn;
     private EditText mValueEt;
     private DateDialog mDateDialog;
     private TimeDialog mTimeDialog;
+    private DateTimeProvider mDateTimeProv;
 
     @Before
     public void setUp() throws Exception {
 
         mTimeDialog = mock(TimeDialog.class);
         mDateDialog = mock(DateDialog.class);
+        mDateTimeProv = mock(DateTimeProvider.class);
+
         mExtractor = (IntentExtractor<FactType>) mock(IntentExtractor.class);
         mFactWriter = mock(FactWriter.class);
         mIntent = new Intent();
@@ -74,37 +77,46 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
         CreateStart();
 
         mUpdateBtn = viewById(R.id.updateBtn);
+        mDateBtn = viewById(R.id.dateBtn);
         mValueEt = viewById(R.id.valueEt);
     }
 
-    private void CreateStart() {
-        sutBuilder.withIntent(mIntent).create().start();
-    }
+    @Test
+    public void should_show_date_dialog_When_click_date_btn() {
+        // Given
 
-    private void inject(final EditFactActivity activity) {
-        ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
-        AppComponent cmp = app.getAppComponent();
+        // When
+        mDateBtn.performClick();
 
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-
-                activity.inject(mExtractor, mFactWriter, mFactActivityExtractor, mDateDialog, mTimeDialog);
-                return null;
-            }
-        }).when(cmp).inject(sut);
+        // Then
+        verify(mDateDialog).show(sut.getFactDate(), sut, sut);
     }
 
     @Test
-    public void should_change_date_through_date_dialog_When_dateBtn_click() {
+    public void should_update_factDate_When_onDateChanged() {
+        // Given
+        Date expected = new Date(33);
 
-        dateDialogTestCase(new Date(33), new Date(33), true);
+        // When
+        sut.onDateChanged(expected);
+
+        // Then
+        assertEquals(expected, sut.getFactDate());
     }
 
     @Test
-    public void should_not_change_date_through_date_dialog_When_dateBtn_click() {
+    public void should_update_dateBtn_text_When_onDateChanged() {
+        // Given
+        Date newDate = new Date(33);
+        String expected = "dd-mm-yyy";
+        when(mDateTimeProv.toDateString(newDate))
+                .thenReturn(expected);
 
-        dateDialogTestCase(sut.getFactDate(), new Date(33), false);
+        // When
+        sut.onDateChanged(newDate);
+
+        // Then
+        assertEquals(expected, mDateBtn.getText());
     }
 
     @Test
@@ -121,26 +133,12 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
     @Test
     public void should_increase_gatFactValue_When_increaseBtn_click() {
-        // Given
-        Long expected = sut.getFactValue() + 1;
-
-        // When
-        Click(R.id.increaseBtn);
-
-        // Then
-        assertEquals(expected, sut.getFactValue());
+        change_value_buttons_testCase(R.id.increaseBtn, 1);
     }
 
     @Test
     public void should_decrease_gatFactValue_When_decreaseBtn_click() {
-        // Given
-        Long expected = sut.getFactValue() - 1;
-
-        // When
-        Click(R.id.decreaseBtn);
-
-        // Then
-        assertEquals(expected, sut.getFactValue());
+        change_value_buttons_testCase(R.id.decreaseBtn, -1);
     }
 
     @Test
@@ -199,22 +197,7 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
         assertEquals(expected, factTypeTv.getText());
     }
 
-    private void dateDialogTestCase(Date expected, Date returnDate, boolean showResult){
-        // Given
-        when(mDateDialog.Show(sut.getFactDate()))
-                .thenReturn(showResult);
-
-        when(mDateDialog.getSelectedDate())
-                .thenReturn(returnDate);
-
-        // When
-        Click(R.id.dateBtn);
-
-        // Then
-        assertEquals(expected, sut.getFactDate());
-    }
-
-    private void timeDialogTestCase(Date expected, Date returnDate, boolean showResult){
+    private void timeDialogTestCase(Date expected, Date returnDate, boolean showResult) {
         // Given
         when(mTimeDialog.Show(sut.getFactDate()))
                 .thenReturn(showResult);
@@ -229,6 +212,17 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
         assertEquals(expected, sut.getFactDate());
     }
 
+    private void change_value_buttons_testCase(@IdRes int btnId, long delta) {
+        // Given
+        Long expected = sut.getFactValue() + delta;
+
+        // When
+        Click(btnId);
+
+        // Then
+        assertEquals(expected, sut.getFactValue());
+    }
+
     private void Click(@IdRes int id) {
         viewById(id).performClick();
     }
@@ -237,5 +231,30 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
         mValueEt.setText(txt);
 
         assertEquals(isEnabled, mUpdateBtn.isEnabled());
+    }
+
+    private void CreateStart() {
+        sutBuilder.withIntent(mIntent).create().start();
+    }
+
+    private void inject(final EditFactActivity activity) {
+        ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
+        AppComponent cmp = app.getAppComponent();
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+
+                activity.inject(
+                        mExtractor,
+                        mFactWriter,
+                        mFactActivityExtractor,
+                        mDateDialog,
+                        mTimeDialog,
+                        mDateTimeProv);
+
+                return null;
+            }
+        }).when(cmp).inject(sut);
     }
 }
