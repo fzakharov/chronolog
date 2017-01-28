@@ -26,8 +26,8 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fact_rv_item, parent, false);
 
         FactViewHolder ftvh = new FactViewHolder(v);
-
         v.setOnClickListener(ftvh);
+
 
         return ftvh;
     }
