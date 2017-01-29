@@ -1,5 +1,6 @@
 package com.revents.chronolog.db;
 
+import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
@@ -11,4 +12,6 @@ public interface FactReader {
     FactTypeGroup loadFactTypeGroup(long id);
     ValueDescriptor loadValueDescriptor(long id);
     List<FactType> loadFactTypes();
+
+    List<Fact> loadFactsfeed();
 }

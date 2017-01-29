@@ -61,6 +61,11 @@ public class AppModule {
     }
 
     @Provides
+    public YesNoDialog provideYesNoDialog() {
+        return new AlertYesNoDialog();
+    }
+
+    @Provides
     @Singleton
     public DaoSession provideDaoSession(Context context) {
         if (mDaoSession == null) // TODO: 14.01.2017 write test

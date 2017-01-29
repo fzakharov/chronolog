@@ -14,11 +14,11 @@ import java.util.List;
 
 public class FactsAdapter extends BaseAdapter {
 
+    private static LayoutInflater inflater = null;
     private final SimpleDateFormat mWeekFormat;
+    SimpleDateFormat mTimeFormat;
     Context context;
     List<Fact> data;
-    SimpleDateFormat mTimeFormat;
-    private static LayoutInflater inflater = null;
 
     public FactsAdapter(Context context, List<Fact> data) {
         this.context = context;
