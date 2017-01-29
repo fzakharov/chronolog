@@ -5,6 +5,7 @@ import com.revents.chronolog.model.DaoSession;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactDao;
 import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.FactTypeDao;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
 
@@ -38,7 +39,12 @@ public class GreenDaoFactReader implements FactReader {
 
     @Override
     public List<FactType> loadFactTypes() {
-        return mSession.getFactTypeDao().loadAll();
+        Query<FactType> query = mSession.getFactTypeDao()
+                .queryBuilder()
+                .orderAsc(FactTypeDao.Properties.FactTypeGroupId, FactTypeDao.Properties.Id)
+                .build();
+
+        return query.list();
     }
 
     @Override

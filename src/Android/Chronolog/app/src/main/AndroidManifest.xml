@@ -87,7 +87,7 @@
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.revents.chronolog.features.feed.EditFactActivity" />
+                android:value="com.revents.chronolog.features.feed.FactsfeedActivity" />
         </activity>
     </application>
 
