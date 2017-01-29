@@ -16,9 +16,11 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     private final SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
     private final SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
     private List<Fact> mData;
+    private View.OnLongClickListener mLongClickListener;
 
-    public FactsfeedRvAdapter(List<Fact> facts) {
+    public FactsfeedRvAdapter(List<Fact> facts, View.OnLongClickListener longClickListener) {
         mData = facts;
+        mLongClickListener = longClickListener;
     }
 
     @Override
@@ -27,7 +29,10 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
         FactViewHolder ftvh = new FactViewHolder(v);
         v.setOnClickListener(ftvh);
+        v.setOnLongClickListener(ftvh);
 
+        ftvh.setOnLongClickListener(mLongClickListener);
+        v.setTag(ftvh);
 
         return ftvh;
     }
@@ -35,11 +40,7 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     @Override
     public void onBindViewHolder(FactViewHolder holder, int position) {
         Fact fact = mData.get(position);
-
-        holder.setHeader(fact.getFactType().getName());
-        holder.setValue(fact.getLongValue().toString());
-        holder.setTime(mTimeFormat.format(fact.getFactDate()));
-        holder.setWeekDay(mWeekFormat.format(fact.getFactDate()));
+        holder.setFact(fact);
     }
 
     @Override
@@ -47,9 +48,11 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
         return mData.size();
     }
 
-    public class FactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
         private final View mView;
+        private View.OnLongClickListener mLongClickListener;
+        private Fact mFact;
 
         FactViewHolder(View itemView) {
             super(itemView);
@@ -61,20 +64,32 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
         }
 
-        public void setHeader(String header) {
-            setTv(R.id.headerTv, header);
+        @Override
+        public boolean onLongClick(View v) {
+            if (mLongClickListener == null)
+                return false;
+
+            mLongClickListener.onLongClick(v);
+
+            return true;
         }
 
-        public void setValue(String value) {
-            setTv(R.id.valueTv, value);
+        public void setOnLongClickListener(View.OnLongClickListener longClickListener) {
+
+            mLongClickListener = longClickListener;
         }
 
-        public void setWeekDay(String weekDay) {
-            setTv(R.id.weekDayTv, weekDay);
+        public Fact getFact() {
+            return mFact;
         }
 
-        public void setTime(String time) {
-            setTv(R.id.timeTv, time);
+        public void setFact(Fact fact) {
+            this.mFact = fact;
+
+            setTv(R.id.headerTv, fact.getFactType().getName());
+            setTv(R.id.valueTv, fact.getLongValue().toString());
+            setTv(R.id.timeTv, mTimeFormat.format(fact.getFactDate()));
+            setTv(R.id.weekDayTv, mWeekFormat.format(fact.getFactDate()));
         }
 
         private void setTv(int id, String value) {

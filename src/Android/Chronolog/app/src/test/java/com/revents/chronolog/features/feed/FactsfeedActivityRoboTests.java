@@ -5,15 +5,20 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.widget.TextView;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.EventArgs;
+import com.revents.chronolog.app.EventListener;
 import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.app.ResultUiCommand;
+import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 
@@ -34,6 +39,9 @@ import java.util.List;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNotNull;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -50,11 +58,16 @@ public class FactsfeedActivityRoboTests {
     private FactsfeedActivity sut;
     private ActivityController<FactsfeedActivity> sutBuilder;
     private FactReader mFactReader;
+    private RecyclerView mfactsFeedRv;
+    private YesNoDialog mYesNoDialog;
+    private FactWriter mFactWriter;
 
     @Before
     public void setUp() throws Exception {
         addFactResultUiCommand = mock(ResultUiCommand.class);
+        mFactWriter = mock(FactWriter.class);
         mFactReader = mock(FactReader.class);
+        mYesNoDialog = mock(YesNoDialog.class);
 
         sutBuilder = Robolectric.buildActivity(FactsfeedActivity.class);
         sut = sutBuilder.get();
@@ -62,6 +75,8 @@ public class FactsfeedActivityRoboTests {
         inject(sut);
 
         sutBuilder.create().start();
+
+        mfactsFeedRv = viewById(R.id.factsfeedRv);
     }
 
     private void inject(final FactsfeedActivity activity) {
@@ -72,7 +87,7 @@ public class FactsfeedActivityRoboTests {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
 
-                activity.inject(addFactResultUiCommand, mFactReader);
+                activity.inject(addFactResultUiCommand, mFactReader, mFactWriter, mYesNoDialog);
                 return null;
             }
         }).when(cmp).inject(sut);
@@ -99,6 +114,41 @@ public class FactsfeedActivityRoboTests {
     }
 
     @Test
+    public void should_dialog_yes_no_When_long_click_on_item() {
+        // Given
+        String expectedName = "coffee";
+        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
+        fact.setFactType(new FactType(1L, expectedName, "", false, 1L, 1L));
+        List<Fact> list = new ArrayList<>();
+        list.add(fact);
+
+        when(mFactReader.loadFactsfeed())
+                .thenReturn(list);
+
+        sutBuilder.resume();
+
+        // When
+        mfactsFeedRv.measure(0, 0);
+        mfactsFeedRv.layout(0, 0, 100, 1000);
+        mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.performLongClick();
+
+        // Then
+        verify(mYesNoDialog).show(eq(sut), eq(fact), isNotNull(String.class), eq(sut));
+    }
+
+    @Test
+    public void should_delete_Fact_When_onEvent() {
+        // Given
+        Fact fact = new Fact();
+
+        // When
+        sut.onEvent(new EventArgs<>(new Pair<>(true, fact)));
+
+        // Then
+        verify(mFactWriter).delete(fact);
+    }
+
+    @Test
     public void should_load_facts_When_resume() {
         // Given
         String expectedName = "coffee";
@@ -113,10 +163,9 @@ public class FactsfeedActivityRoboTests {
         // When
         sutBuilder.resume();
 
-        RecyclerView rv = viewById(R.id.factsfeedRv);
-        rv.measure(0, 0);
-        rv.layout(0, 0, 100, 1000);
-        TextView tv = (TextView) rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.headerTv);
+        mfactsFeedRv.measure(0, 0);
+        mfactsFeedRv.layout(0, 0, 100, 1000);
+        TextView tv = (TextView) mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.headerTv);
 
         // Then
         assertEquals(expectedName, tv.getText());
