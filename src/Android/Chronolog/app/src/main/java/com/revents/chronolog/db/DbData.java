@@ -18,12 +18,12 @@ public class DbData {
     }
 
     public static class Groups {
-        public static final long OTHER = 1L;
-        public static final long SLEEP = 2L;
-        public static final long FOOD = 3L;
-        public static final long Physical_Activity = 4L;
-        public static final long Hygiene = 5L;
-        public static final long Health = 6L;
+        public static final long SLEEP = 10L;
+        public static final long FOOD = 20L;
+        public static final long Physical_Activity = 30L;
+        public static final long Hygiene = 40L;
+        public static final long Health = 50L;
+        public static final long OTHER = 60L;
 
         public static final FactTypeGroup[] ITEMS = new FactTypeGroup[]{
                 Create(OTHER, "Разное", ""),
@@ -40,26 +40,26 @@ public class DbData {
     }
 
     public static class Types {
-        public static final Long Become_tempered = 101L;
-        public static final Long Meditation = 102L;
+        public static final Long WAKEUP = Groups.SLEEP * 10 + 10L;
+        public static final Long TO_SLEEP = Groups.SLEEP * 10 + 20L;
 
-        public static final Long WAKEUP = 201L;
-        public static final Long TO_SLEEP = 202L;
+        public static final Long Breakfast = Groups.FOOD * 10 + 10L;
+        public static final Long Lunch = Groups.FOOD * 10 + 20L;
+        public static final Long Evening_meal = Groups.FOOD * 10 + 30L;
+        public static final Long Quick_bite = Groups.FOOD * 10 + 40L;
+        public static final Long Coffee = Groups.FOOD * 10 + 50L;
 
-        public static final Long Breakfast = 301L;
-        public static final Long Lunch = 302L;
-        public static final Long Evening_meal = 303L;
-        public static final Long Quick_bite = 304L;
-        public static final Long Coffee = 305L;
+        public static final Long Physical_charge = Groups.Physical_Activity * 10 + 10;
+        public static final Long Classes_on_the_bar = Groups.Physical_Activity * 10 + 20;
+        public static final Long Classes_on_parallel_bars = Groups.Physical_Activity * 10 + 30;
 
-        public static final Long Physical_charge = 401L;
-        public static final Long Classes_on_the_bar = 402L;
-        public static final Long Classes_on_parallel_bars = 403L;
+        public static final Long Dental_floss = Groups.Hygiene * 10 + 10;
 
-        public static final Long Dental_floss = 501L;
+        public static final Long Headache = Groups.Health * 10 + 10;
+        public static final Long Emotional_outburst = Groups.Health * 10 + 20;
 
-        public static final Long Headache = 601L;
-        public static final Long Emotional_outburst=602L;
+        public static final Long Become_tempered = Groups.OTHER * 10 + 10;
+        public static final Long Meditation = Groups.OTHER * 10 + 20;
 
         public static final FactType[] ITEMS = new FactType[]{
                 Create(WAKEUP, "Проснулся", "1-5: Качество сна", Groups.SLEEP),
@@ -77,11 +77,11 @@ public class DbData {
 
                 Create(Dental_floss, "Нить", "Зубная нить", Groups.Hygiene),
 
-                Create(Become_tempered, "Закалялся", "", Groups.OTHER),
-                Create(Meditation, "Медитация", "", Groups.OTHER),
-
                 Create(Headache, "Головная боль", "1-5: 1-легко, 5-очень сильно", Groups.Health),
                 Create(Emotional_outburst, "Эмоциональный всплеск", "1-5: 1-слабый, 5-сильный", Groups.Health),
+
+                Create(Become_tempered, "Закалялся", "", Groups.OTHER),
+                Create(Meditation, "Медитация", "", Groups.OTHER),
         };
 
         private static FactType Create(Long id, String name, String descr, long factTypeGroupId) {
