@@ -36,6 +36,7 @@ public class FactTypesRvAdapter extends RecyclerView.Adapter<FactTypesRvAdapter.
     public void onBindViewHolder(FactTypeViewHolder holder, int position) {
         FactType record = mTypes.get(position);
         holder.name.setText(record.getName());
+        holder.descr.setText(record.getDescription());
         holder.factTypeId = record.getId();
     }
 
@@ -47,12 +48,14 @@ public class FactTypesRvAdapter extends RecyclerView.Adapter<FactTypesRvAdapter.
     public class FactTypeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final TextView name;
+        private final TextView descr;
         public Long factTypeId;
 
         FactTypeViewHolder(View itemView) {
             super(itemView);
 
             name = (TextView) itemView.findViewById(R.id.factTypeNameTv);
+            descr = (TextView) itemView.findViewById(R.id.factTypeDescrTv);
         }
 
         @Override

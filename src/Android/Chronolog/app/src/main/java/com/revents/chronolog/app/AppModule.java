@@ -96,8 +96,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public AppCreateListener provideAppCreateListener(FactReader factReader, FactWriter factWriter) {
-        return new DefaultAppCreateListener(factReader, factWriter);
+    public AppCreateListener provideAppCreateListener(FactWriter factWriter) {
+        return new DefaultAppCreateListener(factWriter);
     }
 
     @Provides
@@ -132,8 +132,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public ResultUiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeResultUiCommand selectFactTypeCommand, EditFactActivityCommand editFactCommand) {
-        return new NewFactResultUiCommand(selectFactTypeCommand, editFactCommand);
+    public ResultUiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeResultUiCommand selectFactTypeCommand) {
+        return new NewFactResultUiCommand(selectFactTypeCommand);
     }
 
     @Provides
