@@ -94,26 +94,6 @@ public class FactsfeedActivityRoboTests {
     }
 
     @Test
-    public void should_call_addFactActivityCommand_onResult_When_onActivityResult() {
-        // Given
-        Class<Activity> activityClass = Activity.class;
-        int requestCode = 42;
-        int resultCode = 33;
-        Intent resultIntent = new Intent();
-
-        sut.startActivityForResult(new Intent(sut, activityClass), requestCode);
-
-        // When
-        shadowOf(sut).receiveResult(
-                new Intent(sut, activityClass),
-                resultCode,
-                resultIntent);
-
-        // Then
-        verify(addFactResultUiCommand).onResult(sut, requestCode, resultCode, resultIntent);
-    }
-
-    @Test
     public void should_dialog_yes_no_When_long_click_on_item() {
         // Given
         String expectedName = "coffee";

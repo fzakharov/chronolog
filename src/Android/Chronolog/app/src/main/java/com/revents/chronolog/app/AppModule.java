@@ -8,16 +8,15 @@ import com.revents.chronolog.db.greendao.GreenDaoFactReader;
 import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.features.IntentFactory;
+import com.revents.chronolog.features.feed.AddFactUiCommand;
 import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
 import com.revents.chronolog.features.feed.EditFactActivityExtractor;
-import com.revents.chronolog.features.feed.NewFactResultUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
-import com.revents.chronolog.features.type.SelectFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
 import com.revents.chronolog.features.value.NewValueDescriptorResultUiCommand;
 import com.revents.chronolog.features.value.SelectValueDescriptorResultUiCommand;
@@ -114,8 +113,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public SelectFactTypeResultUiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new SelectFactTypeResultUiCommand(intentFactory, factReader);
+    public UiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+        return new AddFactUiCommand(intentFactory, factReader);
     }
 
     @Provides
@@ -128,12 +127,6 @@ public class AppModule {
     @Singleton
     public EditFactActivityCommand provideEditFactActivityCommand() {
         return new EditFactActivityCommand();
-    }
-
-    @Provides
-    @Singleton
-    public ResultUiCommand<Fact> provideNewFactActivityCommand(SelectFactTypeResultUiCommand selectFactTypeCommand) {
-        return new NewFactResultUiCommand(selectFactTypeCommand);
     }
 
     @Provides
