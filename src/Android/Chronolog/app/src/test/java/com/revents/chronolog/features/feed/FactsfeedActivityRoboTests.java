@@ -3,6 +3,7 @@ package com.revents.chronolog.features.feed;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
@@ -21,6 +22,7 @@ import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.model.ValueDescriptor;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -97,8 +99,8 @@ public class FactsfeedActivityRoboTests {
     public void should_dialog_yes_no_When_long_click_on_item() {
         // Given
         String expectedName = "coffee";
-        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
-        fact.setFactType(new FactType(1L, expectedName, "", false, 1L, 1L));
+        Fact fact = createTestFact(expectedName);
+
         List<Fact> list = new ArrayList<>();
         list.add(fact);
 
@@ -119,7 +121,7 @@ public class FactsfeedActivityRoboTests {
     @Test
     public void should_delete_Fact_When_onEvent() {
         // Given
-        Fact fact = new Fact();
+        Fact fact = createTestFact("any name");
 
         // When
         sut.onEvent(new EventArgs<>(new Pair<>(true, fact)));
@@ -132,8 +134,8 @@ public class FactsfeedActivityRoboTests {
     public void should_load_facts_When_resume() {
         // Given
         String expectedName = "coffee";
-        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
-        fact.setFactType(new FactType(1L, expectedName, "", false, 1L, 1L));
+        Fact fact = createTestFact(expectedName);
+
         List<Fact> list = new ArrayList<>();
         list.add(fact);
 
@@ -149,6 +151,15 @@ public class FactsfeedActivityRoboTests {
 
         // Then
         assertEquals(expectedName, tv.getText());
+    }
+
+    @NonNull
+    private Fact createTestFact(String expectedTypeName) {
+        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
+        FactType factType = new FactType(1L, expectedTypeName, "", false, 1L, 1L);
+        factType.setValueDescriptor(new ValueDescriptor(1L, "", "", "default", ""));
+        fact.setFactType(factType);
+        return fact;
     }
 
     @Test

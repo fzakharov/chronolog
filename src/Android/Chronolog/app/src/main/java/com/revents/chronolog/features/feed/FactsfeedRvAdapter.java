@@ -32,7 +32,11 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     @Override
     public FactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return CellType.get(viewType).holder(parent);
+        FactViewHolder holder = CellType.get(viewType).holder(parent);
+
+        holder.setOnLongClickListener(mLongClickListener);
+
+        return holder;
     }
 
     @Override
@@ -54,7 +58,10 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
         FactViewHolder(View itemView) {
             super(itemView);
+
             mView = itemView;
+            mView.setOnLongClickListener(this);
+            mView.setTag(this);
         }
 
         @Override
