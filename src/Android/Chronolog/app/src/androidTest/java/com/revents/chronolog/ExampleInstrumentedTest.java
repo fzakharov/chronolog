@@ -2,9 +2,11 @@ package com.revents.chronolog;
 
 import android.support.test.espresso.Espresso;
 import android.support.test.espresso.action.ViewActions;
+import android.support.test.espresso.contrib.RecyclerViewActions;
 import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.v7.widget.RecyclerView;
 
 import com.revents.chronolog.features.feed.FactsfeedActivity;
 
@@ -25,6 +27,28 @@ public class ExampleInstrumentedTest {
             FactsfeedActivity.class);
 
     @Test
+    public void should_add_fact() throws Exception {
+
+        RecyclerView recyclerView = (RecyclerView) mActivityRule.getActivity().findViewById(R.id.factsfeedRv);
+        int expectedCount = recyclerView.getAdapter().getItemCount() + 1;
+
+        Click(R.id.addFactFab);
+
+        Espresso.onView(ViewMatchers.withId(R.id.factTypesRv))
+                .perform(RecyclerViewActions.actionOnItemAtPosition(0, ViewActions.click()));
+
+        Click(R.id.increaseBtn);
+        Click(R.id.increaseBtn);
+        Click(R.id.increaseBtn);
+        Click(R.id.updateBtn);
+
+        Espresso.pressBack();
+
+        Espresso.onView(ViewMatchers.withId(R.id.factsfeedRv))
+                .check(new RecyclerViewItemCountAssertion(expectedCount));
+    }
+
+    @Test
     public void should_select_group() throws Exception {
 
         Click(R.id.addFactFab);
@@ -42,8 +66,7 @@ public class ExampleInstrumentedTest {
         Click(R.id.addValueDescriptorFab);
     }
 
-    private void Click(final int id)
-    {
+    private void Click(final int id) {
         Espresso.onView(ViewMatchers.withId(id)).perform(ViewActions.click());
     }
 }
