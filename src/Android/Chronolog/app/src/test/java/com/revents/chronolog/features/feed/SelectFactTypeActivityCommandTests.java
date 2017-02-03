@@ -1,10 +1,12 @@
-package com.revents.chronolog.features.type;
+package com.revents.chronolog.features.feed;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.features.IntentFactory;
+import com.revents.chronolog.features.type.FactTypeIntentExtractor;
+import com.revents.chronolog.features.type.FactTypesActivity;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Rule;
@@ -28,7 +30,7 @@ public class SelectFactTypeActivityCommandTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    SelectFactTypeResultUiCommand sut;
+    AddFactUiCommand sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -50,7 +52,7 @@ public class SelectFactTypeActivityCommandTests {
 
         // Then
         verify(currentActivity)
-                .startActivityForResult(expectedIntent, SelectFactTypeResultUiCommand.FACT_TYPE_ID_REQUEST_CODE);
+                .startActivityForResult(expectedIntent, AddFactUiCommand.FACT_TYPE_ID_REQUEST_CODE);
     }
 
     @Test
@@ -81,7 +83,7 @@ public class SelectFactTypeActivityCommandTests {
                 .thenReturn(expected);
 
         // When
-        FactType actual = sut.onResult(currentActivity, SelectFactTypeResultUiCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
+        FactType actual = sut.onResult(currentActivity, AddFactUiCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
 
         // Then
         assertEquals(expected, actual);

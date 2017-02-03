@@ -30,12 +30,13 @@
             android:textColor="@color/colorSecondaryText"/>
 
 
-        <TextView
-            android:id="@+id/valueTv"
+        <RatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="***"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:rating="4"
+            android:numStars="5" />
 
         <TextView
             android:id="@+id/weekDayTv"

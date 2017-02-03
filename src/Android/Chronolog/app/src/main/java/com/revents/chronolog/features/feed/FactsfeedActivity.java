@@ -1,6 +1,5 @@
 package com.revents.chronolog.features.feed;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,11 +10,10 @@ import android.view.View;
 
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
-import com.revents.chronolog.app.AppModule_ProvideFactWriterFactory;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.EventArgs;
 import com.revents.chronolog.app.EventListener;
-import com.revents.chronolog.app.ResultUiCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
@@ -25,14 +23,14 @@ import javax.inject.Inject;
 
 public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener {
 
-    private ResultUiCommand<Fact> mAddFactResultUiCommand;
+    private UiCommand mAddFactUiCommand;
     private FactReader mFactReader;
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
 
     @Inject
-    public void inject(ResultUiCommand<Fact> addFactResultUiCommand, FactReader factReader, FactWriter factWriter, YesNoDialog yesNoDialog) {
-        mAddFactResultUiCommand = addFactResultUiCommand;
+    public void inject(UiCommand addFactUiCommand, FactReader factReader, FactWriter factWriter, YesNoDialog yesNoDialog) {
+        mAddFactUiCommand = addFactUiCommand;
         mFactReader = factReader;
         mYesNoDialog = yesNoDialog;
         mFactWriter = factWriter;
@@ -69,16 +67,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
     }
 
     public void addFactClick(View v) {
-        mAddFactResultUiCommand.execute(this);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        Fact fact = mAddFactResultUiCommand.onResult(this, requestCode, resultCode, data);
-        if (fact != null)
-            setTitle(fact.getStrValue());
+        mAddFactUiCommand.execute(this);
     }
 
     @Override

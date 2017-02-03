@@ -11,9 +11,11 @@ public class DbData {
 
     public static class Values {
         public static final long DEFAULT = 1L;
+        public static final long RATING = 2L;
 
         public static final ValueDescriptor[] ITEMS = new ValueDescriptor[]{
                 new ValueDescriptor(DEFAULT, "Число", "Событие со значением типа целое число.", "default", ""),
+                new ValueDescriptor(RATING, "Рейтинг", "Событие с оценкой от 1 до 5.", "rating", ""),
         };
     }
 
@@ -62,13 +64,13 @@ public class DbData {
         public static final Long Meditation = Groups.OTHER * 10 + 20;
 
         public static final FactType[] ITEMS = new FactType[]{
-                Create(WAKEUP, "Проснулся", "1-5: Качество сна", Groups.SLEEP),
-                Create(TO_SLEEP, "Лег спать", "1-5: Самочусвтие в конце дня", Groups.SLEEP),
+                Create(WAKEUP, Values.RATING, "Проснулся", "1-5: Качество сна", Groups.SLEEP),
+                Create(TO_SLEEP, Values.RATING, "Лег спать", "1-5: Самочусвтие в конце дня", Groups.SLEEP),
 
-                Create(Breakfast, "Позавтракал", "1-5: Качество завтрака", Groups.FOOD),
-                Create(Lunch, "Пообедал", "1-5: Качество обеда", Groups.FOOD),
-                Create(Evening_meal, "Поужинал", "1-5: Качество ужина", Groups.FOOD),
-                Create(Quick_bite, "Перекусил", "1-5: Качество перекуса", Groups.FOOD),
+                Create(Breakfast, Values.RATING, "Позавтракал", "1-5: Качество завтрака", Groups.FOOD),
+                Create(Lunch, Values.RATING, "Пообедал", "1-5: Качество обеда", Groups.FOOD),
+                Create(Evening_meal, Values.RATING, "Поужинал", "1-5: Качество ужина", Groups.FOOD),
+                Create(Quick_bite, Values.RATING, "Перекусил", "1-5: Качество перекуса", Groups.FOOD),
                 Create(Coffee, "Кофе", "", Groups.FOOD),
 
                 Create(Physical_charge, "Физическая зарядка", "", Groups.Physical_Activity),
@@ -77,15 +79,19 @@ public class DbData {
 
                 Create(Dental_floss, "Нить", "Зубная нить", Groups.Hygiene),
 
-                Create(Headache, "Головная боль", "1-5: 1-легко, 5-очень сильно", Groups.Health),
-                Create(Emotional_outburst, "Эмоциональный всплеск", "1-5: 1-слабый, 5-сильный", Groups.Health),
+                Create(Headache, Values.RATING, "Головная боль", "1-5: 1-легко, 5-очень сильно", Groups.Health),
+                Create(Emotional_outburst, Values.RATING, "Эмоциональный всплеск", "1-5: 1-слабый, 5-сильный", Groups.Health),
 
                 Create(Become_tempered, "Закалялся", "", Groups.OTHER),
                 Create(Meditation, "Медитация", "", Groups.OTHER),
         };
 
         private static FactType Create(Long id, String name, String descr, long factTypeGroupId) {
-            return new FactType(id, name, descr, DISABLED, factTypeGroupId, Values.DEFAULT);
+            return Create(id, Values.DEFAULT, name, descr, factTypeGroupId);
+        }
+
+        private static FactType Create(Long id, long valueDescrId, String name, String descr, long factTypeGroupId) {
+            return new FactType(id, name, descr, DISABLED, factTypeGroupId, valueDescrId);
         }
     }
 
