@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.revents.chronolog.R;
@@ -13,8 +14,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.FactViewHolder> {
-    private final SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
-    private final SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
+    private static final SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
+    private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
     private List<Fact> mData;
     private View.OnLongClickListener mLongClickListener;
 
@@ -24,23 +25,20 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return CellType.get(mData.get(position)).type();
+    }
+
+    @Override
     public FactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fact_rv_item, parent, false);
 
-        FactViewHolder ftvh = new FactViewHolder(v);
-        v.setOnClickListener(ftvh);
-        v.setOnLongClickListener(ftvh);
-
-        ftvh.setOnLongClickListener(mLongClickListener);
-        v.setTag(ftvh);
-
-        return ftvh;
+        return CellType.get(viewType).holder(parent);
     }
 
     @Override
     public void onBindViewHolder(FactViewHolder holder, int position) {
         Fact fact = mData.get(position);
-        holder.setFact(fact);
+        CellType.get(fact).bind(holder, fact);
     }
 
     @Override
@@ -48,9 +46,9 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
         return mData.size();
     }
 
-    public class FactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+    public static class FactViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
-        private final View mView;
+        protected final View mView;
         private View.OnLongClickListener mLongClickListener;
         private Fact mFact;
 
@@ -87,14 +85,105 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
             this.mFact = fact;
 
             setTv(R.id.headerTv, fact.getFactType().getName());
-            setTv(R.id.valueTv, fact.getLongValue().toString());
+            setValue(fact.getLongValue());
             setTv(R.id.timeTv, mTimeFormat.format(fact.getFactDate()));
             setTv(R.id.weekDayTv, mWeekFormat.format(fact.getFactDate()));
         }
 
-        private void setTv(int id, String value) {
+        protected void setValue(Long value) {
+            setTv(R.id.valueTv, value.toString());
+        }
+
+        protected void setTv(int id, String value) {
             TextView tv = (TextView) mView.findViewById(id);
             tv.setText(value);
         }
+    }
+
+    public static class RatingFactViewHolder extends FactViewHolder {
+
+        RatingFactViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void setValue(Long value) {
+            ((RatingBar) mView.findViewById(R.id.ratingBar)).setRating(value);
+        }
+    }
+
+    public enum CellType {
+        RATING {
+            @Override
+            boolean is(Fact item) {
+                return item.getFactType().getValueDescriptor().getClassName() == "rating";
+            }
+
+            @Override
+            int type() {
+                return R.layout.rating_fact_rv_item;
+            }
+
+            @Override
+            FactViewHolder holder(ViewGroup parent) {
+                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                View view = inflater.inflate(R.layout.rating_fact_rv_item, parent, false);
+                return new RatingFactViewHolder(view);
+            }
+
+            @Override
+            void bind(FactViewHolder holder, Fact item) {
+                holder.setFact(item);
+            }
+        },
+        DEFAULT {
+            @Override
+            boolean is(Fact item) {
+                return item.getFactType().getValueDescriptor().getClassName() != "rating";
+            }
+
+            @Override
+            int type() {
+                return R.layout.fact_rv_item;
+            }
+
+            @Override
+            FactViewHolder holder(ViewGroup parent) {
+                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                View view = inflater.inflate(R.layout.fact_rv_item, parent, false);
+                return new FactViewHolder(view);
+            }
+
+            @Override
+            void bind(FactViewHolder holder, Fact item) {
+                holder.setFact(item);
+            }
+        };
+
+        static CellType get(Fact item) {
+            for (CellType cellType : CellType.values()) {
+                if (cellType.is(item)) {
+                    return cellType;
+                }
+            }
+            throw new UnsupportedOperationException();
+        }
+
+        static CellType get(int viewType) {
+            for (CellType cellType : CellType.values()) {
+                if (cellType.type() == viewType) {
+                    return cellType;
+                }
+            }
+            throw new UnsupportedOperationException();
+        }
+
+        abstract boolean is(Fact item);
+
+        abstract int type();
+
+        abstract FactViewHolder holder(ViewGroup parent);
+
+        abstract void bind(FactViewHolder holder, Fact item);
     }
 }
