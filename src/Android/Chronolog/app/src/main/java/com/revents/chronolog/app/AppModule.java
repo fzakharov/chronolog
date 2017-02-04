@@ -37,6 +37,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 
+// TODO: 04.02.2017 extract submodules
 @Module
 public class AppModule {
 

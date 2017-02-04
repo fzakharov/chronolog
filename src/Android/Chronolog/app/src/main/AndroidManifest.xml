@@ -12,10 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".FactsViewActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".FactTypesListActivity" />
-        <activity
             android:name=".features.feed.FactsfeedActivity"
             android:label="@string/title_activity_factsfeed"
             android:theme="@style/AppTheme.NoActionBar">
