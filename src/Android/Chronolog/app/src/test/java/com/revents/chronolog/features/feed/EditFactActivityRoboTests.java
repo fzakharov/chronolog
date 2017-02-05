@@ -46,6 +46,7 @@ import static org.mockito.Mockito.when;
         application = FakeChronologApp.class)
 public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactActivity> {
 
+    static final long ONE_MINUTE_IN_MILLIS = 60000;
     private IntentExtractor<FactType> mExtractor;
     private Intent mIntent;
     private FactWriter mFactWriter;
@@ -93,6 +94,26 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
         // Then
         assertEquals(expected, sut.getFactDescription());
+    }
+
+    @Test
+    public void should_decrease_15_m_When_dec15mBtnClick() {
+        should_decrease_date_when_btn_click_testCase(R.id.dec15mBtn, 15);
+    }
+
+    @Test
+    public void should_decrease_30_m_When_dec30mBtnClick() {
+        should_decrease_date_when_btn_click_testCase(R.id.dec30mBtn, 30);
+    }
+
+    @Test
+    public void should_decrease_1_h_When_dec1hBtnClick() {
+        should_decrease_date_when_btn_click_testCase(R.id.dec1hBtn, 60);
+    }
+
+    @Test
+    public void should_decrease_1_d_When_dec1dBtnClick() {
+        should_decrease_date_when_btn_click_testCase(R.id.dec1dBtn, 60 * 24);
     }
 
     @Test
@@ -248,6 +269,17 @@ public class EditFactActivityRoboTests extends ActivityRoboTestsBase<EditFactAct
 
     private void CreateStart() {
         sutBuilder.withIntent(mIntent).create().start();
+    }
+
+    private void should_decrease_date_when_btn_click_testCase(int btnId, long expectedOffsetMin) {
+        // Given
+        Date expected = new Date(sut.getFactDate().getTime() - ONE_MINUTE_IN_MILLIS * expectedOffsetMin);
+
+        // When
+        viewById(btnId).performClick();
+
+        // Then
+        assertEquals(expected, sut.getFactDate());
     }
 
     private void inject(final EditFactActivity activity) {
