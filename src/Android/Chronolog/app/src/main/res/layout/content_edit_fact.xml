@@ -3,7 +3,6 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_centerHorizontal="true"
-              android:layout_marginTop="40dp"
               android:orientation="vertical">
 
     <TextView
@@ -11,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Тип факта"
-        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textAppearance="@android:style/TextAppearance.Small"
         android:textColor="@color/colorSecondaryText"/>
 
     <LinearLayout
@@ -53,28 +52,85 @@
             android:text="+"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/timeBtn"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryLight"
-        android:ems="10"
-        android:onClick="timeBtnOnClick"
-        android:text="13:25"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Large"
-        android:textColor="@color/colorPrimaryText"/>
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/dateBtn"
+        <Button
+            android:id="@+id/dec1hBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="dec1hBtnClick"
+            android:text="-1ч"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/colorSecondaryText"/>
+
+        <Button
+            android:id="@+id/dec30mBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="dec30mBtnClick"
+            android:text="-30м"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/colorSecondaryText"/>
+
+        <Button
+            android:id="@+id/dec15mBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="64dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="dec15mBtnClick"
+            android:text="-15м"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/colorSecondaryText"/>
+
+        <Button
+            android:id="@+id/timeBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="timeBtnOnClick"
+            android:text="13:25"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:textColor="@color/colorPrimaryText"/>
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryLight"
-        android:ems="10"
-        android:onClick="dateBtnOnClick"
-        android:text="24.01.2017"
-        android:textAlignment="center"
-        android:textAppearance="@android:style/TextAppearance.Large"/>
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dec1dBtn"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="dec1dBtnClick"
+            android:text="ВЧЕРА"
+            android:textAppearance="@android:style/TextAppearance.Small"
+            android:textColor="@color/colorSecondaryText"/>
+
+        <Button
+            android:id="@+id/dateBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryLight"
+            android:onClick="dateBtnOnClick"
+            android:text="24.01.2017"
+            android:textAlignment="center"
+            android:textAppearance="@android:style/TextAppearance.Large"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/updateBtn"

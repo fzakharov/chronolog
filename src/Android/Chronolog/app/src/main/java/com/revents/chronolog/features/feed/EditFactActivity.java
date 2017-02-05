@@ -30,6 +30,7 @@ import javax.inject.Inject;
 
 public class EditFactActivity extends AppCompatActivity implements DateListener {
 
+    static final long ONE_MINUTE_IN_MILLIS = 60000;
     private IntentExtractor<FactType> mExtractor;
     private FactType mFactType;
     private FactWriter mFactWriter;
@@ -147,6 +148,22 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
         finish();
     }
 
+    public void dec15mBtnClick(View v) {
+        decreaseFactDate(15);
+    }
+
+    public void dec30mBtnClick(View v) {
+        decreaseFactDate(30);
+    }
+
+    public void dec1hBtnClick(View v) {
+        decreaseFactDate(60);
+    }
+
+    public void dec1dBtnClick(View v) {
+        decreaseFactDate(60 * 24);
+    }
+
     public void timeBtnOnClick(View v) {
         mTimeDialog.show(mFactDate, this, this);
     }
@@ -169,6 +186,12 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
         return mFactDate;
     }
 
+    public void setFactDate(Date newDate) {
+        mFactDate = newDate;
+        mDateBtn.setText(mDateTimeProvider.toDateString(mFactDate));
+        mTimeBtn.setText(mDateTimeProvider.toTimeString(mFactDate));
+    }
+
     public Long getFactValue() {
         return mFactValue;
     }
@@ -187,8 +210,10 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
 
     @Override
     public void onDateChanged(Date newDate) {
-        mFactDate = newDate;
-        mDateBtn.setText(mDateTimeProvider.toDateString(mFactDate));
-        mTimeBtn.setText(mDateTimeProvider.toTimeString(mFactDate));
+        setFactDate(newDate);
+    }
+
+    private void decreaseFactDate(long m) {
+        setFactDate(new Date(getFactDate().getTime() - ONE_MINUTE_IN_MILLIS * m));
     }
 }
