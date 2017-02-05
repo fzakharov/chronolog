@@ -67,9 +67,9 @@ public class DbData {
                 Create(WAKEUP, Values.RATING, "Проснулся", "1-5: Качество сна", Groups.SLEEP),
                 Create(TO_SLEEP, Values.RATING, "Лег спать", "1-5: Самочусвтие в конце дня", Groups.SLEEP),
 
-                Create(Breakfast, Values.RATING, "Позавтракал", "1-5: Качество завтрака", Groups.FOOD),
-                Create(Lunch, Values.RATING, "Пообедал", "1-5: Качество обеда", Groups.FOOD),
-                Create(Evening_meal, Values.RATING, "Поужинал", "1-5: Качество ужина", Groups.FOOD),
+                Create(Breakfast, Values.RATING, "Завтрак", "1-5: Качество завтрака", Groups.FOOD),
+                Create(Lunch, Values.RATING, "Обед", "1-5: Качество обеда", Groups.FOOD),
+                Create(Evening_meal, Values.RATING, "Ужин", "1-5: Качество ужина", Groups.FOOD),
                 Create(Quick_bite, Values.RATING, "Перекусил", "1-5: Качество перекуса", Groups.FOOD),
                 Create(Coffee, "Кофе", "", Groups.FOOD),
 
