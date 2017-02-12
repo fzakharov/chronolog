@@ -47,6 +47,8 @@ public class GreenDaoFactWriterTests {
 
     @Before
     public void setUp() throws Exception {
+
+        // TODO: 12.02.2017 copypaste insert test fact
         DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(RuntimeEnvironment.application, null);
         mDb = openHelper.getWritableDb();
         mDaoSession = new DaoMaster(mDb).newSession();
