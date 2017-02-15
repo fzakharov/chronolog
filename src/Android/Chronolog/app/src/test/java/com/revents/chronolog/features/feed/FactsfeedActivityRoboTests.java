@@ -1,7 +1,5 @@
 package com.revents.chronolog.features.feed;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -14,7 +12,6 @@ import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.EventArgs;
-import com.revents.chronolog.app.EventListener;
 import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.YesNoDialog;
@@ -40,15 +37,14 @@ import java.util.Date;
 import java.util.List;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNotNull;
-import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.robolectric.Shadows.shadowOf;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class,
@@ -150,7 +146,8 @@ public class FactsfeedActivityRoboTests {
         TextView tv = (TextView) mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.headerTv);
 
         // Then
-        assertEquals(expectedName, tv.getText());
+        //assertThat(tv).isVisible();
+        assertThat(tv.getText()).isEqualTo(expectedName);
     }
 
     @NonNull

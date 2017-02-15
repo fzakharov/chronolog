@@ -17,6 +17,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import static android.app.Activity.RESULT_OK;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
@@ -65,7 +66,7 @@ public class SelectFactTypeActivityCommandTests {
         FactType actual = sut.onResult(currentActivity, unknownRequestCode, 24, new Intent());
 
         // Then
-        assertNull(actual);
+        assertThat(actual).isNull();
     }
 
     @Test
@@ -86,6 +87,6 @@ public class SelectFactTypeActivityCommandTests {
         FactType actual = sut.onResult(currentActivity, AddFactUiCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
 
         // Then
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 }
