@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
-
+    // TODO: 16.02.2017 fix tests after bindings added
     @Rule
     public ActivityTestRule<FactsfeedActivity> mActivityRule = new ActivityTestRule<>(
             FactsfeedActivity.class);

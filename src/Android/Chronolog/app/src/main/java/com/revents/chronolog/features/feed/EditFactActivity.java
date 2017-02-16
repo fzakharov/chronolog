@@ -1,7 +1,10 @@
 package com.revents.chronolog.features.feed;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -19,6 +22,7 @@ import com.revents.chronolog.app.DateDialog;
 import com.revents.chronolog.app.DateListener;
 import com.revents.chronolog.app.DateTimeProvider;
 import com.revents.chronolog.app.TimeDialog;
+import com.revents.chronolog.databinding.ActivityEditFactBinding;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.model.Fact;
@@ -48,6 +52,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     private DateTimeProvider mDateTimeProvider;
     private Button mDateBtn;
     private Button mTimeBtn;
+    private ActivityEditFactBinding mBinding;
 
     @Inject
     public void inject(
@@ -69,24 +74,23 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_fact);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_edit_fact);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setSupportActionBar(mBinding.toolbar);
 
         AppComponent appComp = ((ChronologApp) getApplication()).getAppComponent();
         appComp.inject(this);
 
-        mUpdateBtn = (Button) findViewById(R.id.updateBtn);
-        mDateBtn = (Button) findViewById(R.id.dateBtn);
-        mTimeBtn = (Button) findViewById(R.id.timeBtn);
+        mUpdateBtn = mBinding.content.updateBtn;
+        mDateBtn = mBinding.content.dateBtn;
+        mTimeBtn = mBinding.content.timeBtn;
 
         onDateChanged(mFactDate);
 
-        mValueEt = (EditText) findViewById(R.id.valueEt);
+        mValueEt = mBinding.content.valueEt;
         mValueEt.setText(mFactValue.toString());
 
-        mDescrEt = (EditText) findViewById(R.id.descrEt);
+        mDescrEt = mBinding.content.descrEt;
 
         // TODO: 26.01.2017 refactor this
         mValueEt.addTextChangedListener(new TextWatcher() {
@@ -139,7 +143,7 @@ public class EditFactActivity extends AppCompatActivity implements DateListener 
     private void LoadFactType() {
         Intent intent = getIntent();
         mFactType = mExtractor.extract(intent);
-        ((TextView) findViewById(R.id.factTypeTv)).setText(mFactType.getName());
+        mBinding.content.factTypeTv.setText(mFactType.getName());
     }
 
     public void updateBtnOnClick(View v) {

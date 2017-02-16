@@ -9,7 +9,7 @@ import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.app.*;
 
 import org.junit.runner.RunWith;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
@@ -17,7 +17,7 @@ import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.mockito.Mockito.verify;
 
 // TODO: 06.01.2017 use as base in other robo tests
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class,
         sdk = LOLLIPOP,
         application = FakeChronologApp.class)
