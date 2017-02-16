@@ -12,6 +12,7 @@ import com.revents.chronolog.features.feed.AddFactUiCommand;
 import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
 import com.revents.chronolog.features.feed.EditFactActivityExtractor;
+import com.revents.chronolog.features.feed.ShowStatUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
@@ -114,8 +115,16 @@ public class AppModule {
 
     @Provides
     @Singleton
+    @Named(CommandTypes.SELECT)
     public UiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
         return new AddFactUiCommand(intentFactory, factReader);
+    }
+
+    @Provides
+    @Singleton
+    @Named(CommandTypes.INFO)
+    public UiCommand provideShowStatUiCommand(IntentFactory intentFactory) {
+        return new ShowStatUiCommand(intentFactory);
     }
 
     @Provides

@@ -14,6 +14,7 @@ import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.EventArgs;
 import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.app.ResultUiCommand;
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
@@ -53,6 +54,7 @@ import static org.mockito.Mockito.when;
 public class FactsfeedActivityRoboTests {
 
     private ResultUiCommand addFactResultUiCommand;
+    private UiCommand mShowStatCommand;
     private FactsfeedActivity sut;
     private ActivityController<FactsfeedActivity> sutBuilder;
     private FactReader mFactReader;
@@ -63,6 +65,7 @@ public class FactsfeedActivityRoboTests {
     @Before
     public void setUp() throws Exception {
         addFactResultUiCommand = mock(ResultUiCommand.class);
+        mShowStatCommand = mock(UiCommand.class);
         mFactWriter = mock(FactWriter.class);
         mFactReader = mock(FactReader.class);
         mYesNoDialog = mock(YesNoDialog.class);
@@ -75,20 +78,6 @@ public class FactsfeedActivityRoboTests {
         sutBuilder.create().start();
 
         mfactsFeedRv = viewById(R.id.factsfeedRv);
-    }
-
-    private void inject(final FactsfeedActivity activity) {
-        ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
-        AppComponent cmp = app.getAppComponent();
-
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-
-                activity.inject(addFactResultUiCommand, mFactReader, mFactWriter, mYesNoDialog);
-                return null;
-            }
-        }).when(cmp).inject(sut);
     }
 
     @Test
@@ -112,6 +101,29 @@ public class FactsfeedActivityRoboTests {
 
         // Then
         verify(mYesNoDialog).show(eq(sut), eq(fact), isNotNull(String.class), eq(sut));
+    }
+
+    @Test
+    public void should_show_stat_activity_When_click_on_item() {
+        // Given
+        String expectedName = "coffee";
+        Fact fact = createTestFact(expectedName);
+
+        List<Fact> list = new ArrayList<>();
+        list.add(fact);
+
+        when(mFactReader.loadFactsfeed())
+                .thenReturn(list);
+
+        sutBuilder.resume();
+
+        // When
+        mfactsFeedRv.measure(0, 0);
+        mfactsFeedRv.layout(0, 0, 100, 1000);
+        mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.performClick();
+
+        // Then
+        verify(mShowStatCommand).execute(sut);
     }
 
     @Test
@@ -150,15 +162,6 @@ public class FactsfeedActivityRoboTests {
         assertThat(tv.getText()).isEqualTo(expectedName);
     }
 
-    @NonNull
-    private Fact createTestFact(String expectedTypeName) {
-        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
-        FactType factType = new FactType(1L, expectedTypeName, "", false, 1L, 1L);
-        factType.setValueDescriptor(new ValueDescriptor(1L, "", "", "default", ""));
-        fact.setFactType(factType);
-        return fact;
-    }
-
     @Test
     public void should_execute_addFactCommand_When_addFactFab_clicked() {
         // Given
@@ -173,5 +176,28 @@ public class FactsfeedActivityRoboTests {
 
     private <T> T viewById(@IdRes int id) {
         return (T) sut.findViewById(id);
+    }
+
+    private void inject(final FactsfeedActivity activity) {
+        ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
+        AppComponent cmp = app.getAppComponent();
+
+        doAnswer(new Answer() {
+            @Override
+            public Object answer(InvocationOnMock invocation) throws Throwable {
+
+                activity.inject(addFactResultUiCommand, mShowStatCommand, mFactReader, mFactWriter, mYesNoDialog);
+                return null;
+            }
+        }).when(cmp).inject(sut);
+    }
+
+    @NonNull
+    private Fact createTestFact(String expectedTypeName) {
+        Fact fact = new Fact(42L, null, new Date(), 1L, "", 1L);
+        FactType factType = new FactType(1L, expectedTypeName, "", false, 1L, 1L);
+        factType.setValueDescriptor(new ValueDescriptor(1L, "", "", "default", ""));
+        fact.setFactType(factType);
+        return fact;
     }
 }

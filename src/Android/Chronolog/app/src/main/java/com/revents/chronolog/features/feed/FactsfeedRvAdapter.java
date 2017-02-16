@@ -18,10 +18,12 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
     private List<Fact> mData;
     private View.OnLongClickListener mLongClickListener;
+    private View.OnClickListener mClickListener;
 
-    public FactsfeedRvAdapter(List<Fact> facts, View.OnLongClickListener longClickListener) {
+    public FactsfeedRvAdapter(List<Fact> facts, View.OnClickListener clickListener, View.OnLongClickListener longClickListener) {
         mData = facts;
         mLongClickListener = longClickListener;
+        mClickListener = clickListener;
     }
 
     @Override
@@ -35,6 +37,7 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
         FactViewHolder holder = CellType.get(viewType).holder(parent);
 
         holder.setOnLongClickListener(mLongClickListener);
+        holder.setOnClickListener(mClickListener);
 
         return holder;
     }
@@ -54,6 +57,7 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
         protected final View mView;
         private View.OnLongClickListener mLongClickListener;
+        private View.OnClickListener mClickListener;
         private Fact mFact;
 
         FactViewHolder(View itemView) {
@@ -61,12 +65,14 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
             mView = itemView;
             mView.setOnLongClickListener(this);
+            mView.setOnClickListener(this);
             mView.setTag(this);
         }
 
         @Override
         public void onClick(View v) {
-
+            if (mClickListener != null)
+                mClickListener.onClick(v);
         }
 
         @Override
@@ -83,6 +89,12 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
             mLongClickListener = longClickListener;
         }
+
+        public void setOnClickListener(View.OnClickListener clickListener) {
+
+            mClickListener = clickListener;
+        }
+
 
         public Fact getFact() {
             return mFact;

@@ -11,6 +11,7 @@ import android.view.View;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.CommandTypes;
 import com.revents.chronolog.app.EventArgs;
 import com.revents.chronolog.app.EventListener;
 import com.revents.chronolog.app.UiCommand;
@@ -20,17 +21,28 @@ import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener {
+public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener, View.OnClickListener {
 
     private UiCommand mAddFactUiCommand;
+    private UiCommand mShowStatCommand;
     private FactReader mFactReader;
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
 
     @Inject
-    public void inject(UiCommand addFactUiCommand, FactReader factReader, FactWriter factWriter, YesNoDialog yesNoDialog) {
+    public void inject(
+            @Named(CommandTypes.SELECT)
+                    UiCommand addFactUiCommand,
+            @Named(CommandTypes.INFO)
+                    UiCommand showStatCommand,
+            FactReader factReader,
+            FactWriter factWriter,
+            YesNoDialog yesNoDialog) {
+
         mAddFactUiCommand = addFactUiCommand;
+        mShowStatCommand = showStatCommand;
         mFactReader = factReader;
         mYesNoDialog = yesNoDialog;
         mFactWriter = factWriter;
@@ -62,7 +74,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-        FactsfeedRvAdapter adapter = new FactsfeedRvAdapter(mFactReader.loadFactsfeed(), this);
+        FactsfeedRvAdapter adapter = new FactsfeedRvAdapter(mFactReader.loadFactsfeed(), this, this);
         rv.setAdapter(adapter);
     }
 
@@ -95,5 +107,10 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         mYesNoDialog.show(this, f, msg, this);
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        mShowStatCommand.execute(this);
     }
 }

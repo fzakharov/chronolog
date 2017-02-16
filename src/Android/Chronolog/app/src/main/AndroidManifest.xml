@@ -75,7 +75,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.revents.chronolog.features.value.ValueDescriptorsActivity" />
         </activity>
-
         <activity
             android:name=".features.feed.EditFactActivity"
             android:label="@string/title_activity_edit_fact"
@@ -85,6 +84,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.revents.chronolog.features.feed.FactsfeedActivity" />
         </activity>
+        <activity android:name=".features.statistics.FactTypeStatisticsActivity"></activity>
     </application>
 
 </manifest>
