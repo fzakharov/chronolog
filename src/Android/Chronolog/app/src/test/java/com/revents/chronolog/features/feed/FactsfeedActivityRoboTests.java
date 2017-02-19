@@ -1,45 +1,37 @@
 package com.revents.chronolog.features.feed;
 
-import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
 import android.widget.TextView;
 
-import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.app.EventArgs;
-import com.revents.chronolog.app.FakeChronologApp;
 import com.revents.chronolog.app.ResultUiCommand;
 import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
+import com.revents.chronolog.features.ActivityRoboTestsBase;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.ValueDescriptor;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.annotation.Config;
-import org.robolectric.util.ActivityController;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static android.os.Build.VERSION_CODES.LOLLIPOP;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNotNull;
 import static org.mockito.Mockito.doAnswer;
@@ -47,16 +39,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricTestRunner.class)
-@Config(constants = BuildConfig.class,
-        sdk = LOLLIPOP,
-        application = FakeChronologApp.class)
-public class FactsfeedActivityRoboTests {
+public class FactsfeedActivityRoboTests   extends ActivityRoboTestsBase<FactsfeedActivity> {
 
     private ResultUiCommand addFactResultUiCommand;
     private UiCommand mShowStatCommand;
-    private FactsfeedActivity sut;
-    private ActivityController<FactsfeedActivity> sutBuilder;
     private FactReader mFactReader;
     private RecyclerView mfactsFeedRv;
     private YesNoDialog mYesNoDialog;
@@ -158,7 +144,6 @@ public class FactsfeedActivityRoboTests {
         TextView tv = (TextView) mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.headerTv);
 
         // Then
-        //assertThat(tv).isVisible();
         assertThat(tv.getText()).isEqualTo(expectedName);
     }
 
@@ -174,21 +159,14 @@ public class FactsfeedActivityRoboTests {
         verify(addFactResultUiCommand).execute(sut);
     }
 
-    private <T> T viewById(@IdRes int id) {
-        return (T) sut.findViewById(id);
-    }
-
     private void inject(final FactsfeedActivity activity) {
         ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
         AppComponent cmp = app.getAppComponent();
 
-        doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
+        doAnswer(invocation -> {
 
-                activity.inject(addFactResultUiCommand, mShowStatCommand, mFactReader, mFactWriter, mYesNoDialog);
-                return null;
-            }
+            activity.inject(addFactResultUiCommand, mShowStatCommand, mFactReader, mFactWriter, mYesNoDialog);
+            return null;
         }).when(cmp).inject(sut);
     }
 

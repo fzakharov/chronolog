@@ -63,6 +63,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
     @Override
     protected void onResume() {
         super.onResume();
+
         reload();
     }
 

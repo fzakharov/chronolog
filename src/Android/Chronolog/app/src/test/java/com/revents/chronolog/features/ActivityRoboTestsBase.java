@@ -7,13 +7,16 @@ import android.widget.Button;
 
 import com.revents.chronolog.BuildConfig;
 import com.revents.chronolog.app.*;
+import com.revents.chronolog.features.feed.FactsfeedActivity;
 
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
 
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.verify;
 
 // TODO: 06.01.2017 use as base in other robo tests
@@ -27,7 +30,7 @@ public abstract class ActivityRoboTestsBase<T extends Activity> {
 
     protected void should_execute_When_click_test_case(@IdRes int id, com.revents.chronolog.app.ResultUiCommand command) {
         // Given
-        Button btn = (Button) viewById(id);
+        Button btn = viewById(id);
 
         // When
         btn.performClick();
