@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -28,11 +29,47 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
     @Mock
     RecyclerViewItemProvider<String> mRvBinder;
 
+    private View mTestHolderItemView;
+    private TestRvHolder mTestHolder;
+
     @Mock
     ArrayList<String> mDataSet;
 
     @InjectMocks
     ItemTypeDispatcherRecyclerViewAdapter<String, TestRvHolder> sut;
+
+    @Before
+    public void setUp()
+    {
+        mTestHolderItemView = mock(View.class);
+        mTestHolder = new TestRvHolder(mTestHolderItemView);
+    }
+
+    @Test
+    public void should_setOnClickListener_to_viewItem_When_onBindViewHolder() {
+        // Given
+        View.OnClickListener cl = mock(View.OnClickListener.class);
+        sut.setItemOnClickListener(cl);
+
+        // When
+        sut.onBindViewHolder(mTestHolder, 42);
+
+        // Then
+        verify(mTestHolderItemView).setOnClickListener(cl);
+    }
+
+    @Test
+    public void should_setOnLongClickListener_to_viewItem_When_onBindViewHolder() {
+        // Given
+        View.OnLongClickListener cl = mock(View.OnLongClickListener.class);
+        sut.setItemOnLongClickListener(cl);
+
+        // When
+        sut.onBindViewHolder(mTestHolder, 42);
+
+        // Then
+        verify(mTestHolderItemView).setOnLongClickListener(cl);
+    }
 
     @Test
     public void should_bind_item_at_pos_to_holder_When_onBindViewHolder() {
@@ -70,7 +107,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
         when(inflater.inflate(viewType, parent, false))
                 .thenReturn(view);
 
-        when(mRvBinder.createViewHolder(view))
+        when(mRvBinder.createViewHolder(view, viewType))
                 .thenReturn(expectedHolder);
 
         // When

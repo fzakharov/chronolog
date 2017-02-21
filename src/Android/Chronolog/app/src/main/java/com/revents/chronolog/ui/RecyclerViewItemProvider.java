@@ -6,5 +6,5 @@ import android.view.View;
 public interface RecyclerViewItemProvider<TData> {
     int getResourceId(TData item);
 
-    <TViewHolder extends RecyclerView.ViewHolder & BindableHolder> TViewHolder createViewHolder(View view);
+    <TViewHolder extends RecyclerView.ViewHolder & BindableHolder> TViewHolder createViewHolder(View view, int resourceId);
 }
