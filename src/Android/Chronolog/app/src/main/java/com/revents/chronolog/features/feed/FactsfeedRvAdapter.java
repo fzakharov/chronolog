@@ -1,5 +1,6 @@
 package com.revents.chronolog.features.feed;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
     @Override
     public FactViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        FactViewHolder holder = CellType.get(viewType).holder(parent);
+        FactViewHolder holder = CellType.get(viewType).holder(parent, viewType);
 
         holder.setOnLongClickListener(mLongClickListener);
         holder.setOnClickListener(mClickListener);
@@ -144,9 +145,11 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
             }
 
             @Override
-            FactViewHolder holder(ViewGroup parent) {
-                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                View view = inflater.inflate(R.layout.rating_fact_rv_item, parent, false);
+            FactViewHolder holder(ViewGroup parent, int type) {
+                Context context = parent.getContext();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                View view = inflater.inflate(type, parent, false);
                 return new RatingFactViewHolder(view);
             }
 
@@ -167,9 +170,11 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
             }
 
             @Override
-            FactViewHolder holder(ViewGroup parent) {
-                LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-                View view = inflater.inflate(R.layout.fact_rv_item, parent, false);
+            FactViewHolder holder(ViewGroup parent, int type) {
+                Context context = parent.getContext();
+                LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                //LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+                View view = inflater.inflate(type, parent, false);
                 return new FactViewHolder(view);
             }
 
@@ -201,7 +206,7 @@ public class FactsfeedRvAdapter extends RecyclerView.Adapter<FactsfeedRvAdapter.
 
         abstract int type();
 
-        abstract FactViewHolder holder(ViewGroup parent);
+        abstract FactViewHolder holder(ViewGroup parent, int type);
 
         abstract void bind(FactViewHolder holder, Fact item);
     }
