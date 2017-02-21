@@ -3,12 +3,9 @@ package com.revents.chronolog.ui;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.ximpleware.xpath.UnsupportedException;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,7 +26,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
-    RecyclerViewBinder<String> mRvBinder;
+    RecyclerViewItemProvider<String> mRvBinder;
 
     @Mock
     ArrayList<String> mDataSet;
@@ -42,12 +39,15 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
         // Given
         TestRvHolder holder = mock(TestRvHolder.class);
         int position = 42;
+        String expected = "data";
+        when(mDataSet.get(position))
+                .thenReturn(expected);
 
         // When
         sut.onBindViewHolder(holder, position);
 
         // Then
-
+        verify(holder).bind(expected);
     }
 
     @Test
@@ -114,10 +114,15 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
         assertThat(actual).isEqualTo(expected);
     }
 
-    private class TestRvHolder extends RecyclerView.ViewHolder {
+    private class TestRvHolder extends RecyclerView.ViewHolder implements BindableHolder<String> {
 
         public TestRvHolder(View itemView) {
             super(itemView);
+        }
+
+        @Override
+        public void bind(String s) {
+
         }
     }
 }

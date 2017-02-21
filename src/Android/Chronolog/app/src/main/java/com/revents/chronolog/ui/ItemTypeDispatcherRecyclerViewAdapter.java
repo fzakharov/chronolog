@@ -8,23 +8,23 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends RecyclerView.ViewHolder>
-        extends RecyclerView.Adapter<TViewHolder>{
+public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends RecyclerView.ViewHolder & BindableHolder<TData>>
+        extends RecyclerView.Adapter<TViewHolder> {
 
     private ArrayList<TData> mDataSet;
-    private RecyclerViewBinder<TData> mRecyclerViewBinder;
+    private RecyclerViewItemProvider<TData> mRecyclerViewItemProvider;
 
-    public ItemTypeDispatcherRecyclerViewAdapter(ArrayList<TData> dataSet, RecyclerViewBinder<TData> recyclerViewBinder){
+    public ItemTypeDispatcherRecyclerViewAdapter(ArrayList<TData> dataSet, RecyclerViewItemProvider<TData> recyclerViewItemProvider) {
 
         mDataSet = dataSet;
-        mRecyclerViewBinder = recyclerViewBinder;
+        mRecyclerViewItemProvider = recyclerViewItemProvider;
     }
 
     @Override
     public int getItemViewType(int position) {
         TData item = mDataSet.get(position);
 
-        return mRecyclerViewBinder.getResourceId(item);
+        return mRecyclerViewItemProvider.getResourceId(item);
     }
 
     @Override
@@ -33,12 +33,12 @@ public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends Re
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(viewType, parent, false);
 
-        return mRecyclerViewBinder.createViewHolder(view);
+        return mRecyclerViewItemProvider.createViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(TViewHolder holder, int position) {
-        throw new UnsupportedOperationException();
+        holder.bind(mDataSet.get(position));
     }
 
     @Override

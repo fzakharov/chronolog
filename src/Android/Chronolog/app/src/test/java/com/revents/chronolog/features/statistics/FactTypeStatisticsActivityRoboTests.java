@@ -5,6 +5,7 @@ import com.revents.chronolog.app.ChronologApp;
 import com.revents.chronolog.features.ActivityRoboTestsBase;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
@@ -26,6 +27,7 @@ public class FactTypeStatisticsActivityRoboTests  extends ActivityRoboTestsBase<
         sutBuilder.create().start().resume();
     }
 
+    @Ignore("implement")
     @Test
     public void should__When_() {
         // Given
