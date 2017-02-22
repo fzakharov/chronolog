@@ -8,16 +8,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends RecyclerView.ViewHolder & BindableHolder<TData>>
         extends RecyclerView.Adapter<TViewHolder> {
 
-    private ArrayList<TData> mDataSet;
-    private RecyclerViewItemProvider<TData> mRecyclerViewItemProvider;
+    private List<TData> mDataSet;
+    private RecyclerViewItemProvider<TData, TViewHolder> mRecyclerViewItemProvider;
     private View.OnClickListener mOnClickListener;
     private View.OnLongClickListener mOnLongClickListener;
 
-    public ItemTypeDispatcherRecyclerViewAdapter(ArrayList<TData> dataSet, RecyclerViewItemProvider<TData> recyclerViewItemProvider) {
+    public ItemTypeDispatcherRecyclerViewAdapter(List<TData> dataSet, RecyclerViewItemProvider<TData, TViewHolder> recyclerViewItemProvider) {
 
         mDataSet = dataSet;
         mRecyclerViewItemProvider = recyclerViewItemProvider;
@@ -36,7 +37,11 @@ public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends Re
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(viewType, parent, false);
 
-        return mRecyclerViewItemProvider.createViewHolder(view, viewType);
+        TViewHolder holder = mRecyclerViewItemProvider.createViewHolder(view, viewType);
+
+        view.setTag(holder);
+
+        return holder;
     }
 
     @Override

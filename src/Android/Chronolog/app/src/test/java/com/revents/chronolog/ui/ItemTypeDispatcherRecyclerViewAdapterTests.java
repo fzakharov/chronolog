@@ -27,7 +27,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
-    RecyclerViewItemProvider<String> mRvBinder;
+    RecyclerViewItemProvider<String, TestRvHolder> mItemProvider;
 
     private View mTestHolderItemView;
     private TestRvHolder mTestHolder;
@@ -39,8 +39,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
     ItemTypeDispatcherRecyclerViewAdapter<String, TestRvHolder> sut;
 
     @Before
-    public void setUp()
-    {
+    public void setUp() {
         mTestHolderItemView = mock(View.class);
         mTestHolder = new TestRvHolder(mTestHolderItemView);
     }
@@ -88,7 +87,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
     }
 
     @Test
-    public void should_inflate_holder_by_viewType_When_onCreateViewHolder() {
+    public void should_inflate_holder_by_viewType_and_setTag_When_onCreateViewHolder() {
         // Given
         @LayoutRes final int viewType = 42;
         ViewGroup parent = mock(ViewGroup.class);
@@ -107,7 +106,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
         when(inflater.inflate(viewType, parent, false))
                 .thenReturn(view);
 
-        when(mRvBinder.createViewHolder(view, viewType))
+        when(mItemProvider.createViewHolder(view, viewType))
                 .thenReturn(expectedHolder);
 
         // When
@@ -115,6 +114,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
 
         // Then
         assertThat(actual).isEqualTo(expectedHolder);
+        verify(view).setTag(actual);
     }
 
     @Test
@@ -127,7 +127,7 @@ public class ItemTypeDispatcherRecyclerViewAdapterTests {
         when(mDataSet.get(position))
                 .thenReturn(item);
 
-        when(mRvBinder.getResourceId(item))
+        when(mItemProvider.getResourceId(item))
                 .thenReturn(expectedResId);
 
         // When

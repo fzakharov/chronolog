@@ -19,6 +19,7 @@ import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.ui.ItemTypeDispatcherRecyclerViewAdapter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -75,7 +76,13 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-        FactsfeedRvAdapter adapter = new FactsfeedRvAdapter(mFactReader.loadFactsfeed(), this, this);
+        ItemTypeDispatcherRecyclerViewAdapter adapter = new ItemTypeDispatcherRecyclerViewAdapter<>(
+                mFactReader.loadFactsfeed(),
+                new FactsfeedRecyclerViewItemProvider());
+
+        adapter.setItemOnClickListener(v -> onClick(v));
+        adapter.setItemOnLongClickListener(v -> onLongClick(v));
+
         rv.setAdapter(adapter);
     }
 
@@ -95,7 +102,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
     @Override
     public boolean onLongClick(View v) {
 
-        FactsfeedRvAdapter.FactViewHolder holder = (FactsfeedRvAdapter.FactViewHolder) v.getTag();
+        FactsfeedRecyclerViewItemProvider.FactViewHolder holder = (FactsfeedRecyclerViewItemProvider.FactViewHolder) v.getTag();
         Fact f = holder.getFact();
 
         String msg =
