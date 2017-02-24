@@ -29,10 +29,10 @@ public class FactsfeedRecyclerViewItemProviderTests {
         // Given
 
         // When
-        FactsfeedRecyclerViewItemProvider.FactViewHolder holder = sut.createViewHolder(mock(View.class), R.layout.rating_fact_rv_item);
+        FactViewHolder holder = sut.createViewHolder(mock(View.class), R.layout.rating_fact_rv_item);
 
         // Then
-        assertThat(holder).isInstanceOf(FactsfeedRecyclerViewItemProvider.RatingFactViewHolder.class);
+        assertThat(holder).isInstanceOf(RatingFactViewHolder.class);
     }
 
     @Test

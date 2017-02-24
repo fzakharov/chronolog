@@ -101,7 +101,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
 
     public boolean onLongClick(View v) {
 
-        FactsfeedRecyclerViewItemProvider.FactViewHolder holder = (FactsfeedRecyclerViewItemProvider.FactViewHolder) v.getTag();
+        FactViewHolder holder = (FactViewHolder) v.getTag();
         Fact f = holder.getFact();
 
         String msg =
@@ -117,7 +117,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
     }
 
     public void onClick(View v) {
-        FactsfeedRecyclerViewItemProvider.FactViewHolder holder = (FactsfeedRecyclerViewItemProvider.FactViewHolder) v.getTag();
+        FactViewHolder holder = (FactViewHolder) v.getTag();
 
         mFactClickAction.execute(this, holder.getFact());
     }
