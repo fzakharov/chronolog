@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.RecyclerView;
 import android.util.Pair;
+import android.view.View;
 import android.widget.TextView;
 
 import com.revents.chronolog.R;
@@ -19,6 +20,7 @@ import com.revents.chronolog.features.ActivityRoboTestsBase;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.ValueDescriptor;
+import com.revents.chronolog.ui.UiAction;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -39,22 +41,22 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class FactsfeedActivityRoboTests   extends ActivityRoboTestsBase<FactsfeedActivity> {
+public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedActivity> {
 
     private ResultUiCommand addFactResultUiCommand;
-    private UiCommand mShowStatCommand;
     private FactReader mFactReader;
     private RecyclerView mfactsFeedRv;
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
+    private UiAction<Fact> mFactClickAction;
 
     @Before
     public void setUp() throws Exception {
         addFactResultUiCommand = mock(ResultUiCommand.class);
-        mShowStatCommand = mock(UiCommand.class);
         mFactWriter = mock(FactWriter.class);
         mFactReader = mock(FactReader.class);
         mYesNoDialog = mock(YesNoDialog.class);
+        mFactClickAction = mock(UiAction.class);
 
         sutBuilder = Robolectric.buildActivity(FactsfeedActivity.class);
         sut = sutBuilder.get();
@@ -81,19 +83,16 @@ public class FactsfeedActivityRoboTests   extends ActivityRoboTestsBase<Factsfee
         sutBuilder.resume();
 
         // When
-        mfactsFeedRv.measure(0, 0);
-        mfactsFeedRv.layout(0, 0, 100, 1000);
-        mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.performLongClick();
+        getHolderAtPosition(0).performLongClick();
 
         // Then
         verify(mYesNoDialog).show(eq(sut), eq(fact), isNotNull(String.class), eq(sut));
     }
 
     @Test
-    public void should_show_stat_activity_When_click_on_item() {
+    public void should_execute_fact_action_When_click_on_item() {
         // Given
-        String expectedName = "coffee";
-        Fact fact = createTestFact(expectedName);
+        Fact fact = createTestFact("");
 
         List<Fact> list = new ArrayList<>();
         list.add(fact);
@@ -104,12 +103,10 @@ public class FactsfeedActivityRoboTests   extends ActivityRoboTestsBase<Factsfee
         sutBuilder.resume();
 
         // When
-        mfactsFeedRv.measure(0, 0);
-        mfactsFeedRv.layout(0, 0, 100, 1000);
-        mfactsFeedRv.findViewHolderForLayoutPosition(0).itemView.performClick();
+        getHolderAtPosition(0).performClick();
 
         // Then
-        verify(mShowStatCommand).execute(sut);
+        verify(mFactClickAction).execute(sut, fact);
     }
 
     @Test
@@ -159,13 +156,19 @@ public class FactsfeedActivityRoboTests   extends ActivityRoboTestsBase<Factsfee
         verify(addFactResultUiCommand).execute(sut);
     }
 
+    private View getHolderAtPosition(int position){
+        mfactsFeedRv.measure(0, 0);
+        mfactsFeedRv.layout(0, 0, 100, 1000);
+        return mfactsFeedRv.findViewHolderForLayoutPosition(position).itemView;
+    }
+
     private void inject(final FactsfeedActivity activity) {
         ChronologApp app = (ChronologApp) RuntimeEnvironment.application;
         AppComponent cmp = app.getAppComponent();
 
         doAnswer(invocation -> {
 
-            activity.inject(addFactResultUiCommand, mShowStatCommand, mFactReader, mFactWriter, mYesNoDialog);
+            activity.inject(addFactResultUiCommand, mFactClickAction, mFactReader, mFactWriter, mYesNoDialog);
             return null;
         }).when(cmp).inject(sut);
     }

@@ -3,7 +3,6 @@ package com.revents.chronolog.features.statistics;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
@@ -14,6 +13,7 @@ import javax.inject.Inject;
 
 public class FactTypeStatisticsActivity extends AppCompatActivity {
 
+    public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
     private ActivityFactTypeStatisticsBinding mBinding;
 
     @Inject

@@ -1,4 +1,4 @@
-package com.revents.chronolog.ui;
+package com.revents.chronolog.ui.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ItemTypeDispatcherRecyclerViewAdapter<TData, TViewHolder extends RecyclerView.ViewHolder & BindableHolder<TData>>

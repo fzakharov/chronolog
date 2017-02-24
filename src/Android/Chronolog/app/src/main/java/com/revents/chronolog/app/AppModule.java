@@ -12,10 +12,10 @@ import com.revents.chronolog.features.feed.AddFactUiCommand;
 import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
 import com.revents.chronolog.features.feed.EditFactActivityExtractor;
-import com.revents.chronolog.features.feed.ShowStatUiCommand;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.statistics.ShowStatUiAction;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -29,6 +29,7 @@ import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
+import com.revents.chronolog.ui.UiAction;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -122,9 +123,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    @Named(CommandTypes.INFO)
-    public UiCommand provideShowStatUiCommand(IntentFactory intentFactory) {
-        return new ShowStatUiCommand(intentFactory);
+    public UiAction<Fact> provideShowStatUiAction(IntentFactory intentFactory) {
+        return new ShowStatUiAction(intentFactory);
     }
 
     @Provides

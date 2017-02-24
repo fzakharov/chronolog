@@ -1,4 +1,4 @@
-package com.revents.chronolog.ui;
+package com.revents.chronolog.ui.recyclerview;
 
 public interface BindableHolder<TData>{
     void bind(TData data);

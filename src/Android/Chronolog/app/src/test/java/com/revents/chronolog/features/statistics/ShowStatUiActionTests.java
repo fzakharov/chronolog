@@ -1,10 +1,12 @@
-package com.revents.chronolog.features.feed;
+package com.revents.chronolog.features.statistics;
 
 import android.app.Activity;
 import android.content.Intent;
 
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.statistics.FactTypeStatisticsActivity;
+import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.model.FactType;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,12 +19,12 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-public class ShowStatUiCommandTests{
+public class ShowStatUiActionTests {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @InjectMocks
-    ShowStatUiCommand sut;
+    ShowStatUiAction sut;
 
     @Mock
     IntentFactory mIntentFactory;
@@ -33,14 +35,24 @@ public class ShowStatUiCommandTests{
         Activity currentActivity = mock(Activity.class);
         Intent expectedIntent = mock(Intent.class);
 
+        long expectedFactTypeId = 42L;
+
+        Fact fact = mock(Fact.class);
+        when(fact.getFactTypeId())
+                .thenReturn(expectedFactTypeId);
+
+
         when(mIntentFactory.Create(currentActivity, FactTypeStatisticsActivity.class))
                 .thenReturn(expectedIntent);
 
         // When
-        sut.execute(currentActivity);
+        sut.execute(currentActivity, fact);
 
         // Then
         verify(currentActivity)
                 .startActivity(expectedIntent);
+
+        verify(expectedIntent)
+                .putExtra(FactTypeStatisticsActivity.FACT_TYPE_ID_EXTRA_NAME, expectedFactTypeId);
     }
 }

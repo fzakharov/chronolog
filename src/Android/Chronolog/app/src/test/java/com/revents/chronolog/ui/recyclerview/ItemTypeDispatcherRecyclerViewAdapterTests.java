@@ -1,4 +1,4 @@
-package com.revents.chronolog.ui;
+package com.revents.chronolog.ui.recyclerview;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
@@ -6,6 +6,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.revents.chronolog.ui.recyclerview.BindableHolder;
+import com.revents.chronolog.ui.recyclerview.ItemTypeDispatcherRecyclerViewAdapter;
+import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
 import org.junit.Before;
 import org.junit.Rule;

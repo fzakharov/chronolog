@@ -1,4 +1,4 @@
-package com.revents.chronolog.ui;
+package com.revents.chronolog.ui.recyclerview;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

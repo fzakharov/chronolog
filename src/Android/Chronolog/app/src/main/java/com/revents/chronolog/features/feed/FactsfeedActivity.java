@@ -19,7 +19,8 @@ import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
-import com.revents.chronolog.ui.ItemTypeDispatcherRecyclerViewAdapter;
+import com.revents.chronolog.ui.UiAction;
+import com.revents.chronolog.ui.recyclerview.ItemTypeDispatcherRecyclerViewAdapter;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -27,23 +28,22 @@ import javax.inject.Named;
 public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener, View.OnClickListener {
 
     private UiCommand mAddFactUiCommand;
-    private UiCommand mShowStatCommand;
     private FactReader mFactReader;
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
+    private UiAction<Fact> mFactClickAction;
 
     @Inject
     public void inject(
             @Named(CommandTypes.SELECT)
                     UiCommand addFactUiCommand,
-            @Named(CommandTypes.INFO)
-                    UiCommand showStatCommand,
+            UiAction<Fact> factClickAction,
             FactReader factReader,
             FactWriter factWriter,
             YesNoDialog yesNoDialog) {
 
         mAddFactUiCommand = addFactUiCommand;
-        mShowStatCommand = showStatCommand;
+        mFactClickAction = factClickAction;
         mFactReader = factReader;
         mYesNoDialog = yesNoDialog;
         mFactWriter = factWriter;
@@ -99,7 +99,6 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         reload();
     }
 
-    @Override
     public boolean onLongClick(View v) {
 
         FactsfeedRecyclerViewItemProvider.FactViewHolder holder = (FactsfeedRecyclerViewItemProvider.FactViewHolder) v.getTag();
@@ -117,8 +116,9 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         return true;
     }
 
-    @Override
     public void onClick(View v) {
-        mShowStatCommand.execute(this);
+        FactsfeedRecyclerViewItemProvider.FactViewHolder holder = (FactsfeedRecyclerViewItemProvider.FactViewHolder) v.getTag();
+
+        mFactClickAction.execute(this, holder.getFact());
     }
 }
