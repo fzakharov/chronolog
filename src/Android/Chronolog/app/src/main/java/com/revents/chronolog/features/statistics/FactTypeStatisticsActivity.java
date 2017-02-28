@@ -1,24 +1,31 @@
 package com.revents.chronolog.features.statistics;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.RecyclerViewAdapterFactory;
 import com.revents.chronolog.databinding.ActivityFactTypeStatisticsBinding;
+import com.revents.chronolog.features.IntentExtractor;
+import com.revents.chronolog.model.FactType;
 
 import javax.inject.Inject;
 
 public class FactTypeStatisticsActivity extends AppCompatActivity {
-
-    public static final String FACT_TYPE_ID_EXTRA_NAME = "FactTypeId";
     private ActivityFactTypeStatisticsBinding mBinding;
+    private IntentExtractor<FactType> mFactTypeExtractor;
+    private RecyclerViewAdapterFactory<FactType> mRecyclerViewAdapterFactory;
 
     @Inject
-    public void inject() {
+    public void inject(IntentExtractor<FactType> factTypeExtractor, RecyclerViewAdapterFactory<FactType> recyclerViewAdapterFactory) {
 
+        mFactTypeExtractor = factTypeExtractor;
+        mRecyclerViewAdapterFactory = recyclerViewAdapterFactory;
     }
 
     @Override
@@ -31,5 +38,20 @@ public class FactTypeStatisticsActivity extends AppCompatActivity {
 
         AppComponent appComp = ((ChronologApp) getApplication()).getAppComponent();
         appComp.inject(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        FactType factType = mFactTypeExtractor.extract(getIntent());
+
+        RecyclerView rv = mBinding.statRv;
+
+        RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
+        rv.setLayoutManager(lm);
+
+        RecyclerView.Adapter adapter = mRecyclerViewAdapterFactory.create(factType);
+        rv.setAdapter(adapter);
     }
 }

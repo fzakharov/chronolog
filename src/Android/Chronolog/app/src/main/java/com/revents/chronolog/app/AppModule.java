@@ -16,6 +16,7 @@ import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.statistics.ShowStatUiAction;
+import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -78,6 +79,12 @@ public class AppModule {
         }
 
         return mDaoSession;
+    }
+
+    @Provides
+    @Singleton
+    public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(){
+        return new StatWidgetsRecyclerViewAdapterFactory();
     }
 
     @Provides

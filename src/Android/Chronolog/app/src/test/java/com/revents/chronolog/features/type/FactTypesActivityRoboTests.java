@@ -74,10 +74,8 @@ public class FactTypesActivityRoboTests extends ActivityRoboTestsBase<FactTypesA
 
         // When
         sutBuilder.resume();
+        RecyclerView rv = getMesuredRv(R.id.factTypesRv);
 
-        RecyclerView rv = viewById(R.id.factTypesRv);
-        rv.measure(0, 0);
-        rv.layout(0, 0, 100, 1000);
         TextView tv = (TextView) rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.factTypeNameTv);
 
         // Then

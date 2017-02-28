@@ -3,8 +3,10 @@ package com.revents.chronolog.features.statistics;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.statistics.FactTypeStatisticsActivity;
+import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 
@@ -53,6 +55,6 @@ public class ShowStatUiActionTests {
                 .startActivity(expectedIntent);
 
         verify(expectedIntent)
-                .putExtra(FactTypeStatisticsActivity.FACT_TYPE_ID_EXTRA_NAME, expectedFactTypeId);
+                .putExtra(FactTypeIntentExtractor.FACT_TYPE_ID_EXTRA_NAME, expectedFactTypeId);
     }
 }
