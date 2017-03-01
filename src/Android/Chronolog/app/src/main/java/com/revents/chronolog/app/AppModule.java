@@ -17,6 +17,7 @@ import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.statistics.ShowStatUiAction;
 import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
+import com.revents.chronolog.features.statistics.WidgetsListProvider;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -31,6 +32,7 @@ import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
 import com.revents.chronolog.ui.UiAction;
+import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -83,8 +85,25 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(){
-        return new StatWidgetsRecyclerViewAdapterFactory();
+    public RecyclerViewItemProvider provideRecyclerViewItemProvider() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Provides
+    @Singleton
+    public WidgetsListProvider provideWidgetsListProvider() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Provides
+    @Singleton
+    public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(
+            WidgetsListProvider widgetsListProvider,
+            RecyclerViewItemProvider widgetsRecyclerViewItemProvider) {
+
+        return new StatWidgetsRecyclerViewAdapterFactory(
+                widgetsListProvider,
+                widgetsRecyclerViewItemProvider);
     }
 
     @Provides
