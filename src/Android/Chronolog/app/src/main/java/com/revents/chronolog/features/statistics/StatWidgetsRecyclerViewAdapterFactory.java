@@ -7,16 +7,14 @@ import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.ui.recyclerview.ItemTypeDispatcherRecyclerViewAdapter;
 import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
-import java.util.List;
-
 public class StatWidgetsRecyclerViewAdapterFactory implements RecyclerViewAdapterFactory<FactType> {
 
-    private WidgetsListProvider mStatWidgetsProvider;
-    private RecyclerViewItemProvider mWidgetsRecyclerViewItemProvider;
+    private WidgetsProvider<FactType> mStatWidgetsProvider;
+    private RecyclerViewItemProvider<Widget, WidgetRvViewHolder> mWidgetsRecyclerViewItemProvider;
 
     public StatWidgetsRecyclerViewAdapterFactory(
-            WidgetsListProvider statWidgetsProvider,
-            RecyclerViewItemProvider widgetsRecyclerViewItemProvider) {
+            WidgetsProvider<FactType> statWidgetsProvider,
+            RecyclerViewItemProvider<Widget, WidgetRvViewHolder> widgetsRecyclerViewItemProvider) {
 
         mStatWidgetsProvider = statWidgetsProvider;
         mWidgetsRecyclerViewItemProvider = widgetsRecyclerViewItemProvider;
@@ -25,7 +23,7 @@ public class StatWidgetsRecyclerViewAdapterFactory implements RecyclerViewAdapte
     @Override
     public RecyclerView.Adapter create(FactType factType) {
 
-        return new ItemTypeDispatcherRecyclerViewAdapter(
+        return new ItemTypeDispatcherRecyclerViewAdapter<>(
                 mStatWidgetsProvider.getWidgetsList(factType),
                 mWidgetsRecyclerViewItemProvider);
     }

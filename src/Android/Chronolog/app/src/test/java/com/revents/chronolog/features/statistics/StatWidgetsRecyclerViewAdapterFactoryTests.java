@@ -28,7 +28,7 @@ public class StatWidgetsRecyclerViewAdapterFactoryTests {
     private StatWidgetsRecyclerViewAdapterFactory sut;
 
     @Mock
-    private WidgetsListProvider mStatWidgetsListProvider;
+    private WidgetsProvider mStatWidgetsListProvider;
 
     @Mock
     private RecyclerViewItemProvider mWidgetsRecyclerViewItemProvider;

@@ -16,8 +16,12 @@ import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.statistics.ShowStatUiAction;
+import com.revents.chronolog.features.statistics.StatRecyclerViewItemProvider;
+import com.revents.chronolog.features.statistics.StatWidgetsProvider;
 import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
-import com.revents.chronolog.features.statistics.WidgetsListProvider;
+import com.revents.chronolog.features.statistics.Widget;
+import com.revents.chronolog.features.statistics.WidgetRvViewHolder;
+import com.revents.chronolog.features.statistics.WidgetsProvider;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -85,21 +89,21 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public RecyclerViewItemProvider provideRecyclerViewItemProvider() {
-        throw new UnsupportedOperationException();
+    public RecyclerViewItemProvider<Widget, WidgetRvViewHolder> provideRecyclerViewItemProvider() {
+        return new StatRecyclerViewItemProvider();
     }
 
     @Provides
     @Singleton
-    public WidgetsListProvider provideWidgetsListProvider() {
-        throw new UnsupportedOperationException();
+    public WidgetsProvider<FactType> provideStatWidgetsProvider() {
+        return new StatWidgetsProvider();
     }
 
     @Provides
     @Singleton
     public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(
-            WidgetsListProvider widgetsListProvider,
-            RecyclerViewItemProvider widgetsRecyclerViewItemProvider) {
+            WidgetsProvider<FactType> widgetsListProvider,
+            RecyclerViewItemProvider<Widget, WidgetRvViewHolder> widgetsRecyclerViewItemProvider) {
 
         return new StatWidgetsRecyclerViewAdapterFactory(
                 widgetsListProvider,
