@@ -9,13 +9,17 @@ import com.revents.chronolog.model.ValueDescriptor;
 public class DbData {
     public static final Boolean DISABLED = false;
 
+    public static final class ClassNames {
+        public static final String RATING = "rating";
+    }
+
     public static class Values {
         public static final long DEFAULT = 1L;
         public static final long RATING = 2L;
 
         public static final ValueDescriptor[] ITEMS = new ValueDescriptor[]{
                 new ValueDescriptor(DEFAULT, "Число", "Событие со значением типа целое число.", "default", ""),
-                new ValueDescriptor(RATING, "Рейтинг", "Событие с оценкой от 1 до 5.", "rating", ""),
+                new ValueDescriptor(RATING, "Рейтинг", "Событие с оценкой от 1 до 5.", ClassNames.RATING, ""),
         };
     }
 

@@ -17,7 +17,6 @@ import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.statistics.ShowStatUiAction;
 import com.revents.chronolog.features.statistics.StatRecyclerViewItemProvider;
-import com.revents.chronolog.features.statistics.StatWidgetsProvider;
 import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
 import com.revents.chronolog.features.statistics.Widget;
 import com.revents.chronolog.features.statistics.WidgetRvViewHolder;
@@ -96,7 +95,8 @@ public class AppModule {
     @Provides
     @Singleton
     public WidgetsProvider<FactType> provideStatWidgetsProvider() {
-        return new StatWidgetsProvider();
+        throw new UnsupportedOperationException();
+        //return new StatWidgetsProvider(null, null);
     }
 
     @Provides

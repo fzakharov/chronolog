@@ -6,6 +6,8 @@ import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import static org.mockito.Mockito.mock;
+
 public class StatRecyclerViewItemProviderTests{
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -16,9 +18,10 @@ public class StatRecyclerViewItemProviderTests{
     @Test
     public void should__When_() {
         // Given
+        Widget widget = mock(Widget.class);
 
         // When
-        sut.getResourceId(null);
+        sut.getResourceId(widget);
 
         // Then
     }
