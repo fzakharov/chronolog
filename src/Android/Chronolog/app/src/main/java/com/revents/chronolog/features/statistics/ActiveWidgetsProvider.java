@@ -5,17 +5,17 @@ import com.revents.chronolog.model.FactType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StatWidgetsProvider implements WidgetsProvider<FactType> {
-    private WidgetFactory<FactType> mWidgetFactory;
-    private WidgetsRegistry<FactType> mWidgetsRegistry;
+public class ActiveWidgetsProvider<T> implements WidgetsProvider<T> {
+    private WidgetFactory<T> mWidgetFactory;
+    private WidgetsRegistry<T> mWidgetsRegistry;
 
-    public StatWidgetsProvider(WidgetFactory<FactType> widgetFactory, WidgetsRegistry<FactType> widgetsRegistry) {
+    public ActiveWidgetsProvider(WidgetFactory<T> widgetFactory, WidgetsRegistry<T> widgetsRegistry) {
         mWidgetFactory = widgetFactory;
         mWidgetsRegistry = widgetsRegistry;
     }
 
     @Override
-    public List<Widget> getWidgetsList(FactType data) {
+    public List<Widget> getWidgetsList(T data) {
 
         List<Widget> list = new ArrayList<>();
 

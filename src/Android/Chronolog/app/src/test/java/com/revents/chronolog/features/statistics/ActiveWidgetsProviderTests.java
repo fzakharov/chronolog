@@ -15,23 +15,23 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class StatWidgetsProviderTests {
+public class ActiveWidgetsProviderTests {
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
 
     @Mock
-    WidgetFactory mWidgetFactory;
+    WidgetFactory<Object> mWidgetFactory;
 
     @Mock
-    WidgetsRegistry mWidgetsRegistry;
+    WidgetsRegistry<Object> mWidgetsRegistry;
 
     @InjectMocks
-    StatWidgetsProvider sut;
+    ActiveWidgetsProvider<Object> sut;
 
     @Test
     public void should_instantiate_widgets_by_FactType_When_getWidgetsList() {
         // Given
-        FactType factType = mock(FactType.class);
+        Object data = new Object();
         Widget expectedWidgetOne = mock(Widget.class);
         String nameOne = "nameOne";
 
@@ -40,17 +40,17 @@ public class StatWidgetsProviderTests {
 
         String[] names = new String[]{nameOne, nameTwo};
 
-        when(mWidgetsRegistry.getActiveWidgets(factType))
+        when(mWidgetsRegistry.getActiveWidgets(data))
                 .thenReturn(names);
 
-        when(mWidgetFactory.createWidget(nameOne, factType))
+        when(mWidgetFactory.createWidget(nameOne, data))
                 .thenReturn(expectedWidgetOne);
 
-        when(mWidgetFactory.createWidget(nameTwo, factType))
+        when(mWidgetFactory.createWidget(nameTwo, data))
                 .thenReturn(expectedWidgetTwo);
 
         // When
-        List<Widget> list = sut.getWidgetsList(factType);
+        List<Widget> list = sut.getWidgetsList(data);
 
         // Then
         assertThat(list)

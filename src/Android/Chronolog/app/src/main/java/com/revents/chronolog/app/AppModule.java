@@ -15,12 +15,15 @@ import com.revents.chronolog.features.feed.EditFactActivityExtractor;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.statistics.ActiveWidgetsProvider;
 import com.revents.chronolog.features.statistics.ShowStatUiAction;
 import com.revents.chronolog.features.statistics.StatRecyclerViewItemProvider;
 import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
 import com.revents.chronolog.features.statistics.Widget;
+import com.revents.chronolog.features.statistics.WidgetFactory;
 import com.revents.chronolog.features.statistics.WidgetRvViewHolder;
 import com.revents.chronolog.features.statistics.WidgetsProvider;
+import com.revents.chronolog.features.statistics.WidgetsRegistry;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -94,9 +97,20 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public WidgetsProvider<FactType> provideStatWidgetsProvider() {
+    public WidgetFactory<FactType> provideFactTypeWidgetFactory() {
         throw new UnsupportedOperationException();
-        //return new StatWidgetsProvider(null, null);
+    }
+
+    @Provides
+    @Singleton
+    public WidgetsRegistry<FactType> provideFactTypeWidgetsRegistry() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Provides
+    @Singleton
+    public WidgetsProvider<FactType> provideFactTypeActiveWidgetsProvider(WidgetFactory<FactType> widgetFactory, WidgetsRegistry<FactType> widgetsRegistry) {
+        return new ActiveWidgetsProvider<>(widgetFactory, widgetsRegistry);
     }
 
     @Provides
