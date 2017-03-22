@@ -5,13 +5,10 @@ import android.view.View;
 
 import com.revents.chronolog.ui.recyclerview.BindableHolder;
 
-public class WidgetRvViewHolder extends RecyclerView.ViewHolder implements BindableHolder<Widget> {
+public abstract class WidgetRvViewHolder extends RecyclerView.ViewHolder implements BindableHolder<Widget> {
     public WidgetRvViewHolder(View itemView) {
         super(itemView);
     }
 
-    @Override
-    public void bind(Widget widget) {
-
-    }
+    public abstract void bind(Widget widget);
 }
