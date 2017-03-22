@@ -7,3 +7,4 @@ public class MiddleRatingWidget implements Widget {
     public MiddleRatingWidget(FactType data) {
     }
 }
+

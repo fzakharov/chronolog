@@ -20,6 +20,9 @@ public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Wi
         if (resourceId == R.layout.middle_rating_widget_rv_item)
             return new MiddleRatingWidgetRvViewHolder(view);
 
+        if (resourceId == R.layout.middle_rating_by_week_days_widget_rv_item)
+            return new MiddleRatingByWeekDaysWidgetRvViewHolder(view);
+
         throw new UnsupportedOperationException();
     }
 }

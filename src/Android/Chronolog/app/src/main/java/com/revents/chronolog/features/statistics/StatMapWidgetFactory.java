@@ -10,6 +10,9 @@ public class StatMapWidgetFactory implements WidgetFactory<FactType> {
         if (widgetName == "MiddleRating")
             return new MiddleRatingWidget(data);
 
+        if (widgetName == "MiddleRatingByWeekDays")
+            return new MiddleRatingByWeekDaysWidget(data);
+
         throw new UnsupportedOperationException(widgetName);
     }
 }

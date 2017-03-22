@@ -8,7 +8,7 @@ public class HardCodedFactTypeWidgetsRegistry implements WidgetsRegistry<FactTyp
     @Override
     public String[] getActiveWidgets(FactType data) {
         if (data.getValueDescriptor().getClassName() == DbData.ClassNames.RATING)
-            return new String[]{"MiddleRating", "MiddleRating", "MiddleRating", "MiddleRating"};
+            return new String[]{"MiddleRating", "MiddleRatingByWeekDays"};
 
         return new String[0];
     }
