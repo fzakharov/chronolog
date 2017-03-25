@@ -15,7 +15,7 @@ public class MiddleRatingWidgetRvViewHolder extends WidgetRvViewHolder {
         RatingBar ratingBar = (RatingBar) this.itemView.findViewById(R.id.ratingBar);
 
         ratingBar.setIsIndicator(true);
-        ratingBar.setRating(3.5f);
+        ratingBar.setRating(((MiddleRatingWidget) widget).getMiddleRating());
     }
 }
 

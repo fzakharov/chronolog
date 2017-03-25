@@ -61,4 +61,16 @@ public class GreenDaoFactReader implements FactReader {
 
         return factsQuery.list();
     }
+
+    @Override
+    public List<Fact> loadFactsByType(FactType factType, Date begin, Date end) {
+        FactDao fd = mSession.getFactDao();
+        Query<Fact> factsQuery = fd.queryBuilder()
+                .where(
+                        FactDao.Properties.FactDate.between(begin.getTime(), end.getTime()),
+                        FactDao.Properties.FactTypeId.eq(factType.getId()))
+                .build();
+
+        return factsQuery.list();
+    }
 }

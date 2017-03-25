@@ -1,6 +1,8 @@
 package com.revents.chronolog.features.statistics;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.app.DateTimeProvider;
+import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Rule;
@@ -23,7 +25,10 @@ public class StatRecyclerViewItemProviderTests {
     public void should_return_resourceId_When_getResourceId() {
         // Given
         int expected = R.layout.middle_rating_widget_rv_item;
-        Widget widget = new MiddleRatingWidget(mock(FactType.class));
+        Widget widget = new MiddleRatingWidget(
+                mock(FactType.class),
+                mock(FactReader.class),
+                mock(DateTimeProvider.class));
 
         // When
         int actual = sut.getResourceId(widget);

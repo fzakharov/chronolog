@@ -99,8 +99,8 @@ public class AppModule {
 
     @Provides
     @Singleton
-    public WidgetFactory<FactType> provideFactTypeWidgetFactory() {
-        return new StatMapWidgetFactory();
+    public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
+        return new StatMapWidgetFactory(factReader, dateTimeProv);
     }
 
     @Provides
