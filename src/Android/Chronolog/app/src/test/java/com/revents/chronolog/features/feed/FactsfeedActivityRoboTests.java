@@ -49,6 +49,7 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
     private UiAction<Fact> mFactClickAction;
+    private List<Fact> mReaderFactsList;
 
     @Before
     public void setUp() throws Exception {
@@ -57,6 +58,10 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
         mFactReader = mock(FactReader.class);
         mYesNoDialog = mock(YesNoDialog.class);
         mFactClickAction = mock(UiAction.class);
+        mReaderFactsList = new ArrayList<>();
+
+        when(mFactReader.loadFactsfeed())
+                .thenReturn(mReaderFactsList);
 
         sutBuilder = Robolectric.buildActivity(FactsfeedActivity.class);
         sut = sutBuilder.get();
@@ -73,12 +78,7 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
         // Given
         String expectedName = "coffee";
         Fact fact = createTestFact(expectedName);
-
-        List<Fact> list = new ArrayList<>();
-        list.add(fact);
-
-        when(mFactReader.loadFactsfeed())
-                .thenReturn(list);
+        mReaderFactsList.add(fact);
 
         sutBuilder.resume();
 
@@ -94,11 +94,7 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
         // Given
         Fact fact = createTestFact("");
 
-        List<Fact> list = new ArrayList<>();
-        list.add(fact);
-
-        when(mFactReader.loadFactsfeed())
-                .thenReturn(list);
+        mReaderFactsList.add(fact);
 
         sutBuilder.resume();
 
@@ -127,11 +123,7 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
         String expectedName = "coffee";
         Fact fact = createTestFact(expectedName);
 
-        List<Fact> list = new ArrayList<>();
-        list.add(fact);
-
-        when(mFactReader.loadFactsfeed())
-                .thenReturn(list);
+        mReaderFactsList.add(fact);
 
         // When
         sutBuilder.resume();

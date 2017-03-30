@@ -35,8 +35,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
 
     @Inject
     public void inject(
-            @Named(CommandTypes.SELECT)
-                    UiCommand addFactUiCommand,
+            @Named(CommandTypes.SELECT) UiCommand addFactUiCommand,
             UiAction<Fact> factClickAction,
             FactReader factReader,
             FactWriter factWriter,
