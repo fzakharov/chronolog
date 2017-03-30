@@ -8,4 +8,6 @@ public interface DateTimeProvider {
     String toDateString(Date date);
 
     String toTimeString(Date newDate);
+
+    Date getEndDaysAgo(Date end, int daysAgo);
 }

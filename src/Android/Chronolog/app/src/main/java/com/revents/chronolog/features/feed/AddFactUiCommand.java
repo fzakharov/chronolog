@@ -1,5 +1,8 @@
 package com.revents.chronolog.features.feed;
 
+import android.app.Activity;
+
+import com.revents.chronolog.app.UiCommand;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.ResultResultUiCommand;

@@ -1,5 +1,7 @@
 package com.revents.chronolog.app;
 
+import org.joda.time.DateTime;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -20,5 +22,11 @@ public class JavaDateTimeProvider implements DateTimeProvider {
     @Override
     public String toTimeString(Date date) {
         return mTimeFormat.format(date);
+    }
+
+    @Override
+    public Date getEndDaysAgo(Date end, int daysAgo) {
+        DateTime dateTime = new DateTime(end);
+        return dateTime.minusDays(daysAgo).toDate();
     }
 }

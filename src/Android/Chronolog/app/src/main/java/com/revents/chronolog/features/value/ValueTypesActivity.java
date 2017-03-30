@@ -43,18 +43,12 @@ public class ValueTypesActivity extends AppCompatActivity {
         mValueTypesLv = (ListView) findViewById(R.id.valueTypesLv);
 
         // TODO: 07.01.2017 introduce method
-        mValueTypesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(
-                    AdapterView<?> parent,
-                    View view,
-                    int position,
-                    long id) {
+        mValueTypesLv.setOnItemClickListener((parent, view, position, id) -> {
 
-                ValueType vt = mValueTypesProvider.getValueTypes()[position];
+            ValueType vt = mValueTypesProvider.getValueTypes()[position];
 
-                ValueDescriptor vd = new ValueDescriptor(null, vt.name, vt.description, vt.className, "");
-                mFactWriter.write(vd);
-            }
+            ValueDescriptor vd = new ValueDescriptor(null, vt.name, vt.description, vt.className, "");
+            mFactWriter.write(vd);
         });
     }
 

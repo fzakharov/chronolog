@@ -24,7 +24,7 @@ import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 import org.robolectric.util.ActivityController;
@@ -40,7 +40,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.robolectric.Shadows.shadowOf;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(RobolectricTestRunner.class)
 @Config(constants = BuildConfig.class,
         sdk = LOLLIPOP,
         application = FakeChronologApp.class)
@@ -74,10 +74,8 @@ public class FactTypesActivityRoboTests extends ActivityRoboTestsBase<FactTypesA
 
         // When
         sutBuilder.resume();
+        RecyclerView rv = getMesuredRv(R.id.factTypesRv);
 
-        RecyclerView rv = viewById(R.id.factTypesRv);
-        rv.measure(0, 0);
-        rv.layout(0, 0, 100, 1000);
         TextView tv = (TextView) rv.findViewHolderForLayoutPosition(0).itemView.findViewById(R.id.factTypeNameTv);
 
         // Then

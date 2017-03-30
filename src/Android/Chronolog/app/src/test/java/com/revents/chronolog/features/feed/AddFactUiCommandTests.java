@@ -17,14 +17,13 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import static android.app.Activity.RESULT_OK;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 // TODO: 04.01.2017 Clean tests with new dependencies. And remove copypaste with other tests
-public class SelectFactTypeActivityCommandTests {
+public class AddFactUiCommandTests {
 
     @Rule
     public MockitoRule mockitoRule = MockitoJUnit.rule();
@@ -65,7 +64,7 @@ public class SelectFactTypeActivityCommandTests {
         FactType actual = sut.onResult(currentActivity, unknownRequestCode, 24, new Intent());
 
         // Then
-        assertNull(actual);
+        assertThat(actual).isNull();
     }
 
     @Test
@@ -86,6 +85,6 @@ public class SelectFactTypeActivityCommandTests {
         FactType actual = sut.onResult(currentActivity, AddFactUiCommand.FACT_TYPE_ID_REQUEST_CODE, RESULT_OK, data);
 
         // Then
-        assertEquals(expected, actual);
+        assertThat(actual).isEqualTo(expected);
     }
 }

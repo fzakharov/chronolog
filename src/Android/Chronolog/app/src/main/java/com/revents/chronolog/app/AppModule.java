@@ -15,6 +15,17 @@ import com.revents.chronolog.features.feed.EditFactActivityExtractor;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
+import com.revents.chronolog.features.statistics.ActiveWidgetsProvider;
+import com.revents.chronolog.features.statistics.HardCodedFactTypeWidgetsRegistry;
+import com.revents.chronolog.features.statistics.ShowStatUiAction;
+import com.revents.chronolog.features.statistics.StatMapWidgetFactory;
+import com.revents.chronolog.features.statistics.StatRecyclerViewItemProvider;
+import com.revents.chronolog.features.statistics.StatWidgetsRecyclerViewAdapterFactory;
+import com.revents.chronolog.features.statistics.Widget;
+import com.revents.chronolog.features.statistics.WidgetFactory;
+import com.revents.chronolog.features.statistics.WidgetRvViewHolder;
+import com.revents.chronolog.features.statistics.WidgetsProvider;
+import com.revents.chronolog.features.statistics.WidgetsRegistry;
 import com.revents.chronolog.features.type.FactTypeIntentExtractor;
 import com.revents.chronolog.features.type.NewFactTypeResultUiCommand;
 import com.revents.chronolog.features.value.HardCodedValueTypesProvider;
@@ -28,6 +39,8 @@ import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 import com.revents.chronolog.model.FactTypeGroup;
 import com.revents.chronolog.model.ValueDescriptor;
+import com.revents.chronolog.ui.UiAction;
+import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -80,6 +93,41 @@ public class AppModule {
 
     @Provides
     @Singleton
+    public RecyclerViewItemProvider<Widget, WidgetRvViewHolder> provideRecyclerViewItemProvider() {
+        return new StatRecyclerViewItemProvider();
+    }
+
+    @Provides
+    @Singleton
+    public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
+        return new StatMapWidgetFactory(factReader, dateTimeProv);
+    }
+
+    @Provides
+    @Singleton
+    public WidgetsRegistry<FactType> provideFactTypeWidgetsRegistry() {
+        return new HardCodedFactTypeWidgetsRegistry();
+    }
+
+    @Provides
+    @Singleton
+    public WidgetsProvider<FactType> provideFactTypeActiveWidgetsProvider(WidgetFactory<FactType> widgetFactory, WidgetsRegistry<FactType> widgetsRegistry) {
+        return new ActiveWidgetsProvider<>(widgetFactory, widgetsRegistry);
+    }
+
+    @Provides
+    @Singleton
+    public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(
+            WidgetsProvider<FactType> widgetsListProvider,
+            RecyclerViewItemProvider<Widget, WidgetRvViewHolder> widgetsRecyclerViewItemProvider) {
+
+        return new StatWidgetsRecyclerViewAdapterFactory(
+                widgetsListProvider,
+                widgetsRecyclerViewItemProvider);
+    }
+
+    @Provides
+    @Singleton
     public FactWriter provideFactWriter(DateTimeProvider dateTimeProvider, DaoSession session) {
         return new GreenDaoFactWriter(dateTimeProvider, session);
     }
@@ -114,8 +162,15 @@ public class AppModule {
 
     @Provides
     @Singleton
+    @Named(CommandTypes.SELECT)
     public UiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
         return new AddFactUiCommand(intentFactory, factReader);
+    }
+
+    @Provides
+    @Singleton
+    public UiAction<Fact> provideShowStatUiAction(IntentFactory intentFactory) {
+        return new ShowStatUiAction(intentFactory);
     }
 
     @Provides

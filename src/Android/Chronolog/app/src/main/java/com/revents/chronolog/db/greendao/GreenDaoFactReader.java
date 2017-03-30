@@ -11,10 +11,12 @@ import com.revents.chronolog.model.ValueDescriptor;
 
 import org.greenrobot.greendao.query.Query;
 
+import java.util.Date;
 import java.util.List;
 
 // TODO: 04.01.2017 Tests
 public class GreenDaoFactReader implements FactReader {
+    public static final long FACTSFEED_PERIOD = 30L * 24L * 60L * 60L * 1000L;
     private DaoSession mSession;
 
     public GreenDaoFactReader(DaoSession session) {
@@ -49,8 +51,25 @@ public class GreenDaoFactReader implements FactReader {
 
     @Override
     public List<Fact> loadFactsfeed() {
+        Date fromDate = new Date(new Date().getTime() - FACTSFEED_PERIOD);
+
         FactDao fd = mSession.getFactDao();
-        Query<Fact> factsQuery = fd.queryBuilder().orderDesc(FactDao.Properties.FactDate).build();
+        Query<Fact> factsQuery = fd.queryBuilder()
+                .where(FactDao.Properties.FactDate.ge(fromDate.getTime()))
+                .orderDesc(FactDao.Properties.FactDate)
+                .build();
+
+        return factsQuery.list();
+    }
+
+    @Override
+    public List<Fact> loadFactsByType(FactType factType, Date begin, Date end) {
+        FactDao fd = mSession.getFactDao();
+        Query<Fact> factsQuery = fd.queryBuilder()
+                .where(
+                        FactDao.Properties.FactDate.between(begin.getTime(), end.getTime()),
+                        FactDao.Properties.FactTypeId.eq(factType.getId()))
+                .build();
 
         return factsQuery.list();
     }

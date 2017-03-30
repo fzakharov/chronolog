@@ -11,6 +11,7 @@ import android.view.View;
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.AppComponent;
 import com.revents.chronolog.app.ChronologApp;
+import com.revents.chronolog.app.CommandTypes;
 import com.revents.chronolog.app.EventArgs;
 import com.revents.chronolog.app.EventListener;
 import com.revents.chronolog.app.UiCommand;
@@ -18,19 +19,31 @@ import com.revents.chronolog.app.YesNoDialog;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.db.FactWriter;
 import com.revents.chronolog.model.Fact;
+import com.revents.chronolog.ui.UiAction;
+import com.revents.chronolog.ui.recyclerview.ItemTypeDispatcherRecyclerViewAdapter;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener {
+public class FactsfeedActivity extends AppCompatActivity implements EventListener<EventArgs<Pair<Boolean, Fact>>>, View.OnLongClickListener, View.OnClickListener {
 
     private UiCommand mAddFactUiCommand;
     private FactReader mFactReader;
     private YesNoDialog mYesNoDialog;
     private FactWriter mFactWriter;
+    private UiAction<Fact> mFactClickAction;
 
     @Inject
-    public void inject(UiCommand addFactUiCommand, FactReader factReader, FactWriter factWriter, YesNoDialog yesNoDialog) {
+    public void inject(
+            @Named(CommandTypes.SELECT)
+                    UiCommand addFactUiCommand,
+            UiAction<Fact> factClickAction,
+            FactReader factReader,
+            FactWriter factWriter,
+            YesNoDialog yesNoDialog) {
+
         mAddFactUiCommand = addFactUiCommand;
+        mFactClickAction = factClickAction;
         mFactReader = factReader;
         mYesNoDialog = yesNoDialog;
         mFactWriter = factWriter;
@@ -51,6 +64,7 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
     @Override
     protected void onResume() {
         super.onResume();
+
         reload();
     }
 
@@ -62,7 +76,13 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         RecyclerView.LayoutManager lm = new LinearLayoutManager(this);
         rv.setLayoutManager(lm);
 
-        FactsfeedRvAdapter adapter = new FactsfeedRvAdapter(mFactReader.loadFactsfeed(), this);
+        ItemTypeDispatcherRecyclerViewAdapter adapter = new ItemTypeDispatcherRecyclerViewAdapter<>(
+                mFactReader.loadFactsfeed(),
+                new FactsfeedRecyclerViewItemProvider());
+
+        adapter.setItemOnClickListener(v -> onClick(v));
+        adapter.setItemOnLongClickListener(v -> onLongClick(v));
+
         rv.setAdapter(adapter);
     }
 
@@ -79,10 +99,9 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         reload();
     }
 
-    @Override
     public boolean onLongClick(View v) {
 
-        FactsfeedRvAdapter.FactViewHolder holder = (FactsfeedRvAdapter.FactViewHolder) v.getTag();
+        FactViewHolder holder = (FactViewHolder) v.getTag();
         Fact f = holder.getFact();
 
         String msg =
@@ -95,5 +114,11 @@ public class FactsfeedActivity extends AppCompatActivity implements EventListene
         mYesNoDialog.show(this, f, msg, this);
 
         return true;
+    }
+
+    public void onClick(View v) {
+        FactViewHolder holder = (FactViewHolder) v.getTag();
+
+        mFactClickAction.execute(this, holder.getFact());
     }
 }
