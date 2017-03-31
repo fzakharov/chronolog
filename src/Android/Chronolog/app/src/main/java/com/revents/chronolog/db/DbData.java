@@ -54,6 +54,7 @@ public class DbData {
         public static final Long Evening_meal = Groups.FOOD * 10 + 30L;
         public static final Long Quick_bite = Groups.FOOD * 10 + 40L;
         public static final Long Coffee = Groups.FOOD * 10 + 50L;
+        public static final Long Sweet = Groups.FOOD * 10 + 60L;
 
         public static final Long Physical_charge = Groups.Physical_Activity * 10 + 10;
         public static final Long Classes_on_the_bar = Groups.Physical_Activity * 10 + 20;
@@ -76,6 +77,7 @@ public class DbData {
                 Create(Evening_meal, Values.RATING, "Ужин", "1-5: Качество ужина", Groups.FOOD),
                 Create(Quick_bite, Values.RATING, "Перекусил", "1-5: Качество перекуса", Groups.FOOD),
                 Create(Coffee, "Кофе", "", Groups.FOOD),
+                Create(Sweet, "Сладкое поел", "", Groups.FOOD),
 
                 Create(Physical_charge, "Физическая зарядка", "", Groups.Physical_Activity),
                 Create(Classes_on_the_bar, "Занятия на турнике", "Количество раз", Groups.Physical_Activity),
