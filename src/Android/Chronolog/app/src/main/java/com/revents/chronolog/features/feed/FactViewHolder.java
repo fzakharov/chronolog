@@ -10,7 +10,8 @@ import com.revents.chronolog.ui.recyclerview.BindableHolder;
 
 import java.text.SimpleDateFormat;
 
-public class FactViewHolder extends RecyclerView.ViewHolder implements BindableHolder<Fact> {
+
+public class FactViewHolder extends FactsfeedViewHolder {
 
     private static final SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
     private static final SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
@@ -38,12 +39,14 @@ public class FactViewHolder extends RecyclerView.ViewHolder implements BindableH
     }
 
     @Override
-    public void bind(Fact fact) {
-        mFact = fact;
+    public void bind(ItemPresenter item) {
+        if (item instanceof FactItemPresenter){
+            mFact = ((FactItemPresenter)item).getFact();
 
-        setTv(R.id.headerTv, fact.getFactType().getName());
-        setValue(fact.getLongValue());
-        setTv(R.id.timeTv, mTimeFormat.format(fact.getFactDate()));
-        setTv(R.id.weekDayTv, mWeekFormat.format(fact.getFactDate()));
+            setTv(R.id.headerTv, mFact.getFactType().getName());
+            setValue(mFact.getLongValue());
+            setTv(R.id.timeTv, mTimeFormat.format(mFact.getFactDate()));
+            setTv(R.id.weekDayTv, mWeekFormat.format(mFact.getFactDate()));
+        }
     }
 }
