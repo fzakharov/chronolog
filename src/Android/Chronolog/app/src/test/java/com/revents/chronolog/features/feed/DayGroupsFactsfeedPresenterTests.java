@@ -57,6 +57,9 @@ public class DayGroupsFactsfeedPresenterTests {
 		Fact expected = mock(Fact.class);
 		setupFactReader(expected);
 
+		when(mDtProv.toWeekDayString(expected.getFactDate()))
+				.thenReturn("Wed");
+
 		// When
 		List<ItemPresenter> presenters = sut.loadFactsfeed();
 
