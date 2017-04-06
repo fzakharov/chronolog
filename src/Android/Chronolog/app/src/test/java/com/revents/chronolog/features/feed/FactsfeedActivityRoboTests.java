@@ -86,7 +86,12 @@ public class FactsfeedActivityRoboTests extends ActivityRoboTestsBase<FactsfeedA
 	}
 
 	private ItemPresenter wrapToMockPresenter(Fact fact) {
-		return mock(ItemPresenter.class);
+		FactItemPresenter presenter = mock(FactItemPresenter.class);
+
+		when(presenter.getFact())
+				.thenReturn(fact);
+
+		return presenter;
 	}
 
 	@Test
