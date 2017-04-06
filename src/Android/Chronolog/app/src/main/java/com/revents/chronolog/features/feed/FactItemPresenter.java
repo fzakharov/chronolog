@@ -21,3 +21,4 @@ public class FactItemPresenter implements ItemPresenter{
 		return mFact;
 	}
 }
+

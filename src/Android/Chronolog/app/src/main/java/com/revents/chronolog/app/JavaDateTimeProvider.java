@@ -8,6 +8,7 @@ import java.util.Date;
 public class JavaDateTimeProvider implements DateTimeProvider {
     SimpleDateFormat mDateFormat = new SimpleDateFormat("dd MMM yyyy");
     SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
+    SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
 
     @Override
     public Date getDate() {
@@ -28,5 +29,10 @@ public class JavaDateTimeProvider implements DateTimeProvider {
     public Date getEndDaysAgo(Date end, int daysAgo) {
         DateTime dateTime = new DateTime(end);
         return dateTime.minusDays(daysAgo).toDate();
+    }
+
+    @Override
+    public String toWeekDayString(Date date) {
+        return mWeekFormat.format(date);
     }
 }

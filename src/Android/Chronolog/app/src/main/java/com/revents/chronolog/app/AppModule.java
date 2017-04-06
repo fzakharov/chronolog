@@ -95,8 +95,8 @@ public class AppModule {
 
 	@Provides
 	@Singleton
-	public FactsfeedPresenter provideFactsfeedPresenter(FactReader factReader) {
-		return new DayGroupsFactsfeedPresenter(factReader);
+	public FactsfeedPresenter provideFactsfeedPresenter(FactReader factReader, DateTimeProvider dateTimeProvider) {
+		return new DayGroupsFactsfeedPresenter(factReader, dateTimeProvider);
 	}
 
 	@Provides

@@ -4,28 +4,20 @@ package com.revents.chronolog.features.feed;
 import android.view.*;
 import android.widget.*;
 
+import com.revents.chronolog.*;
+
 import java.text.*;
 
 public class DateViewHolder extends FactsfeedViewHolder {
 
-    private static final SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE");
-    private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+	DateViewHolder(View itemView) {
+		super(itemView);
+	}
 
-    protected final View mView;
+	@Override
+	public void bind(ItemPresenter item) {
+		FirstWeekItemPresenter p = (FirstWeekItemPresenter) item;
 
-    DateViewHolder(View itemView) {
-        super(itemView);
-        mView = itemView;
-        mView.setLongClickable(false);
-    }
-
-    protected void setTv(int id, String value) {
-        TextView tv = (TextView) mView.findViewById(id);
-        tv.setText(value);
-    }
-
-    @Override
-    public void bind(ItemPresenter item) {
-
-    }
+		setTv(R.id.valueTv, p.getTitle());
+	}
 }

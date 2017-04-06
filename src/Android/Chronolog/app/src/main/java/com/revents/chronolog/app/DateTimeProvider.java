@@ -10,4 +10,6 @@ public interface DateTimeProvider {
     String toTimeString(Date newDate);
 
     Date getEndDaysAgo(Date end, int daysAgo);
+
+	String toWeekDayString(Date date);
 }
