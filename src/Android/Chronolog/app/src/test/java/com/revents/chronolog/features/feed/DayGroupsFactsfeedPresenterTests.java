@@ -1,16 +1,19 @@
 package com.revents.chronolog.features.feed;
 
 
-import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.db.*;
+import com.revents.chronolog.model.*;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.junit.*;
+import org.mockito.*;
+import org.mockito.junit.*;
 
-public class DayGroupsFactsfeedPresenterTests{
+import java.util.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
+
+public class DayGroupsFactsfeedPresenterTests {
 	@Rule
 	public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -21,12 +24,21 @@ public class DayGroupsFactsfeedPresenterTests{
 	DayGroupsFactsfeedPresenter sut;
 
 	@Test
-	public void should__When_() {
+	public void should_wrap_fact_to_FactItemPresenter_When_loadFactsfeed() {
 		// Given
+		Fact expected = mock(Fact.class);
+
+		when(mFactReader.loadFactsfeed())
+				.thenReturn(new ArrayList<Fact>() {{
+					add(expected);
+				}});
 
 		// When
-		throw new UnsupportedOperationException("Start here");
+		List<ItemPresenter> presenters = sut.loadFactsfeed();
 
 		// Then
+		FactItemPresenter itemPresenter = (FactItemPresenter) presenters.get(0);
+		Fact actualFact = itemPresenter.getFact();
+		assertThat(actualFact).isEqualTo(expected);
 	}
 }
