@@ -46,7 +46,6 @@ public class FactViewHolder extends FactsfeedViewHolder {
             setTv(R.id.headerTv, mFact.getFactType().getName());
             setValue(mFact.getLongValue());
             setTv(R.id.timeTv, mTimeFormat.format(mFact.getFactDate()));
-            setTv(R.id.weekDayTv, mWeekFormat.format(mFact.getFactDate()));
         }
     }
 }

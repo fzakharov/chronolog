@@ -5,6 +5,7 @@ import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.*;
 import com.revents.chronolog.model.*;
 
+import org.assertj.core.api.*;
 import org.junit.*;
 import org.mockito.*;
 import org.mockito.junit.*;
@@ -37,16 +38,13 @@ public class DayGroupsFactsfeedPresenterTests {
 		when(fact.getFactDate())
 				.thenReturn(date);
 
-		when(mDtProv.toWeekDayString(date))
-				.thenReturn(expected);
-
 		setupFactReader(fact);
+		setUpDtProvToWeekDay(date, expected);
 
 		// When
-		List<ItemPresenter> presenters = sut.loadFactsfeed();
+		FirstWeekItemPresenter itemPresenter = getLoadedFact(0);
 
 		// Then
-		FirstWeekItemPresenter itemPresenter = (FirstWeekItemPresenter) presenters.get(0);
 		assertThat(itemPresenter.getTitle())
 				.isEqualTo(expected);
 	}
@@ -56,17 +54,23 @@ public class DayGroupsFactsfeedPresenterTests {
 		// Given
 		Fact expected = mock(Fact.class);
 		setupFactReader(expected);
-
-		when(mDtProv.toWeekDayString(expected.getFactDate()))
-				.thenReturn("Wed");
+		setUpDtProvToWeekDay(expected.getFactDate(), "wed");
 
 		// When
-		List<ItemPresenter> presenters = sut.loadFactsfeed();
+		FactItemPresenter itemPresenter = getLoadedFact(1);
 
 		// Then
-		FactItemPresenter itemPresenter = (FactItemPresenter) presenters.get(1);
-		Fact actualFact = itemPresenter.getFact();
-		assertThat(actualFact).isEqualTo(expected);
+		assertThat(itemPresenter.getFact())
+				.isEqualTo(expected);
+	}
+
+	<T> T getLoadedFact(int index){
+		return (T) sut.loadFactsfeed().get(index);
+	}
+
+	void setUpDtProvToWeekDay(Date date, String week){
+		when(mDtProv.toWeekDayString(date))
+				.thenReturn(week);
 	}
 
 	void setupFactReader(Fact fact){
