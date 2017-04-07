@@ -27,15 +27,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addFactFab"
+        android:onClick="addFactClick"
+        app:srcCompat="@drawable/ic_add_black_48px"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|left"
+        android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:onClick="addFactClick"
         android:tint="@color/colorIcons"
-        app:layout_anchor="@+id/include"
-        app:layout_anchorGravity="bottom|right"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_add_black_48px"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
 </android.support.design.widget.CoordinatorLayout>
