@@ -33,12 +33,12 @@ public class JavaDateTimeProviderTests {
     @Test
     public void should_return_week_day_When_toWeekDayString() {
         // Given
-        String expected = "воскресенье";
+        String expected = "воскресенье 15 января 2017";
         Calendar calendar = new GregorianCalendar(2017, 0, 15, 13, 24, 56);
         Date date = calendar.getTime();
 
         // When
-        String actual = sut.toWeekDayString(date);
+        String actual = sut.toFullDateStringWithWeekDay(date);
 
         // Then
         assertEquals(expected, actual);

@@ -11,5 +11,7 @@ public interface DateTimeProvider {
 
     Date getEndDaysAgo(Date end, int daysAgo);
 
-	String toWeekDayString(Date date);
+	String toFullDateStringWithWeekDay(Date date);
+
+	Date getDatePart(Date date);
 }

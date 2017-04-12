@@ -45,8 +45,8 @@ public class DayGroupsFactsfeedPresenter implements FactsfeedPresenter {
 			p.add(new FirstWeekItemPresenter(cur, mDtProv));
 		}
 
-		String prevWeek = mDtProv.toWeekDayString(prev);
-		String curWeek = mDtProv.toWeekDayString(cur);
+		String prevWeek = mDtProv.toFullDateStringWithWeekDay(prev);
+		String curWeek = mDtProv.toFullDateStringWithWeekDay(cur);
 
 		if (!prevWeek.equals(curWeek))
 			p.add(new FirstWeekItemPresenter(cur, mDtProv));

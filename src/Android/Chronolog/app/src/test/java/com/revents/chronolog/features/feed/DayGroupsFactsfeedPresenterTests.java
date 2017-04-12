@@ -5,7 +5,6 @@ import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.*;
 import com.revents.chronolog.model.*;
 
-import org.assertj.core.api.*;
 import org.junit.*;
 import org.mockito.*;
 import org.mockito.junit.*;
@@ -33,6 +32,9 @@ public class DayGroupsFactsfeedPresenterTests {
 		// Given
 		Date date = new Date();
 		String expected = "Today";
+
+		when(mDtProv.getDatePart(date))
+				.thenReturn(date);
 
 		Fact fact = mock(Fact.class);
 		when(fact.getFactDate())
@@ -69,7 +71,7 @@ public class DayGroupsFactsfeedPresenterTests {
 	}
 
 	void setUpDtProvToWeekDay(Date date, String week){
-		when(mDtProv.toWeekDayString(date))
+		when(mDtProv.toFullDateStringWithWeekDay(date))
 				.thenReturn(week);
 	}
 
