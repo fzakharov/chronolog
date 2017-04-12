@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:text="Сохранить"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/saveFactTypeBtn" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/nameEt"
+        android:hint="Имя события" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/groupTv"
+            android:layout_weight="1" />
+
+        <Button
+            android:text=">>"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectGroupBtn"
+            android:onClick="selectGroupClick" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="valueDescriptor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/valueDescriptorTv"
+            android:layout_weight="1" />
+
+        <Button
+            android:text=">>"
+            android:layout_width="47dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectValueDescriptorBtn"
+            android:onClick="selectValueDescriptorClick" />
+    </LinearLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/descriptionEt"
+        android:contentDescription="Описание"
+        android:hint="Описание" />
+</LinearLayout>

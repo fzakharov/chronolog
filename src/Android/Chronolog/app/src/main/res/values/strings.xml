@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Chronolog</string>
+    <string name="title_activity_factsfeed">События</string>
+    <string name="title_activity_fact_types">Типы событий</string>
+    <string name="title_activity_edit_fact_type">Редкатор типа события</string>
+    <string name="title_activity_fact_type_groups">Группы</string>
+    <string name="title_activity_value_descriptors">Значения</string>
+    <string name="title_activity_edit_fact_type_group">Редактор группы</string>
+    <string name="title_activity_value_types">Типы значений</string>
+    <string name="title_activity_edit_fact">Редактор события</string>
 </resources>
