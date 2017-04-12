@@ -9,9 +9,11 @@ import com.revents.chronolog.db.greendao.GreenDaoFactWriter;
 import com.revents.chronolog.features.IntentExtractor;
 import com.revents.chronolog.features.IntentFactory;
 import com.revents.chronolog.features.feed.AddFactUiCommand;
+import com.revents.chronolog.features.feed.DayGroupsFactsfeedPresenter;
 import com.revents.chronolog.features.feed.EditFactActivity;
 import com.revents.chronolog.features.feed.EditFactActivityCommand;
 import com.revents.chronolog.features.feed.EditFactActivityExtractor;
+import com.revents.chronolog.features.feed.FactsfeedPresenter;
 import com.revents.chronolog.features.group.FactTypeGroupIntentExtractor;
 import com.revents.chronolog.features.group.NewFactTypeGroupResultUiCommand;
 import com.revents.chronolog.features.group.SelectFactTypeGroupResultUiCommand;
@@ -54,193 +56,199 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
-    private DaoSession mDaoSession;
-    private ChronologApp appContext;
+	private DaoSession mDaoSession;
+	private ChronologApp appContext;
 
-    public AppModule(Context context) {
-        appContext = (ChronologApp) context;
-    }
+	public AppModule(Context context) {
+		appContext = (ChronologApp) context;
+	}
 
-    @Provides
-    @Singleton
-    public Context provideContext() {
-        return appContext;
-    }
+	@Provides
+	@Singleton
+	public Context provideContext() {
+		return appContext;
+	}
 
-    @Provides
-    @Singleton
-    public DateTimeProvider provideDateTimeProvider() {
-        return new JavaDateTimeProvider();
-    }
+	@Provides
+	@Singleton
+	public DateTimeProvider provideDateTimeProvider() {
+		return new JavaDateTimeProvider();
+	}
 
-    @Provides
-    public YesNoDialog provideYesNoDialog() {
-        return new AlertYesNoDialog();
-    }
+	@Provides
+	public YesNoDialog provideYesNoDialog() {
+		return new AlertYesNoDialog();
+	}
 
-    @Provides
-    @Singleton
-    public DaoSession provideDaoSession(Context context) {
-        if (mDaoSession == null) // TODO: 14.01.2017 write test
-        {
-            ChronologDbOpenHelper helper = new ChronologDbOpenHelper(context, "chronolog-db");
-            Database db = helper.getWritableDb();
-            mDaoSession = new DaoMaster(db).newSession();
-        }
+	@Provides
+	@Singleton
+	public DaoSession provideDaoSession(Context context) {
+		if (mDaoSession == null) // TODO: 14.01.2017 write test
+		{
+			ChronologDbOpenHelper helper = new ChronologDbOpenHelper(context, "chronolog-db");
+			Database db = helper.getWritableDb();
+			mDaoSession = new DaoMaster(db).newSession();
+		}
 
-        return mDaoSession;
-    }
+		return mDaoSession;
+	}
 
-    @Provides
-    @Singleton
-    public RecyclerViewItemProvider<Widget, WidgetRvViewHolder> provideRecyclerViewItemProvider() {
-        return new StatRecyclerViewItemProvider();
-    }
+	@Provides
+	@Singleton
+	public FactsfeedPresenter provideFactsfeedPresenter(FactReader factReader, DateTimeProvider dateTimeProvider) {
+		return new DayGroupsFactsfeedPresenter(factReader, dateTimeProvider);
+	}
 
-    @Provides
-    @Singleton
-    public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
-        return new StatMapWidgetFactory(factReader, dateTimeProv);
-    }
+	@Provides
+	@Singleton
+	public RecyclerViewItemProvider<Widget, WidgetRvViewHolder> provideRecyclerViewItemProvider() {
+		return new StatRecyclerViewItemProvider();
+	}
 
-    @Provides
-    @Singleton
-    public WidgetsRegistry<FactType> provideFactTypeWidgetsRegistry() {
-        return new HardCodedFactTypeWidgetsRegistry();
-    }
+	@Provides
+	@Singleton
+	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
+		return new StatMapWidgetFactory(factReader, dateTimeProv);
+	}
 
-    @Provides
-    @Singleton
-    public WidgetsProvider<FactType> provideFactTypeActiveWidgetsProvider(WidgetFactory<FactType> widgetFactory, WidgetsRegistry<FactType> widgetsRegistry) {
-        return new ActiveWidgetsProvider<>(widgetFactory, widgetsRegistry);
-    }
+	@Provides
+	@Singleton
+	public WidgetsRegistry<FactType> provideFactTypeWidgetsRegistry() {
+		return new HardCodedFactTypeWidgetsRegistry();
+	}
 
-    @Provides
-    @Singleton
-    public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(
-            WidgetsProvider<FactType> widgetsListProvider,
-            RecyclerViewItemProvider<Widget, WidgetRvViewHolder> widgetsRecyclerViewItemProvider) {
+	@Provides
+	@Singleton
+	public WidgetsProvider<FactType> provideFactTypeActiveWidgetsProvider(WidgetFactory<FactType> widgetFactory, WidgetsRegistry<FactType> widgetsRegistry) {
+		return new ActiveWidgetsProvider<>(widgetFactory, widgetsRegistry);
+	}
 
-        return new StatWidgetsRecyclerViewAdapterFactory(
-                widgetsListProvider,
-                widgetsRecyclerViewItemProvider);
-    }
+	@Provides
+	@Singleton
+	public RecyclerViewAdapterFactory<FactType> provideRecyclerViewAdapterFactoryForFactType(
+			WidgetsProvider<FactType> widgetsListProvider,
+			RecyclerViewItemProvider<Widget, WidgetRvViewHolder> widgetsRecyclerViewItemProvider) {
 
-    @Provides
-    @Singleton
-    public FactWriter provideFactWriter(DateTimeProvider dateTimeProvider, DaoSession session) {
-        return new GreenDaoFactWriter(dateTimeProvider, session);
-    }
+		return new StatWidgetsRecyclerViewAdapterFactory(
+				widgetsListProvider,
+				widgetsRecyclerViewItemProvider);
+	}
 
-    @Provides
-    public DateDialog provideDateDialog() {
-        return new AndroidDateDialog();
-    }
+	@Provides
+	@Singleton
+	public FactWriter provideFactWriter(DateTimeProvider dateTimeProvider, DaoSession session) {
+		return new GreenDaoFactWriter(dateTimeProvider, session);
+	}
 
-    @Provides
-    public TimeDialog provideTimeDialog() {
-        return new AndroidTimeDialog();
-    }
+	@Provides
+	public DateDialog provideDateDialog() {
+		return new AndroidDateDialog();
+	}
 
-    @Provides
-    @Singleton
-    public AppCreateListener provideAppCreateListener(FactWriter factWriter) {
-        return new DefaultAppCreateListener(factWriter);
-    }
+	@Provides
+	public TimeDialog provideTimeDialog() {
+		return new AndroidTimeDialog();
+	}
 
-    @Provides
-    @Singleton
-    public FactReader provideFactReader(DaoSession session) {
-        return new GreenDaoFactReader(session);
-    }
+	@Provides
+	@Singleton
+	public AppCreateListener provideAppCreateListener(FactWriter factWriter) {
+		return new DefaultAppCreateListener(factWriter);
+	}
 
-    @Provides
-    @Singleton
-    public IntentFactory provideIntentFactory() {
-        return new DefaultIntentFactory();
-    }
+	@Provides
+	@Singleton
+	public FactReader provideFactReader(DaoSession session) {
+		return new GreenDaoFactReader(session);
+	}
 
-    @Provides
-    @Singleton
-    @Named(CommandTypes.SELECT)
-    public UiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new AddFactUiCommand(intentFactory, factReader);
-    }
+	@Provides
+	@Singleton
+	public IntentFactory provideIntentFactory() {
+		return new DefaultIntentFactory();
+	}
 
-    @Provides
-    @Singleton
-    public UiAction<Fact> provideShowStatUiAction(IntentFactory intentFactory) {
-        return new ShowStatUiAction(intentFactory);
-    }
+	@Provides
+	@Singleton
+	@Named(CommandTypes.SELECT)
+	public UiCommand provideSelectFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+		return new AddFactUiCommand(intentFactory, factReader);
+	}
 
-    @Provides
-    @Singleton
-    public ActivityExtractor<Fact, EditFactActivity> provideEditFactActivityExtractor() {
-        return new EditFactActivityExtractor();
-    }
+	@Provides
+	@Singleton
+	public UiAction<Fact> provideShowStatUiAction(IntentFactory intentFactory) {
+		return new ShowStatUiAction(intentFactory);
+	}
 
-    @Provides
-    @Singleton
-    public EditFactActivityCommand provideEditFactActivityCommand() {
-        return new EditFactActivityCommand();
-    }
+	@Provides
+	@Singleton
+	public ActivityExtractor<Fact, EditFactActivity> provideEditFactActivityExtractor() {
+		return new EditFactActivityExtractor();
+	}
 
-    @Provides
-    @Singleton
-    public ResultUiCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
-        return new NewFactTypeResultUiCommand(intentFactory, factReader);
-    }
+	@Provides
+	@Singleton
+	public EditFactActivityCommand provideEditFactActivityCommand() {
+		return new EditFactActivityCommand();
+	}
 
-    @Provides
-    @Singleton
-    public IntentExtractor<FactTypeGroup> provideIntentExtractorFactTypeGroup(FactReader factReader) {
-        return new FactTypeGroupIntentExtractor(factReader);
-    }
+	@Provides
+	@Singleton
+	public ResultUiCommand<FactType> provideNewFactTypeActivityCommand(IntentFactory intentFactory, FactReader factReader) {
+		return new NewFactTypeResultUiCommand(intentFactory, factReader);
+	}
 
-    @Provides
-    @Singleton
-    public IntentExtractor<FactType> provideIntentExtractorFactType(FactReader factReader) {
-        return new FactTypeIntentExtractor(factReader);
-    }
+	@Provides
+	@Singleton
+	public IntentExtractor<FactTypeGroup> provideIntentExtractorFactTypeGroup(FactReader factReader) {
+		return new FactTypeGroupIntentExtractor(factReader);
+	}
 
-    @Provides
-    @Singleton
-    public IntentExtractor<ValueDescriptor> provideIntentExtractorValueDescriptor(FactReader factReader) {
-        return new ValueDescriptorIntentExtractor(factReader);
-    }
+	@Provides
+	@Singleton
+	public IntentExtractor<FactType> provideIntentExtractorFactType(FactReader factReader) {
+		return new FactTypeIntentExtractor(factReader);
+	}
 
-    @Provides
-    @Singleton
-    @Named(CommandTypes.SELECT)
-    public ResultUiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
-        return new SelectFactTypeGroupResultUiCommand(intentFactory, extractor);
-    }
+	@Provides
+	@Singleton
+	public IntentExtractor<ValueDescriptor> provideIntentExtractorValueDescriptor(FactReader factReader) {
+		return new ValueDescriptorIntentExtractor(factReader);
+	}
 
-    @Provides
-    @Singleton
-    @Named(CommandTypes.NEW)
-    public ResultUiCommand<FactTypeGroup> provideNewFactTypeGroupUiCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
-        return new NewFactTypeGroupResultUiCommand(intentFactory, extractor);
-    }
+	@Provides
+	@Singleton
+	@Named(CommandTypes.SELECT)
+	public ResultUiCommand<FactTypeGroup> provideSelectFactTypeGroupActivityCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+		return new SelectFactTypeGroupResultUiCommand(intentFactory, extractor);
+	}
 
-    @Provides
-    @Singleton
-    @Named(CommandTypes.SELECT)
-    public ResultUiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
-        return new SelectValueDescriptorResultUiCommand(intentFactory, intentExtractor);
-    }
+	@Provides
+	@Singleton
+	@Named(CommandTypes.NEW)
+	public ResultUiCommand<FactTypeGroup> provideNewFactTypeGroupUiCommand(IntentFactory intentFactory, IntentExtractor<FactTypeGroup> extractor) {
+		return new NewFactTypeGroupResultUiCommand(intentFactory, extractor);
+	}
 
-    @Provides
-    @Singleton
-    @Named(CommandTypes.NEW)
-    public ResultUiCommand<ValueDescriptor> provideNewValueDescriptorUiCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
-        return new NewValueDescriptorResultUiCommand(intentFactory, intentExtractor);
-    }
+	@Provides
+	@Singleton
+	@Named(CommandTypes.SELECT)
+	public ResultUiCommand<ValueDescriptor> provideSelectValueDescriptorActivityCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
+		return new SelectValueDescriptorResultUiCommand(intentFactory, intentExtractor);
+	}
 
-    @Provides
-    @Singleton
-    public ValueTypesProvider provideValueTypesProvider() {
-        return new HardCodedValueTypesProvider();
-    }
+	@Provides
+	@Singleton
+	@Named(CommandTypes.NEW)
+	public ResultUiCommand<ValueDescriptor> provideNewValueDescriptorUiCommand(IntentFactory intentFactory, IntentExtractor<ValueDescriptor> intentExtractor) {
+		return new NewValueDescriptorResultUiCommand(intentFactory, intentExtractor);
+	}
+
+	@Provides
+	@Singleton
+	public ValueTypesProvider provideValueTypesProvider() {
+		return new HardCodedValueTypesProvider();
+	}
 }
 

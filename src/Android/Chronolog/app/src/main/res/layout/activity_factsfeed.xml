@@ -22,17 +22,19 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/content_factsfeed"/>
+    <include layout="@layout/content_factsfeed"
+             android:id="@+id/include"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addFactFab"
+        android:onClick="addFactClick"
+        app:srcCompat="@drawable/ic_add_black_48px"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:onClick="addFactClick"
         android:tint="@color/colorIcons"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_add_black_48px"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
 </android.support.design.widget.CoordinatorLayout>

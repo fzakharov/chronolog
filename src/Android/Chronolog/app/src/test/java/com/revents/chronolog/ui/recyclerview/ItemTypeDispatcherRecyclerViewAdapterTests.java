@@ -7,10 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.revents.chronolog.ui.recyclerview.BindableHolder;
-import com.revents.chronolog.ui.recyclerview.ItemTypeDispatcherRecyclerViewAdapter;
-import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

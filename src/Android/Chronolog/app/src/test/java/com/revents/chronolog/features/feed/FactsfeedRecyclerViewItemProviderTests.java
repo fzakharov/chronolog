@@ -29,7 +29,7 @@ public class FactsfeedRecyclerViewItemProviderTests {
         // Given
 
         // When
-        FactViewHolder holder = sut.createViewHolder(mock(View.class), R.layout.rating_fact_rv_item);
+        FactsfeedViewHolder holder = sut.createViewHolder(mock(View.class), R.layout.rating_fact_rv_item);
 
         // Then
         assertThat(holder).isInstanceOf(RatingFactViewHolder.class);
@@ -56,7 +56,7 @@ public class FactsfeedRecyclerViewItemProviderTests {
         when(vd.getClassName()).thenReturn(className);
 
         // When
-        int id = sut.getResourceId(f);
+        int id = sut.getResourceId(new FactItemPresenter(f));
 
         // Then
         assertThat(id).isEqualTo(resId);

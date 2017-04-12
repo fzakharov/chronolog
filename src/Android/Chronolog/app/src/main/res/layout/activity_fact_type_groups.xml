@@ -25,13 +25,14 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/addFactTypeGroupFab"
+        android:onClick="addFactTypeGroupClick"
+        app:srcCompat="@drawable/ic_add_circle_48px"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:onClick="addFactTypeGroupClick"
         android:tint="@color/colorIcons"
-        app:rippleColor="@color/colorPrimaryDark"
-        app:srcCompat="@drawable/ic_add_circle_48px"/>
+        app:rippleColor="@color/colorPrimaryDark"/>
 
 </android.support.design.widget.CoordinatorLayout>
