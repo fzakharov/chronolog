@@ -19,7 +19,7 @@ public class JavaDateTimeProviderTests {
     @Test
     public void should_format_as_string_When_toDateString() {
         // Given
-        String expected = "15 янв 2017";
+        String expected = "15-янв-2017";
         Calendar calendar = new GregorianCalendar(2017, 0, 15, 13, 24, 56);
         Date date = calendar.getTime();
 
@@ -33,7 +33,7 @@ public class JavaDateTimeProviderTests {
     @Test
     public void should_return_week_day_When_toWeekDayString() {
         // Given
-        String expected = "воскресенье 15 января 2017";
+        String expected = "воскресенье, 15 января 2017";
         Calendar calendar = new GregorianCalendar(2017, 0, 15, 13, 24, 56);
         Date date = calendar.getTime();
 

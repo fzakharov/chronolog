@@ -6,9 +6,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JavaDateTimeProvider implements DateTimeProvider {
-	SimpleDateFormat mDateFormat = new SimpleDateFormat("dd MMM yyyy");
+	SimpleDateFormat mDateFormat = new SimpleDateFormat("dd-MMM-yyyy");
 	SimpleDateFormat mTimeFormat = new SimpleDateFormat("HH:mm");
-	SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE dd MMMM yyyy");
+	SimpleDateFormat mWeekFormat = new SimpleDateFormat("EEEE, dd MMMM yyyy");
 
 	@Override
 	public Date getDate() {
