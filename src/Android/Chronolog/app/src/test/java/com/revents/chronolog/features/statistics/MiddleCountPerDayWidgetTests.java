@@ -68,7 +68,10 @@ public class MiddleCountPerDayWidgetTests {
 		// Given
 		long fact1 = 3;
 		long fact2 = 4;
-		float expected = ((float) fact1 + (float) fact2) / MiddleCountPerDayWidget.DaysAgo;
+		float expected = (float) 4 / MiddleCountPerDayWidget.DaysAgo;
+
+		addFactWithLongValue(fact1);
+		addFactWithLongValue(fact2);
 
 		addFactWithLongValue(fact1);
 		addFactWithLongValue(fact2);

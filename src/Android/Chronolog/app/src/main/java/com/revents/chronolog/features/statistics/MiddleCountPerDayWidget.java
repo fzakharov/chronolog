@@ -7,7 +7,7 @@ import com.revents.chronolog.model.*;
 
 import java.util.*;
 
-public class MiddleCountPerDayWidget implements Widget{
+public class MiddleCountPerDayWidget implements Widget {
 	private FactType mFactType;
 	private FactReader mFactReader;
 	private DateTimeProvider mDateTimeProv;
@@ -38,6 +38,6 @@ public class MiddleCountPerDayWidget implements Widget{
 			sum += facts.get(i).getLongValue();
 		}
 
-		return sum / DaysAgo;
+		return (float) size / (float) DaysAgo;
 	}
 }

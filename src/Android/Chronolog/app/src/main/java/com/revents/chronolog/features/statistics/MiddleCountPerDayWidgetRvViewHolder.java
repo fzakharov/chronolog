@@ -19,6 +19,6 @@ public class MiddleCountPerDayWidgetRvViewHolder extends WidgetRvViewHolder {
 		TextView valueTv = (TextView) this.itemView.findViewById(R.id.valueTv);
 
 		float middleCount = ((MiddleCountPerDayWidget) widget).getMiddleCount();
-		valueTv.setText(new DecimalFormat("#.##").format(234.456f));
+		valueTv.setText(new DecimalFormat("#.##").format(middleCount));
 	}
 }
