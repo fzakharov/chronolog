@@ -18,7 +18,7 @@ public class StatMapWidgetFactory implements WidgetFactory<FactType> {
 	public Widget createWidget(String widgetName, FactType data) {
 
 		if (widgetName.equals(MiddleCountPerDayWidget.class.getSimpleName()))
-			return new MiddleCountPerDayWidget();
+			return new MiddleCountPerDayWidget(data, mFactReader, mDateTimeProv);
 
 		if (widgetName.equals(MiddleRatingWidget.class.getSimpleName()))
 			return new MiddleRatingWidget(data, mFactReader, mDateTimeProv);

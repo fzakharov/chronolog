@@ -2,8 +2,13 @@ package com.revents.chronolog.features.statistics;
 
 
 import android.view.*;
+import android.widget.*;
 
-public class MiddleCountPerDayWidgetRvViewHolder extends WidgetRvViewHolder{
+import com.revents.chronolog.*;
+
+import java.text.*;
+
+public class MiddleCountPerDayWidgetRvViewHolder extends WidgetRvViewHolder {
 
 	public MiddleCountPerDayWidgetRvViewHolder(View itemView) {
 		super(itemView);
@@ -11,9 +16,9 @@ public class MiddleCountPerDayWidgetRvViewHolder extends WidgetRvViewHolder{
 
 	@Override
 	public void bind(Widget widget) {
-//		RatingBar ratingBar = (RatingBar) this.itemView.findViewById(R.id.ratingBar);
-//
-//		ratingBar.setIsIndicator(true);
-//		ratingBar.setRating(((MiddleRatingWidget) widget).getMiddleRating());
+		TextView valueTv = (TextView) this.itemView.findViewById(R.id.valueTv);
+
+		float middleCount = ((MiddleCountPerDayWidget) widget).getMiddleCount();
+		valueTv.setText(new DecimalFormat("#.##").format(234.456f));
 	}
 }

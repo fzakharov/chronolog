@@ -1,27 +1,22 @@
 package com.revents.chronolog.features.statistics;
 
 
-import com.revents.chronolog.app.DateTimeProvider;
-import com.revents.chronolog.db.FactReader;
-import com.revents.chronolog.model.Fact;
-import com.revents.chronolog.model.FactType;
+import com.revents.chronolog.app.*;
+import com.revents.chronolog.db.*;
+import com.revents.chronolog.model.*;
 
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnit;
-import org.mockito.junit.MockitoRule;
+import org.junit.*;
+import org.mockito.*;
+import org.mockito.junit.*;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class MiddleRatingWidgetTests {
+// TODO: 15.04.2017 copypaste with MiddleRatingWidgetTests
+public class MiddleCountPerDayWidgetTests {
 	@Rule
 	public MockitoRule mockitoRule = MockitoJUnit.rule();
 
@@ -35,7 +30,7 @@ public class MiddleRatingWidgetTests {
 	FactType mFactType;
 
 	@InjectMocks
-	MiddleRatingWidget sut;
+	MiddleCountPerDayWidget sut;
 	private ArrayList<Fact> mFacts;
 
 	@Before
@@ -48,7 +43,7 @@ public class MiddleRatingWidgetTests {
 		when(mDtProv.getDate())
 				.thenReturn(end);
 
-		when(mDtProv.getEndDaysAgo(end, MiddleRatingWidget.DaysAgo))
+		when(mDtProv.getEndDaysAgo(end, MiddleCountPerDayWidget.DaysAgo))
 				.thenReturn(begin);
 
 		when(mReader.loadFactsByType(mFactType, begin, end))
@@ -62,7 +57,7 @@ public class MiddleRatingWidgetTests {
 		float expected = 0f;
 
 		// When
-		float actual = sut.getMiddleRating();
+		float actual = sut.getMiddleCount();
 
 		// Then
 		assertThat(actual).isEqualTo(expected);
@@ -73,13 +68,13 @@ public class MiddleRatingWidgetTests {
 		// Given
 		long fact1 = 3;
 		long fact2 = 4;
-		float expected = 3.5f;
+		float expected = ((float) fact1 + (float) fact2) / MiddleCountPerDayWidget.DaysAgo;
 
 		addFactWithLongValue(fact1);
 		addFactWithLongValue(fact2);
 
 		// When
-		float actual = sut.getMiddleRating();
+		float actual = sut.getMiddleCount();
 
 		// Then
 		assertThat(actual).isEqualTo(expected);
