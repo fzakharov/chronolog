@@ -1,5 +1,9 @@
 package com.revents.chronolog.app;
 
 
-class ChronologDataContext {
+public class ChronologDataContext implements DataContext{
+	@Override
+	public void setPeriod(int days) {
+
+	}
 }

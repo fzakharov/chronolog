@@ -1,5 +1,8 @@
 package com.revents.chronolog.app;
 
 
-interface DataContext {
+public interface DataContext {
+
+	void setPeriod(int days);
 }
+
