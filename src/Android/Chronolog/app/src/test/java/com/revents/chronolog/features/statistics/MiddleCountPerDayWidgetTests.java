@@ -24,6 +24,9 @@ public class MiddleCountPerDayWidgetTests {
 	FactReader mReader;
 
 	@Mock
+	DataContext mDataContext;
+
+	@Mock
 	DateTimeProvider mDtProv;
 
 	@Mock
@@ -37,19 +40,9 @@ public class MiddleCountPerDayWidgetTests {
 	public void setUp() {
 		mFacts = new ArrayList<>();
 
-		Date begin = new Date(1);
-		Date end = new Date(100);
-
-		when(mDtProv.getDate())
-				.thenReturn(end);
-
-		when(mDtProv.getEndDaysAgo(end, MiddleCountPerDayWidget.DaysAgo))
-				.thenReturn(begin);
-
-		when(mReader.loadFactsByType(mFactType, begin, end))
+		when(mDataContext.getFactsByType(mFactType))
 				.thenReturn(mFacts);
 	}
-
 
 	@Test
 	public void should_return_0_for_empty_fact_list_When_getMiddleRating() {
@@ -68,7 +61,7 @@ public class MiddleCountPerDayWidgetTests {
 		// Given
 		long fact1 = 3;
 		long fact2 = 4;
-		float expected = (float) 4 / MiddleCountPerDayWidget.DaysAgo;
+		float expected = (float) 4 / mDataContext.getPeriodDays();
 
 		addFactWithLongValue(fact1);
 		addFactWithLongValue(fact2);

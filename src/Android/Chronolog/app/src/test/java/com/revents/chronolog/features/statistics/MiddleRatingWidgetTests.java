@@ -1,7 +1,7 @@
 package com.revents.chronolog.features.statistics;
 
 
-import com.revents.chronolog.app.DateTimeProvider;
+import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
@@ -26,7 +26,7 @@ public class MiddleRatingWidgetTests {
 	public MockitoRule mockitoRule = MockitoJUnit.rule();
 
 	@Mock
-	FactReader mReader;
+	DataContext mDataContext;
 
 	@Mock
 	DateTimeProvider mDtProv;
@@ -42,16 +42,7 @@ public class MiddleRatingWidgetTests {
 	public void setUp() {
 		mFacts = new ArrayList<>();
 
-		Date begin = new Date(1);
-		Date end = new Date(100);
-
-		when(mDtProv.getDate())
-				.thenReturn(end);
-
-		when(mDtProv.getEndDaysAgo(end, MiddleRatingWidget.DaysAgo))
-				.thenReturn(begin);
-
-		when(mReader.loadFactsByType(mFactType, begin, end))
+		when(mDataContext.getFactsByType(mFactType))
 				.thenReturn(mFacts);
 	}
 

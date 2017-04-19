@@ -64,7 +64,7 @@ public class FactTypeStatisticsActivity extends AppCompatActivity {
     }
 
 	private Boolean setPeriodDays(int days) {
-		mDataContext.setPeriod(days);
+		mDataContext.setPeriodDays(days);
 		return true;
 	}
 

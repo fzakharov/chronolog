@@ -64,7 +64,7 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 		sut.onOptionsItemSelected(menuItem);
 
 		// Then
-		verify(mDataContext).setPeriod(expectedPeriod);
+		verify(mDataContext).setPeriodDays(expectedPeriod);
 	}
 
 	@Test

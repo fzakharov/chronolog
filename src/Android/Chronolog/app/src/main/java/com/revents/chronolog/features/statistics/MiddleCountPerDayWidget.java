@@ -9,14 +9,11 @@ import java.util.*;
 
 public class MiddleCountPerDayWidget implements Widget {
 	private FactType mFactType;
-	private FactReader mFactReader;
-	private DateTimeProvider mDateTimeProv;
-	public static final int DaysAgo = 30;
+	private DataContext mDataContext;
 
-	public MiddleCountPerDayWidget(FactType data, FactReader factReader, DateTimeProvider dateTimeProvider) {
+	public MiddleCountPerDayWidget(FactType data, DataContext dataContext) {
 		mFactType = data;
-		mFactReader = factReader;
-		mDateTimeProv = dateTimeProvider;
+		mDataContext = dataContext;
 	}
 
 	public float getMiddleCount() {
@@ -24,20 +21,12 @@ public class MiddleCountPerDayWidget implements Widget {
 	}
 
 	private float calculate() {
-		Date end = mDateTimeProv.getDate();
-		Date begin = mDateTimeProv.getEndDaysAgo(end, DaysAgo);
-
-		List<Fact> facts = mFactReader.loadFactsByType(mFactType, begin, end);
+		List<Fact> facts = mDataContext.getFactsByType(mFactType);
 
 		if (facts.size() == 0)
 			return 0;
 
-		float sum = 0;
 		int size = facts.size();
-		for (int i = 0; i < size; ++i) {
-			sum += facts.get(i).getLongValue();
-		}
-
-		return (float) size / (float) DaysAgo;
+		return (float) size / (float) mDataContext.getPeriodDays();
 	}
 }

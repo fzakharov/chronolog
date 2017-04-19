@@ -82,8 +82,8 @@ public class AppModule {
 
 	@Provides
 	@Singleton
-	public DataContext provideDataContext() {
-		return new ChronologDataContext();
+	public DataContext provideDataContext(FactReader factReader, DateTimeProvider dateTimeProvider) {
+		return new ChronologDataContext(factReader, dateTimeProvider);
 	}
 
 	@Provides
@@ -113,8 +113,8 @@ public class AppModule {
 
 	@Provides
 	@Singleton
-	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
-		return new StatMapWidgetFactory(factReader, dateTimeProv);
+	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv, DataContext dataContext) {
+		return new StatMapWidgetFactory(factReader, dataContext, dateTimeProv);
 	}
 
 	@Provides
