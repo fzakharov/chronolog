@@ -49,6 +49,7 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 		sutBuilder.create().start();
 	}
 
+	// TODO: 22.04.2017 fix test
 	@Test
 	public void should_DataContext_setPeriod_When_miSelected() {
 		should_DataContext_setPeriod_When_miSelected_test_case(R.id.miWeek, 7);

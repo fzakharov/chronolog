@@ -12,4 +12,12 @@
         android:id="@+id/miMonth"
         android:title="Месяц">
     </item>
+    <item
+        android:id="@+id/mi3Month"
+        android:title="3 Месяца">
+    </item>
+    <item
+        android:id="@+id/mi6Month"
+        android:title="6 Месяцев">
+    </item>
 </menu>
