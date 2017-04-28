@@ -1,7 +1,8 @@
 package com.revents.chronolog.features.statistics;
 
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
+import android.databinding.*;
+import android.support.v7.widget.*;
 import android.view.*;
 
 import com.revents.chronolog.R;
@@ -19,6 +20,7 @@ import org.robolectric.fakes.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -29,6 +31,7 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 	private Intent mIntent;
 	private FactType mFactType;
 	private DataContext mDataContext;
+	private Toolbar mToolbar;
 
 	@Before
 	public void setUp() throws Exception {
@@ -47,25 +50,25 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 		inject(sut);
 
 		sutBuilder.create().start();
+
+		mToolbar = (Toolbar) sut.findViewById(R.id.toolbar);
+		sut.onCreateOptionsMenu(mToolbar.getMenu());
 	}
 
 	// TODO: 22.04.2017 fix test
 	@Test
 	public void should_DataContext_setPeriod_When_miSelected() {
-		should_DataContext_setPeriod_When_miSelected_test_case(R.id.miWeek, 7);
-		should_DataContext_setPeriod_When_miSelected_test_case(R.id.mi2Weeks, 14);
-		should_DataContext_setPeriod_When_miSelected_test_case(R.id.miMonth, 31);
-	}
+		MenuItem miWeek = getMenuItem(R.id.miWeek);
+		MenuItem mi2Weeks = getMenuItem(R.id.mi2Weeks);
+		MenuItem miMonth = getMenuItem(R.id.miMonth);
+		MenuItem mi3Month = getMenuItem(R.id.mi3Month);
+		MenuItem mi6Month = getMenuItem(R.id.mi6Month);
 
-	public void should_DataContext_setPeriod_When_miSelected_test_case(int miId, int expectedPeriod) {
-		// Given
-		MenuItem menuItem = new RoboMenuItem(miId);
-
-		// When
-		sut.onOptionsItemSelected(menuItem);
-
-		// Then
-		verify(mDataContext).setPeriodDays(expectedPeriod);
+		should_DataContext_setPeriod_When_miSelected_test_case(miWeek, FactTypeStatisticsActivity.PERIOD_WEEK);
+		should_DataContext_setPeriod_When_miSelected_test_case(mi2Weeks, FactTypeStatisticsActivity.PERIOD_2WEEK);
+		should_DataContext_setPeriod_When_miSelected_test_case(miMonth, FactTypeStatisticsActivity.PERIOD_MONTH);
+		should_DataContext_setPeriod_When_miSelected_test_case(mi3Month, FactTypeStatisticsActivity.PERIOD_3MONTH);
+		should_DataContext_setPeriod_When_miSelected_test_case(mi6Month, FactTypeStatisticsActivity.PERIOD_6MONTH);
 	}
 
 	@Test
@@ -82,6 +85,22 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 		assertThat(((RecyclerView) viewById(R.id.statRv))
 				.getAdapter())
 				.isEqualTo(expected);
+	}
+
+	MenuItem getMenuItem(int rId){
+		return mToolbar.getMenu().findItem(rId);
+	}
+
+	public void should_DataContext_setPeriod_When_miSelected_test_case(MenuItem mi, int expectedPeriod) {
+		// Given
+		reset(mDataContext);
+
+		// When
+		sut.onOptionsItemSelected(mi);
+
+		// Then
+		verify(mDataContext).setPeriodDays(expectedPeriod);
+		assertThat(mi.isEnabled()).isFalse();
 	}
 
 	private void inject(final FactTypeStatisticsActivity activity) {

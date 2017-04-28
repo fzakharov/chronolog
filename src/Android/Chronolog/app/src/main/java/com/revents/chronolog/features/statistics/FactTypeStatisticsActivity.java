@@ -16,6 +16,12 @@ import com.revents.chronolog.model.FactType;
 import javax.inject.Inject;
 
 public class FactTypeStatisticsActivity extends AppCompatActivity {
+	public static final int PERIOD_WEEK = 7;
+	public static final int PERIOD_2WEEK = 14;
+	public static final int PERIOD_MONTH = 31;
+	public static final int PERIOD_3MONTH = 90;
+	public static final int PERIOD_6MONTH = 180;
+
 	private ActivityFactTypeStatisticsBinding mBinding;
 	private IntentExtractor<FactType> mFactTypeExtractor;
 	private RecyclerViewAdapterFactory<FactType> mRecyclerViewAdapterFactory;
@@ -57,15 +63,15 @@ public class FactTypeStatisticsActivity extends AppCompatActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 			case R.id.miWeek:
-				return setPeriodDays(7, R.id.miWeek);
+				return setPeriodDays(PERIOD_WEEK, R.id.miWeek);
 			case R.id.mi2Weeks:
-				return setPeriodDays(14, R.id.mi2Weeks);
+				return setPeriodDays(PERIOD_2WEEK, R.id.mi2Weeks);
 			case R.id.miMonth:
-				return setPeriodDays(31, R.id.miMonth);
+				return setPeriodDays(PERIOD_MONTH, R.id.miMonth);
 			case R.id.mi3Month:
-				return setPeriodDays(90, R.id.mi3Month);
+				return setPeriodDays(PERIOD_3MONTH, R.id.mi3Month);
 			case R.id.mi6Month:
-				return setPeriodDays(180, R.id.mi6Month);
+				return setPeriodDays(PERIOD_6MONTH, R.id.mi6Month);
 			default:
 				return super.onOptionsItemSelected(item);
 		}
