@@ -55,7 +55,6 @@ public class FactTypeStatisticsActivityRoboTests extends ActivityRoboTestsBase<F
 		sut.onCreateOptionsMenu(mToolbar.getMenu());
 	}
 
-	// TODO: 22.04.2017 fix test
 	@Test
 	public void should_DataContext_setPeriod_When_miSelected() {
 		MenuItem miWeek = getMenuItem(R.id.miWeek);
