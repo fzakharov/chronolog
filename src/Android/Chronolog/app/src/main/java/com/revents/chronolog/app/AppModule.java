@@ -82,6 +82,12 @@ public class AppModule {
 
 	@Provides
 	@Singleton
+	public DataContext provideDataContext(FactReader factReader, DateTimeProvider dateTimeProvider) {
+		return new ChronologDataContext(factReader, dateTimeProvider);
+	}
+
+	@Provides
+	@Singleton
 	public DaoSession provideDaoSession(Context context) {
 		if (mDaoSession == null) // TODO: 14.01.2017 write test
 		{
@@ -107,8 +113,8 @@ public class AppModule {
 
 	@Provides
 	@Singleton
-	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv) {
-		return new StatMapWidgetFactory(factReader, dateTimeProv);
+	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv, DataContext dataContext) {
+		return new StatMapWidgetFactory(factReader, dataContext, dateTimeProv);
 	}
 
 	@Provides

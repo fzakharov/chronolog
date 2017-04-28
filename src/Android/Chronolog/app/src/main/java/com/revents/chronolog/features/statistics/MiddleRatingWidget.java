@@ -1,6 +1,6 @@
 package com.revents.chronolog.features.statistics;
 
-import com.revents.chronolog.app.DateTimeProvider;
+import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
@@ -10,14 +10,11 @@ import java.util.List;
 
 public class MiddleRatingWidget implements Widget {
     private FactType mFactType;
-    private FactReader mFactReader;
-    private DateTimeProvider mDateTimeProv;
-    public static final int DaysAgo = 30;
+    private DataContext mDataContext;
 
-    public MiddleRatingWidget(FactType data, FactReader factReader, DateTimeProvider dateTimeProvider) {
+    public MiddleRatingWidget(FactType data, DataContext dataContext) {
         mFactType = data;
-        mFactReader = factReader;
-        mDateTimeProv = dateTimeProvider;
+        mDataContext = dataContext;
     }
 
     public float getMiddleRating() {
@@ -25,10 +22,7 @@ public class MiddleRatingWidget implements Widget {
     }
 
     private float calculate() {
-        Date end = mDateTimeProv.getDate();
-        Date begin = mDateTimeProv.getEndDaysAgo(end, DaysAgo);
-
-        List<Fact> facts = mFactReader.loadFactsByType(mFactType, begin, end);
+        List<Fact> facts = mDataContext.getFactsByType(mFactType);
 
         if (facts.size() == 0)
             return 0;
