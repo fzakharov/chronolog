@@ -24,41 +24,24 @@ class TimeOfDayDistributionWidgetRvViewHolder extends WidgetRvViewHolder {
 	public void bind(Widget widget) {
 		mChart = (BarChart) this.itemView.findViewById(R.id.barChart);
 
-		int count = 5;
-		float range = 5;
-
-		float start = 1f;
+		TimeOfDayDistributionWidget w = (TimeOfDayDistributionWidget) widget;
 
 		ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-		for (int i = (int) start; i < start + count + 1; i++) {
-			float mult = (range + 1);
-			float val = (float) (Math.random() * mult);
-
-			yVals1.add(new BarEntry(i, val));
-
+		for (int c : w.getCounts()) {
+			yVals1.add(new BarEntry(
+					(float) yVals1.size(),
+					(float) c));
 		}
 
-		BarDataSet set1;
+		BarDataSet set1 = new BarDataSet(yVals1, "Часы");
+		set1.setDrawValues(false);
 
-		if (mChart.getData() != null &&
-				mChart.getData().getDataSetCount() > 0) {
-			set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
-			set1.setValues(yVals1);
-			mChart.getData().notifyDataChanged();
-			mChart.notifyDataSetChanged();
-		} else {
-			set1 = new BarDataSet(yVals1, "The year 2017");
-			set1.setColors(ColorTemplate.MATERIAL_COLORS);
+		set1.setColor(R.color.colorPrimaryDark);
 
-			ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
-			dataSets.add(set1);
-
-			BarData data = new BarData(dataSets);
-			data.setValueTextSize(10f);
-			data.setBarWidth(0.9f);
-
-			mChart.setData(data);
-		}
+		ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+		dataSets.add(set1);
+		BarData data = new BarData(dataSets);
+		mChart.setData(data);
 	}
 }
