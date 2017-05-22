@@ -11,10 +11,16 @@ public class HardCodedFactTypeWidgetsRegistry implements WidgetsRegistry<FactTyp
 
 		switch (className) {
 			case DbData.ClassNames.RATING:
-				return new String[]{MiddleRatingWidget.class.getSimpleName(), MiddleCountPerDayWidget.class.getSimpleName()};
+				return new String[]{
+						MiddleRatingWidget.class.getSimpleName(),
+						MiddleCountPerDayWidget.class.getSimpleName(),
+						TimeOfDayDistributionWidget.class.getSimpleName()};
 
 			case DbData.ClassNames.EVENT:
-				return new String[]{MiddleCountPerDayWidget.class.getSimpleName()};
+				return new String[]{
+						MiddleCountPerDayWidget.class.getSimpleName(),
+						TimeOfDayDistributionWidget.class.getSimpleName()
+				};
 		}
 
 		return new String[0];

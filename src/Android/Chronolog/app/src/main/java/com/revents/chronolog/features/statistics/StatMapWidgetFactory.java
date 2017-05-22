@@ -6,14 +6,10 @@ import com.revents.chronolog.db.FactReader;
 import com.revents.chronolog.model.FactType;
 
 public class StatMapWidgetFactory implements WidgetFactory<FactType> {
-	private FactReader mFactReader;
 	private DataContext mDataContext;
-	private DateTimeProvider mDateTimeProv;
 
-	public StatMapWidgetFactory(FactReader factReader, DataContext dataContext, DateTimeProvider dateTimeProv) {
-		mFactReader = factReader;
+	public StatMapWidgetFactory(DataContext dataContext) {
 		mDataContext = dataContext;
-		mDateTimeProv = dateTimeProv;
 	}
 
 	@Override
@@ -27,6 +23,9 @@ public class StatMapWidgetFactory implements WidgetFactory<FactType> {
 
 		if (widgetName.equals(MiddleRatingByWeekDaysWidget.class.getSimpleName()))
 			return new MiddleRatingByWeekDaysWidget(data);
+
+		if (widgetName.equals(TimeOfDayDistributionWidget.class.getSimpleName()))
+			return new TimeOfDayDistributionWidget(data, mDataContext);
 
 		throw new UnsupportedOperationException(widgetName);
 	}

@@ -114,7 +114,7 @@ public class AppModule {
 	@Provides
 	@Singleton
 	public WidgetFactory<FactType> provideFactTypeWidgetFactory(FactReader factReader, DateTimeProvider dateTimeProv, DataContext dataContext) {
-		return new StatMapWidgetFactory(factReader, dataContext, dateTimeProv);
+		return new StatMapWidgetFactory(dataContext);
 	}
 
 	@Provides

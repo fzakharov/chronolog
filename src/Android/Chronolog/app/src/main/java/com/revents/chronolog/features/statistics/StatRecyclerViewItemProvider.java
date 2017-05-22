@@ -5,7 +5,7 @@ import android.view.View;
 import com.revents.chronolog.R;
 import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
-// TODO: 23.03.2017 Introduce map and coomon selector
+// TODO: 23.03.2017 Introduce map and comon selector
 public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Widget, WidgetRvViewHolder> {
 	@Override
 	public int getResourceId(Widget item) {
@@ -19,6 +19,9 @@ public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Wi
 
 		if (aClass == MiddleRatingByWeekDaysWidget.class)
 			return R.layout.middle_rating_by_week_days_widget_rv_item;
+
+		if (aClass == TimeOfDayDistributionWidget.class)
+			return R.layout.time_of_day_distribution_widget_rv_item;
 
 		throw new UnsupportedOperationException();
 	}
@@ -34,6 +37,9 @@ public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Wi
 
 		if (resourceId == R.layout.middle_rating_by_week_days_widget_rv_item)
 			return new MiddleRatingByWeekDaysWidgetRvViewHolder(view);
+
+		if (resourceId == R.layout.time_of_day_distribution_widget_rv_item)
+			return new TimeOfDayDistributionWidgetRvViewHolder(view);
 
 		throw new UnsupportedOperationException();
 	}

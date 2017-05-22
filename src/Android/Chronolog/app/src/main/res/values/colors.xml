@@ -11,7 +11,7 @@
 
     <color name="colorPrimary">#FF9800</color>
     <color name="colorPrimaryDark">#F57C00</color>
-    <color name="colorPrimaryLight">#FFE0B2</color>
+    <color name="colorPrimaryLight">#ffe0b2</color>
     <color name="colorAccent">#ff5722</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
