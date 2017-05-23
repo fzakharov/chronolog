@@ -23,8 +23,8 @@ public class StatMapWidgetFactory implements WidgetFactory<FactType> {
 		if (widgetName.equals(MiddleRatingWidget.class.getSimpleName()))
 			return new MiddleRatingWidget(data, mDataContext);
 
-		if (widgetName.equals(MiddleRatingByWeekDaysWidget.class.getSimpleName()))
-			return new MiddleRatingByWeekDaysWidget(data);
+		if (widgetName.equals(MiddleRatingByDaysWidget.class.getSimpleName()))
+			return new MiddleRatingByDaysWidget(data, mDataContext);
 
 		if (widgetName.equals(TimeOfDayDistributionWidget.class.getSimpleName()))
 			return new TimeOfDayDistributionWidget(data, mDataContext);

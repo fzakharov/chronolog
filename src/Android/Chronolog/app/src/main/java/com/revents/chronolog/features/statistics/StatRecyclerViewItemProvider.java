@@ -20,8 +20,8 @@ public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Wi
 		if (aClass == MiddleRatingWidget.class)
 			return R.layout.middle_rating_widget_rv_item;
 
-		if (aClass == MiddleRatingByWeekDaysWidget.class)
-			return R.layout.middle_rating_by_week_days_widget_rv_item;
+		if (aClass == MiddleRatingByDaysWidget.class)
+			return R.layout.middle_rating_by_days_widget_rv_item;
 
 		if (aClass == TimeOfDayDistributionWidget.class)
 			return R.layout.time_of_day_distribution_widget_rv_item;
@@ -38,8 +38,8 @@ public class StatRecyclerViewItemProvider implements RecyclerViewItemProvider<Wi
 		if (resourceId == R.layout.middle_rating_widget_rv_item)
 			return new MiddleRatingWidgetRvViewHolder(view);
 
-		if (resourceId == R.layout.middle_rating_by_week_days_widget_rv_item)
-			return new MiddleRatingByWeekDaysWidgetRvViewHolder(view);
+		if (resourceId == R.layout.middle_rating_by_days_widget_rv_item)
+			return new MiddleRatingByDaysWidgetRvViewHolder(view);
 
 		if (resourceId == R.layout.time_of_day_distribution_widget_rv_item)
 			return new TimeOfDayDistributionWidgetRvViewHolder(view);

@@ -1,4 +1,4 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.rating;
 
 
 import com.revents.chronolog.app.*;
