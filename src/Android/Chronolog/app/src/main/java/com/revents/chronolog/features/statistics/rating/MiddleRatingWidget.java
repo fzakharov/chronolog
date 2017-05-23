@@ -1,7 +1,8 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.rating;
 
 import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.features.statistics.*;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 

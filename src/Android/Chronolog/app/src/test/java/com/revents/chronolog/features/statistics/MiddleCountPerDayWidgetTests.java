@@ -3,6 +3,7 @@ package com.revents.chronolog.features.statistics;
 
 import com.revents.chronolog.app.*;
 import com.revents.chronolog.db.*;
+import com.revents.chronolog.features.statistics.count.*;
 import com.revents.chronolog.model.*;
 
 import org.junit.*;

@@ -2,7 +2,7 @@ package com.revents.chronolog.features.statistics;
 
 
 import com.revents.chronolog.app.*;
-import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.features.statistics.rating.*;
 import com.revents.chronolog.model.Fact;
 import com.revents.chronolog.model.FactType;
 
@@ -15,7 +15,6 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.mockito.Mockito.mock;

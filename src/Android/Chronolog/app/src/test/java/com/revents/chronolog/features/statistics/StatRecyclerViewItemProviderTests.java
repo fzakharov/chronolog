@@ -2,7 +2,7 @@ package com.revents.chronolog.features.statistics;
 
 import com.revents.chronolog.R;
 import com.revents.chronolog.app.*;
-import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.features.statistics.rating.*;
 import com.revents.chronolog.model.FactType;
 
 import org.junit.Rule;

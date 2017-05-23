@@ -2,7 +2,9 @@ package com.revents.chronolog.features.statistics;
 
 
 import com.revents.chronolog.app.*;
-import com.revents.chronolog.db.FactReader;
+import com.revents.chronolog.features.statistics.count.*;
+import com.revents.chronolog.features.statistics.distribution.*;
+import com.revents.chronolog.features.statistics.rating.*;
 import com.revents.chronolog.model.FactType;
 
 public class StatMapWidgetFactory implements WidgetFactory<FactType> {

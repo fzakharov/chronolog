@@ -1,10 +1,11 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.count;
 
 
 import android.view.*;
 import android.widget.*;
 
 import com.revents.chronolog.*;
+import com.revents.chronolog.features.statistics.*;
 
 import java.text.*;
 

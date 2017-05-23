@@ -3,6 +3,9 @@ package com.revents.chronolog.features.statistics;
 import android.view.View;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.features.statistics.count.*;
+import com.revents.chronolog.features.statistics.distribution.*;
+import com.revents.chronolog.features.statistics.rating.*;
 import com.revents.chronolog.ui.recyclerview.RecyclerViewItemProvider;
 
 // TODO: 23.03.2017 Introduce map and comon selector

@@ -1,4 +1,4 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.rating;
 
 
 import android.view.View;
@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.RatingBar;
 
 import com.revents.chronolog.R;
+import com.revents.chronolog.features.statistics.*;
 
 public class MiddleRatingByWeekDaysWidgetRvViewHolder extends WidgetRvViewHolder {
     public MiddleRatingByWeekDaysWidgetRvViewHolder(View itemView) {

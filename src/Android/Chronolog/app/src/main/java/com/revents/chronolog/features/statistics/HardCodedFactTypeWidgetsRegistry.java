@@ -2,6 +2,9 @@ package com.revents.chronolog.features.statistics;
 
 
 import com.revents.chronolog.db.DbData;
+import com.revents.chronolog.features.statistics.count.*;
+import com.revents.chronolog.features.statistics.distribution.*;
+import com.revents.chronolog.features.statistics.rating.*;
 import com.revents.chronolog.model.FactType;
 
 public class HardCodedFactTypeWidgetsRegistry implements WidgetsRegistry<FactType> {

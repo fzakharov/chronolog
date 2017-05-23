@@ -1,19 +1,18 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.distribution;
 
 
-import android.graphics.*;
 import android.view.*;
-import android.widget.*;
 
 import com.github.mikephil.charting.charts.*;
 import com.github.mikephil.charting.data.*;
 import com.github.mikephil.charting.interfaces.datasets.*;
-import com.github.mikephil.charting.utils.*;
 import com.revents.chronolog.*;
+import com.revents.chronolog.features.statistics.*;
+import com.revents.chronolog.features.statistics.distribution.*;
 
 import java.util.*;
 
-class TimeOfDayDistributionWidgetRvViewHolder extends WidgetRvViewHolder {
+public class TimeOfDayDistributionWidgetRvViewHolder extends WidgetRvViewHolder {
 	private BarChart mChart;
 
 	public TimeOfDayDistributionWidgetRvViewHolder(View view) {

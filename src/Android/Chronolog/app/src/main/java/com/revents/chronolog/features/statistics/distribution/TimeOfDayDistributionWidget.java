@@ -1,8 +1,9 @@
-package com.revents.chronolog.features.statistics;
+package com.revents.chronolog.features.statistics.distribution;
 
 import android.support.v4.content.res.*;
 
 import com.revents.chronolog.app.*;
+import com.revents.chronolog.features.statistics.*;
 import com.revents.chronolog.model.*;
 
 import org.joda.time.*;
