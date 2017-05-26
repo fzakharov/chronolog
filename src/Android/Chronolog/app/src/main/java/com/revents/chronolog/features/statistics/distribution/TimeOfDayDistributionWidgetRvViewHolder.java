@@ -1,6 +1,7 @@
 package com.revents.chronolog.features.statistics.distribution;
 
 
+import android.support.v4.content.res.*;
 import android.view.*;
 
 import com.github.mikephil.charting.charts.*;
@@ -36,7 +37,9 @@ public class TimeOfDayDistributionWidgetRvViewHolder extends WidgetRvViewHolder 
 		BarDataSet set1 = new BarDataSet(yVals1, "Часы");
 		set1.setDrawValues(false);
 
-		set1.setColor(R.color.colorPrimaryDark);
+		int colorChart = ResourcesCompat.getColor(itemView.getResources(), R.color.colorAccent, null);
+
+		set1.setColor(colorChart);
 
 		ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
 		dataSets.add(set1);
